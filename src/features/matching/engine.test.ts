@@ -39,7 +39,7 @@ const profile: StudentProfile = {
 
 const empty: StudentProfile = { name: 'X', preferences: [] }
 
-describe('evaluate', () => {
+describe('R2.1 R2.2 R2.3 evaluate', () => {
   it('is eligible for everyone when there are no rules', () => {
     expect(evaluate(empty, make({})).verdict).toBe('eligible')
   })
@@ -88,7 +88,7 @@ describe('evaluate', () => {
   })
 })
 
-describe('rank', () => {
+describe('R1.2 R1.4 rank', () => {
   const m = (
     id: string,
     verdict: Matched['result']['verdict'],

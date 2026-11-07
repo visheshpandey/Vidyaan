@@ -11,6 +11,7 @@ import { ROUTES } from '@/constants/routes'
 import { useT } from '@/i18n/useT'
 import { useProfileStore } from '@/store/profileStore'
 
+/** Layout for pages shown before onboarding, such as the landing page. */
 export function PublicLayout() {
   const onboarded = useProfileStore((s) => s.onboarded)
   const t = useT()
@@ -24,7 +25,7 @@ export function PublicLayout() {
           <PreferenceToggles />
           <Link
             to={onboarded ? ROUTES.dashboard : ROUTES.onboarding}
-            className={buttonClass('secondary', 'sm')}
+            className={buttonClass('secondary', 'sm', 'whitespace-nowrap')}
           >
             {onboarded ? t('landing.open') : t('landing.start')}
           </Link>

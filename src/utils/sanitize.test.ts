@@ -8,7 +8,7 @@ import {
   TEXT_LIMITS,
 } from './sanitize'
 
-describe('sanitizeText', () => {
+describe('R6.2 sanitizeText', () => {
   it('trims and collapses whitespace, including line breaks', () => {
     expect(sanitizeText('  Priya \n  Sharma\t ', 60)).toBe('Priya Sharma')
   })
@@ -30,7 +30,7 @@ describe('sanitizeText', () => {
   })
 })
 
-describe('sanitizeMultiline', () => {
+describe('R6.2 sanitizeMultiline', () => {
   it('keeps line breaks and normalises line endings', () => {
     expect(sanitizeMultiline('a\r\nb\rc', 100)).toBe('a\nb\nc')
   })
@@ -49,14 +49,14 @@ describe('sanitizeMultiline', () => {
   })
 })
 
-describe('sanitizeSearch', () => {
+describe('R6.2 R1.1 sanitizeSearch', () => {
   it('caps at 100 characters and flattens to one line', () => {
     expect(sanitizeSearch('a'.repeat(300))).toHaveLength(100)
     expect(sanitizeSearch('aicte\nscholarship')).toBe('aicte scholarship')
   })
 })
 
-describe('isSafeHttpUrl', () => {
+describe('R6.2 isSafeHttpUrl', () => {
   it('accepts http and https URLs with a host', () => {
     expect(isSafeHttpUrl('https://scholarships.gov.in/')).toBe(true)
     expect(isSafeHttpUrl('http://example.org/path?q=1')).toBe(true)
@@ -77,7 +77,7 @@ describe('isSafeHttpUrl', () => {
   })
 })
 
-describe('isIsoDate', () => {
+describe('R6.2 isIsoDate', () => {
   it('accepts real dates only', () => {
     expect(isIsoDate('2026-11-07')).toBe(true)
     expect(isIsoDate('2026-02-30')).toBe(false)

@@ -6,6 +6,7 @@ import { ThemeSync } from './app/ThemeSync'
 import { ErrorBoundary } from './app/ErrorBoundary'
 import { router } from './app/router'
 
+/** Root component. Mounts providers, theme sync and the router. */
 export default function App() {
   return (
     <ErrorBoundary>

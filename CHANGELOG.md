@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0
+
+- Renamed the product to GRANTLY
+- Help page with a glossary of difficult terms and common questions
+- Step checklist on each application with saved progress
+- Richer Discover filters (level, provider, closing date) and pagination
+- What-if simulator to see which scholarships a changed answer would unlock
+- PWA: installable and works offline through a service worker
+- Runtime data loading from `/data/scholarships.json` with validation, 10 minute cache and bundled fallback
+- More scholarships in the dataset
+- Documentation: user stories, personas, API, deployment, troubleshooting, code of conduct, issue and pull request templates, requirement IDs in test titles
+
 ## 0.2.0
 
 - Dark mode and English or Hindi for the main screens

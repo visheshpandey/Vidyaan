@@ -12,6 +12,7 @@ const TONES: Record<ApplicationStatus, Tone> = {
   not_selected: 'danger',
 }
 
+/** Application status shown with an icon and text, never colour alone. */
 export function StatusPill({ status }: { status: ApplicationStatus }) {
   const t = useT()
   return <Badge tone={TONES[status]}>{t(`status.${status}`)}</Badge>

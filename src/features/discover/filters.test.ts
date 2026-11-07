@@ -15,7 +15,7 @@ const items = getScholarshipsSync().map((scholarship) => ({
   result: evaluate(DEMO_PROFILE, scholarship),
 }))
 
-describe('applyFilters', () => {
+describe('R1.1 R1.2 applyFilters', () => {
   it('returns everything by default', () => {
     expect(applyFilters(items, DEFAULT_FILTERS)).toHaveLength(items.length)
   })
@@ -51,7 +51,7 @@ describe('applyFilters', () => {
   })
 })
 
-describe('url state', () => {
+describe('R1.3 url state', () => {
   it('round-trips filters', () => {
     const f = {
       ...DEFAULT_FILTERS,
@@ -72,7 +72,7 @@ describe('url state', () => {
   })
 })
 
-describe('richer filters', () => {
+describe('R1.2 richer filters', () => {
   it('keeps only scholarships open to the chosen state', () => {
     const r = applyFilters(items, { ...DEFAULT_FILTERS, state: 'Madhya Pradesh' })
     expect(r.length).toBeGreaterThan(0)

@@ -23,7 +23,7 @@ beforeEach(() => {
 })
 afterEach(() => vi.unstubAllGlobals())
 
-describe('getJson', () => {
+describe('R6.3 getJson', () => {
   const schema = z.object({ ok: z.boolean() })
 
   it('returns validated data and calls the joined URL with GET and no credentials', async () => {
@@ -85,7 +85,7 @@ describe('getJson', () => {
   })
 })
 
-describe('createScholarshipsApi', () => {
+describe('R6.3 createScholarshipsApi', () => {
   const remote = bundled.slice(0, 2)
   const config = { baseUrl: BASE, timeoutMs: 1000, cacheMs: 60_000 }
 

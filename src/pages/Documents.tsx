@@ -15,6 +15,7 @@ import { useUiStore } from '@/store/uiStore'
 import { daysUntil, formatDeadline } from '@/utils/date'
 import { TEXT_LIMITS } from '@/utils/sanitize'
 
+/** Document checklist with availability, expiry dates and readiness. */
 export default function Documents() {
   const { scholarships } = useScholarships()
   const { documents, addDocument, setStatus, setExpiry, removeDocument } = useDocumentStore()

@@ -14,6 +14,7 @@ interface ModalProps {
   variant?: 'dialog' | 'sheet'
 }
 
+/** Accessible dialog built on Radix, with focus trapping and Escape to close. */
 export function Modal({
   open,
   onOpenChange,
@@ -67,6 +68,7 @@ interface ConfirmProps {
   danger?: boolean
 }
 
+/** Modal that asks the student to confirm or cancel a destructive action. */
 export function ConfirmDialog({
   open,
   onOpenChange,

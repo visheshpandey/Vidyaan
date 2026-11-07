@@ -69,6 +69,7 @@ function NameField({ value, onCommit }: { value: string; onCommit: (name: string
   )
 }
 
+/** Profile editing, What-if simulator, settings, data export and clear-all. */
 export default function Profile() {
   const { scholarships } = useScholarships()
   const profile = useProfileStore((s) => s.profile) ?? { name: '', preferences: [] }

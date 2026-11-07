@@ -27,6 +27,7 @@ function nextDocumentId(): string {
 
 const read = () => loadJSON(STORAGE_KEYS.documents, z.array(documentSchema).max(MAX_DOCUMENTS), [])
 
+/** Zustand store for the document checklist, persisted through services/storage. */
 export const useDocumentStore = create<DocumentState>((set, get) => {
   const persist = (documents: DocumentItem[]) => {
     saveJSON(STORAGE_KEYS.documents, documents)

@@ -14,6 +14,7 @@ import { useScholarships } from '@/hooks/useScholarships'
 import { useTrackerStore } from '@/store/trackerStore'
 import { APPLICATION_STATUSES } from '@/types/tracker'
 
+/** Tracker with a list and a drag-and-drop board of applications by status. */
 export default function Applications() {
   const { scholarships } = useScholarships()
   const applications = useTrackerStore((s) => s.applications)

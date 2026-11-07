@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 
+/** Placeholder block shown while content loads, to avoid layout shift. */
 export function Skeleton({ className }: { className?: string }) {
   return <div aria-hidden className={clsx('animate-pulse rounded-control bg-line', className)} />
 }

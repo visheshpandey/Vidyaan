@@ -30,6 +30,7 @@ export function deadlineLabel(iso: string | null, now: Date = new Date()): strin
   return `In ${d} days`
 }
 
+/** Formats an ISO timestamp as a readable local date and time. */
 export function formatDateTime(iso: string): string {
   return DATE_TIME.format(parseISO(iso))
 }

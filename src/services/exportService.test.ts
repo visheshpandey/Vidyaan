@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { createApplication } from '@/features/applications/transitions'
 import { applicationsToCsv, downloadText } from './exportService'
 
-describe('applicationsToCsv', () => {
+describe('R4.7 applicationsToCsv', () => {
   it('writes a header and one row per application', () => {
     const app = { ...createApplication('a', '2026-01-01T00:00:00Z', []), notes: 'call, then email' }
     const csv = applicationsToCsv([app], () => 'Merit "Plus"')
@@ -17,7 +17,7 @@ describe('applicationsToCsv', () => {
   })
 })
 
-describe('downloadText', () => {
+describe('R4.7 downloadText', () => {
   afterEach(() => vi.restoreAllMocks())
 
   it('returns true when the download is triggered', () => {

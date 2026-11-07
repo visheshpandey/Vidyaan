@@ -45,7 +45,7 @@ const PAGES: Array<[string, string, string, () => React.ReactElement]> = [
 ]
 
 describe(
-  'pages have no detectable accessibility violations (demo data loaded)',
+  'R5.2 R2.4 R2.5 R3.1 pages have no detectable accessibility violations (demo data loaded)',
   { timeout: 20_000 },
   () => {
     beforeEach(() => {
@@ -69,7 +69,7 @@ describe(
   },
 )
 
-describe('empty states', () => {
+describe('R3.2 empty states', () => {
   it('shows an empty tracker with a way forward', () => {
     resetAllData()
     render(

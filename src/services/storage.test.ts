@@ -6,7 +6,7 @@ import { clearAllData, loadJSON, MAX_STORED_CHARS, saveJSON } from './storage'
 const schema = z.object({ n: z.number() })
 const fallback = { n: 0 }
 
-describe('storage', () => {
+describe('R4.7 R6.3 storage', () => {
   beforeEach(() => localStorage.clear())
 
   it('round-trips valid data', () => {

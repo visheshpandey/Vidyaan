@@ -27,7 +27,7 @@ function renderProfile() {
   )
 }
 
-describe('Profile', () => {
+describe('R4.7 R5.5 Profile', () => {
   beforeEach(() => {
     resetApp()
     loadDemoData()

@@ -38,6 +38,6 @@ export default tseslint.config(
   {
     // Node-side config files.
     files: ['*.config.{js,ts}', 'vite.config.ts', 'scripts/**/*.{mjs,ts}'],
-    languageOptions: { globals: globals.node },
+    languageOptions: { globals: { ...globals.node, ...globals.browser } },
   },
 )

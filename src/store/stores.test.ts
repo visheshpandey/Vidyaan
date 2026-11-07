@@ -4,7 +4,7 @@ import { useDocumentStore } from './documentStore'
 import { sanitizeProfile, useProfileStore } from './profileStore'
 import { useTrackerStore } from './trackerStore'
 
-describe('trackerStore', () => {
+describe('R3.2 R4.5 trackerStore', () => {
   beforeEach(() => {
     localStorage.clear()
     useTrackerStore.getState().reload()
@@ -34,7 +34,7 @@ describe('trackerStore', () => {
   })
 })
 
-describe('profileStore', () => {
+describe('R4.7 profileStore', () => {
   beforeEach(() => {
     localStorage.clear()
     useProfileStore.getState().reload()
@@ -55,7 +55,7 @@ describe('profileStore', () => {
   })
 })
 
-describe('sanitisation on write', () => {
+describe('R6.2 sanitisation on write', () => {
   beforeEach(() => {
     localStorage.clear()
     useTrackerStore.getState().reload()
@@ -127,7 +127,7 @@ describe('sanitisation on write', () => {
   })
 })
 
-describe('trackerStore steps', () => {
+describe('R3.1 trackerStore steps', () => {
   beforeEach(() => {
     localStorage.clear()
     useTrackerStore.getState().reload()

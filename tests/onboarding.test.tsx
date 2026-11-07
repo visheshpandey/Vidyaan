@@ -10,7 +10,7 @@ const routes = [
   { path: '/dashboard', element: <p>Dashboard page</p> },
 ]
 
-describe('Onboarding', () => {
+describe('R5.1 Onboarding', () => {
   beforeEach(resetApp)
 
   it('asks for a name before letting the student continue', async () => {

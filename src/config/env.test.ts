@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { parseEnv } from './env'
 
-describe('parseEnv', () => {
+describe('R6.2 parseEnv', () => {
   it('uses safe defaults when nothing is set', () => {
     expect(parseEnv({})).toEqual({
       appName: 'GRANTLY',

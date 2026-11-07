@@ -21,7 +21,7 @@ const base: Omit<Scholarship, 'id' | 'rules'> = {
 }
 const incomeCapped: Scholarship = { ...base, id: 'cap', rules: { maxIncome: 200000 } }
 
-describe('whatIf', () => {
+describe('R2.3 whatIf', () => {
   const profile = { name: 'A', preferences: [], annualFamilyIncome: 240000 }
 
   it('unlocks a scholarship when income drops under its limit', () => {

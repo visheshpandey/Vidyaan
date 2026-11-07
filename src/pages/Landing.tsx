@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { buttonClass } from '@/components/ui/buttonStyles'
 import { HeroIllustration } from '@/components/ui/HeroIllustration'
+import { ResponsiveImage } from '@/components/ui/ResponsiveImage'
 import { ROUTES } from '@/constants/routes'
 import { DEMO_PROFILE } from '@/data/demo'
 import { loadDemoData } from '@/features/demo/demoMode'
@@ -40,6 +41,37 @@ const STEPS = [
   },
 ]
 
+const JOURNEY = [
+  {
+    name: 'discover',
+    verb: 'Discover',
+    heading: 'Find financial assistance that fits you',
+    text: 'Answer a few questions once and we search every scholarship in our list for you.',
+    alt: 'A magnifying glass over a list of scholarship cards.',
+  },
+  {
+    name: 'understand',
+    verb: 'Understand',
+    heading: 'See why, in plain language',
+    text: 'Each result names the rules you meet and the one you miss, so nothing is a mystery.',
+    alt: 'A checklist with ticks for met rules and an alert for a missing one.',
+  },
+  {
+    name: 'hero',
+    verb: 'Navigate',
+    heading: 'Follow each application step by step',
+    text: 'A clear application process, with the right documents ready before you begin.',
+    alt: 'Two students walking a path from a stack of books to a completed checklist.',
+  },
+  {
+    name: 'track',
+    verb: 'Track',
+    heading: 'Keep deadlines, documents and progress in one place',
+    text: 'A seamless digital journey from the first search to the final submission.',
+    alt: 'A calendar with a highlighted deadline and a progress bar.',
+  },
+] as const
+
 const MEANINGS: Array<{ verdict: Verdict; text: string }> = [
   {
     verdict: 'eligible',
@@ -65,6 +97,27 @@ export default function Landing() {
     return scholarship ? { scholarship, result: evaluate(DEMO_PROFILE, scholarship) } : null
   }, [scholarships])
 
+  const cta = (
+    <div className="mt-6 flex flex-wrap gap-3">
+      <Link
+        to={onboarded ? ROUTES.dashboard : ROUTES.onboarding}
+        className={buttonClass('primary', 'md', 'bg-white! text-sidebar! hover:bg-white/90!')}
+      >
+        {onboarded ? t('landing.open') : t('landing.start')}
+      </Link>
+      <Button
+        variant="secondary"
+        className="border-white/40! bg-transparent! text-white! hover:bg-white/10!"
+        onClick={() => {
+          loadDemoData()
+          void navigate(ROUTES.dashboard)
+        }}
+      >
+        {t('landing.demo')}
+      </Button>
+    </div>
+  )
+
   return (
     <div>
       <section className="relative overflow-hidden bg-sidebar text-white">
@@ -79,28 +132,7 @@ export default function Landing() {
               {t('landing.headline')}
             </h1>
             <p className="mt-4 max-w-xl text-lg text-white/85">{t('landing.intro')}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                to={onboarded ? ROUTES.dashboard : ROUTES.onboarding}
-                className={buttonClass(
-                  'primary',
-                  'md',
-                  'bg-white! text-sidebar! hover:bg-white/90!',
-                )}
-              >
-                {onboarded ? t('landing.open') : t('landing.start')}
-              </Link>
-              <Button
-                variant="secondary"
-                className="border-white/40! bg-transparent! text-white! hover:bg-white/10!"
-                onClick={() => {
-                  loadDemoData()
-                  void navigate(ROUTES.dashboard)
-                }}
-              >
-                {t('landing.demo')}
-              </Button>
-            </div>
+            {cta}
             <p className="mt-3 text-sm text-white/75">{t('landing.privacy')}</p>
           </div>
 
@@ -142,7 +174,40 @@ export default function Landing() {
           </ol>
         </section>
 
-        <section aria-labelledby="meanings" className="mt-14 max-w-3xl">
+        <section aria-labelledby="journey" className="mt-16">
+          <h2 id="journey" className="font-serif text-3xl text-heading sm:text-4xl">
+            {t('landing.journey')}
+          </h2>
+          <p className="mt-3 max-w-2xl text-muted">
+            GRANTLY brings educational financial assistance, eligibility checks and your
+            applications together in one place.
+          </p>
+          <div className="mt-10 flex flex-col gap-12 md:gap-16">
+            {JOURNEY.map(({ name, verb, heading, text, alt }, i) => (
+              <article
+                key={verb}
+                className="grid items-center gap-6 sm:grid-cols-2 md:gap-10 lg:gap-16"
+              >
+                <ResponsiveImage
+                  name={name}
+                  width={640}
+                  height={400}
+                  alt={alt}
+                  className="h-auto w-full rounded-card border border-line bg-surface"
+                />
+                <div className={i % 2 === 1 ? 'sm:order-first' : undefined}>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-secondary">
+                    {verb}
+                  </p>
+                  <h3 className="mt-1 font-serif text-2xl text-heading lg:text-3xl">{heading}</h3>
+                  <p className="mt-3 max-w-md text-ink">{text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section aria-labelledby="meanings" className="mt-16 max-w-3xl">
           <h2 id="meanings" className="font-serif text-2xl text-heading">
             Every result comes with a reason
           </h2>
@@ -161,6 +226,16 @@ export default function Landing() {
           </ul>
         </section>
       </div>
+
+      <section aria-labelledby="closing" className="bg-sidebar text-white">
+        <div className="mx-auto max-w-6xl px-4 py-12 text-center sm:px-8 sm:py-16 md:text-left">
+          <h2 id="closing" className="font-serif text-3xl sm:text-4xl">
+            {t('landing.cta')}
+          </h2>
+          <p className="mt-3 max-w-xl text-white/85 md:mx-0">{t('landing.privacy')}</p>
+          <div className="flex justify-center md:justify-start">{cta}</div>
+        </div>
+      </section>
     </div>
   )
 }

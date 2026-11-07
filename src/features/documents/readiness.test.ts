@@ -4,7 +4,7 @@ import { overallReadiness, readiness } from './readiness'
 
 const app = createApplication('x', '2026-01-01T00:00:00Z', ['Marksheet', 'Domicile certificate'])
 
-describe('readiness', () => {
+describe('R4.2 readiness', () => {
   it('counts available documents by name', () => {
     const r = readiness(app, [
       { id: '1', name: 'Marksheet', status: 'available' },
@@ -20,7 +20,7 @@ describe('readiness', () => {
   })
 })
 
-describe('overallReadiness', () => {
+describe('R4.2 overallReadiness', () => {
   it('is 0 for an empty list', () => {
     expect(overallReadiness([])).toEqual({ available: 0, percent: 0 })
   })

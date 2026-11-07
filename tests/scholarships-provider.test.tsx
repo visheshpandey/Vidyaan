@@ -53,7 +53,7 @@ afterEach(() => {
   vi.unstubAllGlobals()
 })
 
-describe('useScholarships without a provider', () => {
+describe('R6.3 useScholarships without a provider', () => {
   it('still returns the bundled scholarships, so pages render synchronously', () => {
     render(<Probe />)
     expect(screen.getByTestId('count')).toHaveTextContent(String(raw.length))
@@ -61,7 +61,7 @@ describe('useScholarships without a provider', () => {
   })
 })
 
-describe('ScholarshipsProvider', () => {
+describe('R6.3 R2.6 ScholarshipsProvider', () => {
   it('shows bundled data first, then switches to the fetched list', async () => {
     fetchMock.mockResolvedValue(jsonResponse(remote))
     renderWithProvider()
@@ -120,7 +120,7 @@ describe('ScholarshipsProvider', () => {
   })
 })
 
-describe('DataStatus', () => {
+describe('R6.3 DataStatus', () => {
   it('stays quiet for a quick refresh and mentions it only when loading is slow', async () => {
     vi.useFakeTimers()
     fetchMock.mockImplementation(() => new Promise<Response>(() => undefined))

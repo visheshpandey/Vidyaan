@@ -25,6 +25,7 @@ import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import { deadlineLabel, formatDeadline } from '@/utils/date'
 
+/** Calendar and upcoming list of deadlines, with .ics export and reminders. */
 export default function Deadlines() {
   const { scholarships } = useScholarships()
   const saved = useTrackerStore((s) => s.saved)

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { applyStatus, createApplication, isActive } from './transitions'
 
-describe('transitions', () => {
+describe('R3.2 transitions', () => {
   const app = createApplication('s1', '2026-11-01T00:00:00Z', ['Marksheet'])
 
   it('starts in saved with one history entry', () => {

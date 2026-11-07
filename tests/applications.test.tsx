@@ -20,7 +20,7 @@ function title(): string {
   return scholarship.title
 }
 
-describe('Tracking an application', () => {
+describe('R3.2 R3.3 R4.5 Tracking an application', () => {
   beforeEach(() => {
     resetApp()
     signIn()

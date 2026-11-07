@@ -64,6 +64,7 @@ export function buildDemoApplications(): Application[] {
 
 const inDays = (d: number) => new Date(Date.now() + d * DAY).toISOString().slice(0, 10)
 
+/** Sample documents for the demo student, with dates relative to today. */
 export function buildDemoDocuments(): DocumentItem[] {
   return [
     { id: 'doc-marksheet', name: 'Marksheet', status: 'available' },

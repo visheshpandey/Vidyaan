@@ -53,6 +53,7 @@ export function sanitizeProfile(profile: StudentProfile): StudentProfile {
   }
 }
 
+/** Zustand store for the student profile, sanitised on write and persisted. */
 export const useProfileStore = create<ProfileState>((set, get) => ({
   ...read(),
   setProfile: (input, onboarded = true) => {

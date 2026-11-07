@@ -3,11 +3,11 @@ import { expect, test, type Page } from '@playwright/test'
 /** Loads the demo student from the welcome page and lands on the dashboard. */
 async function startDemo(page: Page) {
   await page.goto('/welcome')
-  await page.getByRole('button', { name: /try the demo/i }).click()
+  await page.getByRole('button', { name: /try the demo/i }).first().click()
   await expect(page).toHaveURL(/\/dashboard$/)
 }
 
-test.describe('student journey', () => {
+test.describe('R5.1 R3.1 R3.4 R5.4 student journey', () => {
   test('the site opens straight to the scholarship list', async ({ page }) => {
     await page.goto('/')
     await expect(page).toHaveURL(/\/discover$/)

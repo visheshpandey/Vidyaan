@@ -1,3 +1,4 @@
+/** First focusable element on every page; jumps keyboard users to the main content. */
 export function SkipLink() {
   return (
     <a

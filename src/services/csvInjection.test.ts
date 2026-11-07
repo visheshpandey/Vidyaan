@@ -7,7 +7,7 @@ function csvWithNote(note: string): string {
   return applicationsToCsv([app], () => 'Title')
 }
 
-describe('CSV formula-injection guard', () => {
+describe('R6.2 R4.7 CSV formula-injection guard', () => {
   it.each([
     ['=', '=HYPERLINK("http://evil")'],
     ['+', '+1+1'],

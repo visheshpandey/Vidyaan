@@ -13,7 +13,7 @@ import {
 const baseScholarship = getScholarshipsSync()[0]
 if (!baseScholarship) throw new Error('bundled scholarships are empty')
 
-describe('scholarshipSchema', () => {
+describe('R2.6 scholarshipSchema', () => {
   it('accepts the bundled records', () => {
     expect(scholarshipSchema.safeParse(baseScholarship).success).toBe(true)
   })
@@ -52,7 +52,7 @@ describe('scholarshipSchema', () => {
   })
 })
 
-describe('profileSchema', () => {
+describe('R6.3 profileSchema', () => {
   const ok = { name: 'Priya', preferences: [] }
 
   it('accepts a minimal profile', () => {
@@ -76,7 +76,7 @@ describe('profileSchema', () => {
   })
 })
 
-describe('applicationSchema and documentSchema', () => {
+describe('R6.3 applicationSchema and documentSchema', () => {
   const app = createApplication('a', '2026-01-01T00:00:00.000Z', ['Marksheet'])
 
   it('accepts a normal application', () => {
@@ -99,7 +99,7 @@ describe('applicationSchema and documentSchema', () => {
   })
 })
 
-describe('settingsSchema', () => {
+describe('R6.3 settingsSchema', () => {
   it('falls back to defaults for junk values instead of failing', () => {
     const r = settingsSchema.parse({ remindersEnabled: 'yes', theme: 'neon', language: 'xx' })
     expect(r).toMatchObject({ remindersEnabled: true, theme: 'light', language: 'en' })

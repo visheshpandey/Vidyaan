@@ -3,7 +3,7 @@ import { validateStep } from './validate'
 
 const base = { name: 'Priya', preferences: [] }
 
-describe('validateStep', () => {
+describe('R5.1 validateStep', () => {
   it('requires a name on step 0', () => {
     expect(validateStep(0, { ...base, name: '  ' }).name).toBeTruthy()
     expect(validateStep(0, base)).toEqual({})

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { parseNumber, toOptions } from './forms'
 
-describe('forms helpers', () => {
+describe('R5.2 forms helpers', () => {
   it('builds select options', () => {
     expect(toOptions(['A', 'B'])).toEqual([
       { value: 'A', label: 'A' },

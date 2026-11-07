@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react'
+import { screen, waitFor, within } from '@testing-library/react'
 import userEvent, { type UserEvent } from '@testing-library/user-event'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { DEMO_PROFILE } from '@/data/demo'
@@ -13,11 +13,18 @@ const TOTAL = getScholarshipsSync().length
 /** The search is debounced by 300ms; allow for a slow machine. */
 const SLOW = { timeout: 5000 }
 
-/** Reads N from the "Showing N of M scholarships" status line. */
+/** Reads the total result count from "Showing A to B of N scholarships" (or "Showing 0 scholarships"). */
 function shownCount(): number {
-  const text = screen.getByText(/Showing \d+ of \d+ scholarships/).textContent ?? ''
-  const match = /Showing (\d+) of/.exec(text)
-  return Number(match?.[1])
+  const text = screen.getByText(/^Showing \d+ (to \d+ of \d+ )?scholarships$/).textContent ?? ''
+  const match = /of (\d+) scholarships/.exec(text)
+  return match ? Number(match[1]) : 0
+}
+
+/** Names of the scholarship cards currently on the page. */
+function visibleTitles(): string[] {
+  return within(screen.getByRole('region', { name: 'Results' }))
+    .getAllByRole('heading')
+    .map((h) => h.textContent ?? '')
 }
 
 /** Puts text in the search box in one step (typing key by key re-renders every card per letter). */
@@ -28,7 +35,7 @@ async function search(user: UserEvent, text: string): Promise<HTMLElement> {
   return box
 }
 
-describe('Discover', { timeout: 20_000 }, () => {
+describe('R1.1 R1.2 R1.3 R1.6 Discover', { timeout: 20_000 }, () => {
   beforeEach(() => {
     resetApp()
     loadDemoData()
@@ -108,5 +115,58 @@ describe('Discover', { timeout: 20_000 }, () => {
 
     expect(screen.getByLabelText('Eligibility')).toHaveValue('')
     expect(shownCount()).toBe(TOTAL)
+  })
+
+  it('pages through results ten at a time', async () => {
+    const user = userEvent.setup()
+    renderApp([{ path: '/discover', element: <Discover /> }], '/discover')
+    const firstPage = visibleTitles()
+    expect(firstPage).toHaveLength(10)
+    expect(
+      screen.getByText(`Showing 1 to 10 of ${TOTAL} scholarships`),
+    ).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /next/i }))
+
+    expect(currentUrl()).toContain('page=2')
+    expect(screen.getByText(`Showing 11 to 20 of ${TOTAL} scholarships`)).toBeInTheDocument()
+    const secondPage = visibleTitles()
+    expect(secondPage.some((title) => firstPage.includes(title))).toBe(false)
+    expect(screen.getByText(/Page 2 of/)).toHaveAttribute('aria-current', 'page')
+  })
+
+  it('opens the page named in the URL and falls back to page 1 for junk', () => {
+    const { unmount } = renderApp(
+      [{ path: '/discover', element: <Discover /> }],
+      '/discover?page=3',
+    )
+    expect(screen.getByText(/Page 3 of/)).toBeInTheDocument()
+    unmount()
+
+    renderApp([{ path: '/discover', element: <Discover /> }], '/discover?page=abc')
+    expect(screen.getByText(/Page 1 of/)).toBeInTheDocument()
+  })
+
+  it('returns to page 1 when a search changes', async () => {
+    const user = userEvent.setup()
+    renderApp([{ path: '/discover', element: <Discover /> }], '/discover?page=2')
+    expect(screen.getByText(/Page 2 of/)).toBeInTheDocument()
+
+    await search(user, 'Demo')
+
+    await waitFor(() => {
+      expect(currentUrl()).toContain('q=Demo')
+    }, SLOW)
+    expect(currentUrl()).not.toContain('page=')
+    expect(screen.getByText(/Page 1 of/)).toBeInTheDocument()
+  })
+
+  it('returns to page 1 when a filter changes', async () => {
+    const user = userEvent.setup()
+    renderApp([{ path: '/discover', element: <Discover /> }], '/discover?page=2')
+
+    await user.selectOptions(screen.getByLabelText('Eligibility'), 'not_eligible')
+
+    expect(currentUrl()).not.toContain('page=')
   })
 })

@@ -23,7 +23,7 @@ function Harness({ start = '/' }: { start?: string }) {
   )
 }
 
-describe('pageNameForPath', () => {
+describe('R5.2 pageNameForPath', () => {
   it('names known, dynamic and unknown routes', () => {
     expect(pageNameForPath('/')).toBe('Home')
     expect(pageNameForPath('/discover')).toBe('Discover')
@@ -34,7 +34,7 @@ describe('pageNameForPath', () => {
   })
 })
 
-describe('RouteAnnouncer', () => {
+describe('R5.2 RouteAnnouncer', () => {
   it('sets the title on first load without stealing focus or announcing', () => {
     render(<Harness />)
     expect(document.title).toBe('Home | GRANTLY')
@@ -57,7 +57,7 @@ describe('RouteAnnouncer', () => {
   })
 })
 
-describe('OfflineBanner', () => {
+describe('R6.3 OfflineBanner', () => {
   it('is hidden online and visible when the browser goes offline', () => {
     render(<OfflineBanner />)
     expect(screen.queryByRole('status')).toBeNull()

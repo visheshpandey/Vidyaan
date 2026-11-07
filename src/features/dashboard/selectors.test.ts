@@ -9,7 +9,7 @@ const matches = getScholarshipsSync().map((scholarship) => ({
   result: evaluate(DEMO_PROFILE, scholarship),
 }))
 
-describe('buildDashboard', () => {
+describe('R1.4 R4.6 buildDashboard', () => {
   const apps = buildDemoApplications()
   const data = buildDashboard({
     matches,

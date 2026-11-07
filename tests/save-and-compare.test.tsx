@@ -8,9 +8,9 @@ import { MAX_COMPARE, useCompareStore } from '@/store/compareStore'
 import { useTrackerStore } from '@/store/trackerStore'
 import { renderApp, resetApp, signIn } from './helpers'
 
-const [first, second, third, fourth] = getScholarshipsSync()
+const [first, second] =getScholarshipsSync()
 
-describe('Saving scholarships', () => {
+describe('R3.2 Saving scholarships', () => {
   beforeEach(() => {
     resetApp()
     signIn()
@@ -18,19 +18,23 @@ describe('Saving scholarships', () => {
 
   it('toggles the save button, announces it and persists the choice', async () => {
     const user = userEvent.setup()
-    if (!first) throw new Error('bundled data is empty')
     renderApp([{ path: '/discover', element: <Discover /> }], '/discover')
 
-    const save = screen.getByRole('button', { name: `Save ${first.title}` })
+    // Only the first page of results is rendered, so pick whichever card is on top.
+    const save = screen.getAllByRole('button', { name: /^Save / })[0]
+    if (!save) throw new Error('no save button on the page')
     expect(save).toHaveAttribute('aria-pressed', 'false')
+    const title = (save.getAttribute('aria-label') ?? '').replace(/^Save /, '')
+    const target = getScholarshipsSync().find((s) => s.title === title)
+    if (!target) throw new Error('unknown scholarship on the page')
 
     await user.click(save)
 
-    const unsave = screen.getByRole('button', { name: `Unsave ${first.title}` })
+    const unsave = screen.getByRole('button', { name: `Unsave ${target.title}` })
     expect(unsave).toHaveAttribute('aria-pressed', 'true')
     expect(await screen.findByText('Saved to your list')).toBeInTheDocument()
-    expect(useTrackerStore.getState().saved).toEqual([first.id])
-    expect(JSON.parse(localStorage.getItem('grantly:v1:saved') ?? '[]')).toEqual([first.id])
+    expect(useTrackerStore.getState().saved).toEqual([target.id])
+    expect(JSON.parse(localStorage.getItem('grantly:v1:saved') ?? '[]')).toEqual([target.id])
 
     await user.click(unsave)
 
@@ -39,7 +43,7 @@ describe('Saving scholarships', () => {
   })
 })
 
-describe('Comparing scholarships', () => {
+describe('R1.5 Comparing scholarships', () => {
   beforeEach(() => {
     resetApp()
     signIn()
@@ -47,18 +51,19 @@ describe('Comparing scholarships', () => {
 
   it('refuses a fourth scholarship with a clear message', async () => {
     const user = userEvent.setup()
-    if (!first || !second || !third || !fourth) throw new Error('bundled data is too small')
     renderApp([{ path: '/discover', element: <Discover /> }], '/discover')
 
-    for (const s of [first, second, third]) {
-      await user.click(screen.getByRole('checkbox', { name: `Compare ${s.title}` }))
-    }
-    await user.click(screen.getByRole('checkbox', { name: `Compare ${fourth.title}` }))
+    // Only the first page of results is rendered, so compare the top four cards.
+    const boxes = screen.getAllByRole('checkbox', { name: /^Compare / })
+    const [a, b, c, d] = boxes
+    if (!a || !b || !c || !d) throw new Error('fewer than four cards on the page')
+    for (const box of [a, b, c]) await user.click(box)
+    await user.click(d)
 
     expect(
       await screen.findByText(`You can compare up to ${MAX_COMPARE} scholarships`),
     ).toBeInTheDocument()
-    expect(screen.getByRole('checkbox', { name: `Compare ${fourth.title}` })).not.toBeChecked()
+    expect(d).not.toBeChecked()
     expect(useCompareStore.getState().ids).toHaveLength(MAX_COMPARE)
   })
 

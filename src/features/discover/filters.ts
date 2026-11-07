@@ -1,6 +1,7 @@
 import type { Matched, SortKey } from '@/features/matching/rank'
 import { COURSES, STATES } from '@/constants/options'
 import { sanitizeSearch } from '@/utils/sanitize'
+import { parsePage } from './paginate'
 import type { Category, Level } from '@/types/profile'
 import type { ProviderType } from '@/types/scholarship'
 import type { Verdict } from '@/types/eligibility'
@@ -21,9 +22,12 @@ export interface Filters {
   /** Show only scholarships the student has saved. */
   savedOnly: boolean
   sort: SortKey
+  /** 1-based results page. Not a filter, so it is left out of the active count. */
+  page: number
 }
 
 export const DEFAULT_FILTERS: Filters = {
+  page: 1,
   query: '',
   level: '',
   providerType: '',
@@ -69,6 +73,7 @@ export function applyFilters(
   })
 }
 
+/** Number of filters currently narrowing the results, for the filter badge. */
 export function activeFilterCount(f: Filters): number {
   return [
     f.level,
@@ -112,6 +117,7 @@ export function filtersFromParams(p: URLSearchParams): Filters {
     minAmount: amount === 10000 || amount === 25000 || amount === 50000 ? amount : 0,
     savedOnly: p.get('saved') === '1',
     sort: pick<SortKey>(p.get('sort'), SORTS, 'eligibility') || 'eligibility',
+    page: parsePage(p.get('page')),
   }
 }
 
@@ -129,5 +135,6 @@ export function filtersToParams(f: Filters): URLSearchParams {
   if (f.minAmount) p.set('min', String(f.minAmount))
   if (f.savedOnly) p.set('saved', '1')
   if (f.sort !== 'eligibility') p.set('sort', f.sort)
+  if (f.page > 1) p.set('page', String(f.page))
   return p
 }

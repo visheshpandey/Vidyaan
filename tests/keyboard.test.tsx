@@ -20,7 +20,7 @@ function renderShell() {
   )
 }
 
-describe('Keyboard navigation', () => {
+describe('R5.2 Keyboard navigation', () => {
   beforeEach(() => {
     resetApp()
     loadDemoData()

@@ -57,6 +57,10 @@ The brief names four struggles. Each becomes a requirement with acceptance crite
 | R5.4 | The app works from 360 px phones to desktops with no sideways scrolling                         | Tailwind responsive layout                          | `e2e/journey.spec.ts` (desktop and phone projects)     |
 | R5.5 | Available in English and Hindi, light and dark                                                  | `src/i18n`, `store/settingsStore.ts`                | `tests/reliability.test.tsx`                           |
 
+## Traceability check
+
+Every requirement ID above is carried in the `describe(...)` titles of the tests that prove it, for example `R2.3 skipped answers...` or `R1.3 url state`. To see what proves a requirement, search the repository for its ID (`grep -rn "R2.3" src tests e2e`). Each requirement also maps to user stories in [USER_STORIES.md](USER_STORIES.md), and R6 criteria are evidenced by the files listed in the table below. A requirement with no test title carrying its ID is a gap and should be fixed before release.
+
 ## R6. Quality attributes
 
 | ID   | Criterion       | Evidence                                                                                                                    |

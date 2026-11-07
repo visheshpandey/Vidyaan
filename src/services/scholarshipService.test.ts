@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import raw from '@/data/scholarships.json'
 import { getScholarshipsSync } from './scholarshipService'
 
-describe('scholarshipService', () => {
+describe('R2.6 scholarshipService', () => {
   const list = getScholarshipsSync()
 
   it('keeps every bundled record (none fail validation)', () => {

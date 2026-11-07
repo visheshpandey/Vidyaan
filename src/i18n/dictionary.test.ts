@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { DICTIONARIES, translate } from './dictionary'
 
-describe('dictionary', () => {
+describe('R5.5 dictionary', () => {
   it('has a Hindi entry for every English key', () => {
     expect(Object.keys(DICTIONARIES.hi).sort()).toEqual(Object.keys(DICTIONARIES.en).sort())
   })

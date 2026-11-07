@@ -18,6 +18,7 @@ import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import { formatDateTime, formatDeadline } from '@/utils/date'
 
+/** One tracked application: status, step checklist, documents, notes and history. */
 export default function ApplicationDetail() {
   const { scholarships } = useScholarships()
   const { id = '' } = useParams()

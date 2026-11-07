@@ -10,7 +10,7 @@ const ev = (id: string, date: string): DeadlineEvent => ({
 })
 const now = new Date('2026-11-07T09:00:00')
 
-describe('reminders', () => {
+describe('R4.4 reminders', () => {
   const events = [
     ev('past', '2026-11-01'),
     ev('today', '2026-11-07'),

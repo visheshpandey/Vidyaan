@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { MAX_COMPARE, useCompareStore } from './compareStore'
 
-describe('compareStore', () => {
+describe('R1.5 compareStore', () => {
   beforeEach(() => useCompareStore.getState().clear())
 
   it('adds and removes', () => {

@@ -9,6 +9,7 @@ interface EmptyStateProps {
   action?: ReactNode
 }
 
+/** Friendly message with an optional action, shown when a list has nothing to show. */
 export function EmptyState({ icon: Icon, title, children, action }: EmptyStateProps) {
   return (
     <div className="rounded-card border border-dashed border-line bg-surface px-6 py-12 text-center">

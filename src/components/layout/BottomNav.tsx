@@ -7,6 +7,7 @@ import { useT } from '@/i18n/useT'
 
 const ITEM = 'flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 text-xs font-medium'
 
+/** Phone navigation bar with the main pages and a "More" menu. */
 export function BottomNav() {
   const navigate = useNavigate()
   const t = useT()

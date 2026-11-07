@@ -14,6 +14,7 @@ interface UiState {
 
 let nextId = 1
 
+/** Zustand store for transient UI state such as toasts. */
 export const useUiStore = create<UiState>((set, get) => ({
   toasts: [],
   notify: (message, tone = 'success') => {

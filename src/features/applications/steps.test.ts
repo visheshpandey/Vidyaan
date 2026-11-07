@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { stepProgress, toggleStep } from './steps'
 
-describe('toggleStep', () => {
+describe('R3.1 toggleStep', () => {
   it('ticks and unticks a step', () => {
     expect(toggleStep([], 1, 3)).toEqual([1])
     expect(toggleStep([1], 1, 3)).toEqual([])
@@ -16,7 +16,7 @@ describe('toggleStep', () => {
   })
 })
 
-describe('stepProgress', () => {
+describe('R3.1 stepProgress', () => {
   it('reports progress and the next step', () => {
     expect(stepProgress([0, 1], 4)).toEqual({ done: 2, total: 4, percent: 50, nextIndex: 2 })
   })

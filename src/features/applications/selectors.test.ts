@@ -10,7 +10,7 @@ const b = applyStatus(
 )
 const apps = [a, b]
 
-describe('application selectors', () => {
+describe('R3.2 application selectors', () => {
   it('returns everything for "all"', () => {
     expect(filterByStatus(apps, 'all')).toHaveLength(2)
   })

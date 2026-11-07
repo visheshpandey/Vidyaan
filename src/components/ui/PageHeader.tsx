@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+/** Page title, description and optional actions. Renders the single h1 of a page. */
 export function PageHeader({
   title,
   subtitle,

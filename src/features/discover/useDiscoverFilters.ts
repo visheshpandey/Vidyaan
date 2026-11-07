@@ -18,12 +18,13 @@ export function useDiscoverFilters() {
   useEffect(() => {
     const clean = sanitizeSearch(query)
     if (query === text && clean !== filters.query) {
-      setParams(filtersToParams({ ...filters, query: clean }), { replace: true })
+      setParams(filtersToParams({ ...filters, query: clean, page: 1 }), { replace: true })
     }
   }, [query, text, filters, setParams])
 
+  /** Any change resets to page 1 unless it sets the page itself. */
   const patch = (change: Partial<Filters>) =>
-    setParams(filtersToParams({ ...filters, ...change }), { replace: true })
+    setParams(filtersToParams({ ...filters, page: 1, ...change }), { replace: true })
 
   const reset = () => {
     setParams({}, { replace: true })

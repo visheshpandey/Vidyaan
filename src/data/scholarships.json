@@ -303,5 +303,1193 @@
     "applicationUrl": "https://example.org/demo-ews-ug",
     "sourceUrl": "https://example.org/demo-ews-ug",
     "dataType": "sample"
+  },
+  {
+    "id": "demo-school-merit-bihar",
+    "title": "Demo School Merit Award",
+    "provider": "Demo Bihar Education Fund",
+    "providerType": "government",
+    "type": "merit",
+    "description": "An illustrative scholarship for school students in Bihar, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 8000,
+      "period": "yearly"
+    },
+    "deadline": "2026-12-15",
+    "rules": {
+      "levels": [
+        "school"
+      ],
+      "states": [
+        "Bihar"
+      ],
+      "minPercent": 85
+    },
+    "requiredDocuments": [
+      "School marksheet",
+      "School identity card",
+      "Parent income declaration",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Fill in the demo application form",
+      "Attach your school marksheet",
+      "Get the form signed by your headteacher",
+      "Submit before the deadline"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/school-merit-bihar",
+    "sourceUrl": "https://example.org/grantly-demo/school-merit-bihar",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-school-need-assam",
+    "title": "Demo School Need Grant",
+    "provider": "Demo Assam Learning Trust",
+    "providerType": "ngo",
+    "type": "need",
+    "description": "An illustrative scholarship for school students in Assam, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 5000,
+      "period": "yearly"
+    },
+    "deadline": "2027-01-20",
+    "rules": {
+      "levels": [
+        "school"
+      ],
+      "states": [
+        "Assam"
+      ],
+      "maxIncome": 150000
+    },
+    "requiredDocuments": [
+      "School marksheet",
+      "School identity card",
+      "Parent income declaration",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Fill in the demo application form",
+      "Attach your school marksheet",
+      "Get the form signed by your headteacher",
+      "Submit before the deadline"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/school-need-assam",
+    "sourceUrl": "https://example.org/grantly-demo/school-need-assam",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-school-girls-kerala",
+    "title": "Demo Girls in School Stipend",
+    "provider": "Demo Kerala Girls Foundation",
+    "providerType": "private",
+    "type": "special",
+    "description": "An illustrative scholarship for school girls in Kerala, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo",
+      "Mentoring sessions in this demo"
+    ],
+    "amount": {
+      "value": 1000,
+      "period": "monthly"
+    },
+    "deadline": "2027-02-10",
+    "rules": {
+      "levels": [
+        "school"
+      ],
+      "states": [
+        "Kerala"
+      ],
+      "genders": [
+        "female"
+      ]
+    },
+    "requiredDocuments": [
+      "School marksheet",
+      "School identity card",
+      "Parent income declaration",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Fill in the demo application form",
+      "Attach your school marksheet",
+      "Get the form signed by your headteacher",
+      "Submit before the deadline"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/school-girls-kerala",
+    "sourceUrl": "https://example.org/grantly-demo/school-girls-kerala",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-school-open",
+    "title": "Demo Open School Bursary",
+    "provider": "Demo Community Bursary Society",
+    "providerType": "ngo",
+    "type": "need",
+    "description": "An illustrative scholarship for any school student, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 6000,
+      "period": "one-time"
+    },
+    "deadline": null,
+    "rules": {},
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/school-open",
+    "sourceUrl": "https://example.org/grantly-demo/school-open",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-school-sc-odisha",
+    "title": "Demo School Inclusion Award",
+    "provider": "Demo Odisha Social Welfare Board",
+    "providerType": "government",
+    "type": "special",
+    "description": "An illustrative scholarship for SC and ST school students in Odisha, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo",
+      "Mentoring sessions in this demo"
+    ],
+    "amount": {
+      "value": 12000,
+      "period": "yearly"
+    },
+    "deadline": "2027-03-05",
+    "rules": {
+      "levels": [
+        "school"
+      ],
+      "states": [
+        "Odisha"
+      ],
+      "categories": [
+        "SC",
+        "ST"
+      ],
+      "maxIncome": 250000
+    },
+    "requiredDocuments": [
+      "School marksheet",
+      "School identity card",
+      "Caste certificate"
+    ],
+    "steps": [
+      "Fill in the demo application form",
+      "Attach your school marksheet",
+      "Get the form signed by your headteacher",
+      "Submit before the deadline"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/school-sc-odisha",
+    "sourceUrl": "https://example.org/grantly-demo/school-sc-odisha",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-diploma-tech-gujarat",
+    "title": "Demo Diploma Technician Grant",
+    "provider": "Demo Gujarat Polytechnic Council",
+    "providerType": "government",
+    "type": "need",
+    "description": "An illustrative scholarship for diploma students in Gujarat, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 15000,
+      "period": "yearly"
+    },
+    "deadline": "2026-12-20",
+    "rules": {
+      "levels": [
+        "diploma"
+      ],
+      "states": [
+        "Gujarat"
+      ],
+      "courses": [
+        "Diploma"
+      ],
+      "maxIncome": 300000
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Aadhaar card"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your course details",
+      "Upload scanned documents",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/diploma-tech-gujarat",
+    "sourceUrl": "https://example.org/grantly-demo/diploma-tech-gujarat",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-diploma-women-tn",
+    "title": "Demo Women in Diploma Scholarship",
+    "provider": "Demo Tamil Nadu Skills Trust",
+    "providerType": "private",
+    "type": "special",
+    "description": "An illustrative scholarship for women in diploma programmes in Tamil Nadu, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo",
+      "Mentoring sessions in this demo"
+    ],
+    "amount": {
+      "value": 20000,
+      "period": "yearly"
+    },
+    "deadline": "2027-01-31",
+    "rules": {
+      "levels": [
+        "diploma"
+      ],
+      "states": [
+        "Tamil Nadu"
+      ],
+      "genders": [
+        "female"
+      ],
+      "minPercent": 60
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Aadhaar card"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your course details",
+      "Upload scanned documents",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/diploma-women-tn",
+    "sourceUrl": "https://example.org/grantly-demo/diploma-women-tn",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-diploma-merit-open",
+    "title": "Demo Diploma Merit Prize",
+    "provider": "Demo Polytechnic Alumni Association",
+    "providerType": "university",
+    "type": "merit",
+    "description": "An illustrative scholarship for high scoring diploma students, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 10000,
+      "period": "one-time"
+    },
+    "deadline": "2027-04-15",
+    "rules": {
+      "levels": [
+        "diploma"
+      ],
+      "minPercent": 80
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Aadhaar card"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your course details",
+      "Upload scanned documents",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/diploma-merit-open",
+    "sourceUrl": "https://example.org/grantly-demo/diploma-merit-open",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-btech-merit-mh",
+    "title": "Demo B.Tech Merit Scholarship",
+    "provider": "Demo Maharashtra Engineering Trust",
+    "providerType": "private",
+    "type": "merit",
+    "description": "An illustrative scholarship for engineering undergraduates in Maharashtra, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 60000,
+      "period": "yearly"
+    },
+    "deadline": "2027-02-28",
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "courses": [
+        "B.Tech",
+        "B.E."
+      ],
+      "states": [
+        "Maharashtra"
+      ],
+      "minPercent": 80
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-btech-merit-mh",
+    "sourceUrl": "https://example.org/grantly-demo/ug-btech-merit-mh",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-obc-mp",
+    "title": "Demo OBC Undergraduate Support",
+    "provider": "Demo Madhya Pradesh Welfare Department",
+    "providerType": "government",
+    "type": "need",
+    "description": "An illustrative scholarship for OBC undergraduates in Madhya Pradesh, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 30000,
+      "period": "yearly"
+    },
+    "deadline": "2027-01-15",
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "states": [
+        "Madhya Pradesh"
+      ],
+      "categories": [
+        "OBC"
+      ],
+      "maxIncome": 400000
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Caste certificate"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-obc-mp",
+    "sourceUrl": "https://example.org/grantly-demo/ug-obc-mp",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-sc-up",
+    "title": "Demo SC Degree Scholarship",
+    "provider": "Demo Uttar Pradesh Samaj Kalyan Board",
+    "providerType": "government",
+    "type": "need",
+    "description": "An illustrative scholarship for SC undergraduates in Uttar Pradesh, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 40000,
+      "period": "yearly"
+    },
+    "deadline": "2027-03-31",
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "states": [
+        "Uttar Pradesh"
+      ],
+      "categories": [
+        "SC"
+      ],
+      "maxIncome": 250000
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Caste certificate"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-sc-up",
+    "sourceUrl": "https://example.org/grantly-demo/ug-sc-up",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-st-jharkhand",
+    "title": "Demo ST Degree Bursary",
+    "provider": "Demo Jharkhand Tribal Welfare Trust",
+    "providerType": "ngo",
+    "type": "need",
+    "description": "An illustrative scholarship for ST undergraduates in Jharkhand, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 35000,
+      "period": "yearly"
+    },
+    "deadline": "2027-02-15",
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "states": [
+        "Jharkhand"
+      ],
+      "categories": [
+        "ST"
+      ]
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Caste certificate"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-st-jharkhand",
+    "sourceUrl": "https://example.org/grantly-demo/ug-st-jharkhand",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-ews-delhi",
+    "title": "Demo EWS Commerce Award",
+    "provider": "Demo Delhi University Foundation",
+    "providerType": "university",
+    "type": "need",
+    "description": "An illustrative scholarship for EWS commerce students in Delhi, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 25000,
+      "period": "yearly"
+    },
+    "deadline": "2027-05-10",
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "states": [
+        "Delhi"
+      ],
+      "categories": [
+        "EWS"
+      ],
+      "courses": [
+        "B.Com",
+        "BBA"
+      ],
+      "maxIncome": 800000
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-ews-delhi",
+    "sourceUrl": "https://example.org/grantly-demo/ug-ews-delhi",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-sc-sikkim",
+    "title": "Demo Himalayan Arts Grant",
+    "provider": "Demo Sikkim Heritage Trust",
+    "providerType": "private",
+    "type": "special",
+    "description": "An illustrative scholarship for arts students in Sikkim, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo",
+      "Mentoring sessions in this demo"
+    ],
+    "amount": {
+      "value": 18000,
+      "period": "yearly"
+    },
+    "deadline": null,
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "states": [
+        "Sikkim"
+      ],
+      "courses": [
+        "B.A."
+      ]
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-sc-sikkim",
+    "sourceUrl": "https://example.org/grantly-demo/ug-sc-sikkim",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-women-stem-ka",
+    "title": "Demo Women in STEM Scholarship",
+    "provider": "Demo Karnataka Science Foundation",
+    "providerType": "private",
+    "type": "special",
+    "description": "An illustrative scholarship for women in science and engineering in Karnataka, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo",
+      "Mentoring sessions in this demo"
+    ],
+    "amount": {
+      "value": 75000,
+      "period": "yearly"
+    },
+    "deadline": "2027-03-15",
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "states": [
+        "Karnataka"
+      ],
+      "courses": [
+        "B.Sc",
+        "B.Tech",
+        "B.E."
+      ],
+      "genders": [
+        "female"
+      ],
+      "minPercent": 70
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-women-stem-ka",
+    "sourceUrl": "https://example.org/grantly-demo/ug-women-stem-ka",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-disability-open",
+    "title": "Demo Inclusive Learning Grant",
+    "provider": "Demo National Inclusion Society",
+    "providerType": "ngo",
+    "type": "special",
+    "description": "An illustrative scholarship for students with disabilities, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo",
+      "Mentoring sessions in this demo"
+    ],
+    "amount": {
+      "value": 50000,
+      "period": "yearly"
+    },
+    "deadline": "2027-04-30",
+    "rules": {
+      "levels": [
+        "ug",
+        "pg"
+      ],
+      "disabilityRequired": true
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Disability certificate"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-disability-open",
+    "sourceUrl": "https://example.org/grantly-demo/ug-disability-open",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-minority-wb",
+    "title": "Demo Minority Student Scholarship",
+    "provider": "Demo West Bengal Minority Council",
+    "providerType": "government",
+    "type": "need",
+    "description": "An illustrative scholarship for minority students in West Bengal, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 20000,
+      "period": "yearly"
+    },
+    "deadline": "2027-01-25",
+    "rules": {
+      "levels": [
+        "ug",
+        "pg"
+      ],
+      "states": [
+        "West Bengal"
+      ],
+      "minorityRequired": true,
+      "maxIncome": 300000
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Minority community certificate"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-minority-wb",
+    "sourceUrl": "https://example.org/grantly-demo/ug-minority-wb",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-mbbs-ts",
+    "title": "Demo Medical Aspirant Grant",
+    "provider": "Demo Telangana Medical Trust",
+    "providerType": "private",
+    "type": "merit",
+    "description": "An illustrative scholarship for MBBS students in Telangana, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 200000,
+      "period": "yearly"
+    },
+    "deadline": "2027-06-30",
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "courses": [
+        "MBBS"
+      ],
+      "states": [
+        "Telangana"
+      ],
+      "minPercent": 85
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-mbbs-ts",
+    "sourceUrl": "https://example.org/grantly-demo/ug-mbbs-ts",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-open-monthly",
+    "title": "Demo Monthly Study Allowance",
+    "provider": "Demo Student Support Network",
+    "providerType": "ngo",
+    "type": "need",
+    "description": "An illustrative scholarship for low income students, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 2000,
+      "period": "monthly"
+    },
+    "deadline": "2027-02-20",
+    "rules": {
+      "levels": [
+        "ug",
+        "diploma"
+      ],
+      "maxIncome": 200000
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-open-monthly",
+    "sourceUrl": "https://example.org/grantly-demo/ug-open-monthly",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-rajasthan-bsc",
+    "title": "Demo Desert Science Scholarship",
+    "provider": "Demo Rajasthan Science Academy",
+    "providerType": "university",
+    "type": "merit",
+    "description": "An illustrative scholarship for B.Sc students in Rajasthan, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 45000,
+      "period": "yearly"
+    },
+    "deadline": "2027-03-01",
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "states": [
+        "Rajasthan"
+      ],
+      "courses": [
+        "B.Sc"
+      ],
+      "minPercent": 75
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-rajasthan-bsc",
+    "sourceUrl": "https://example.org/grantly-demo/ug-rajasthan-bsc",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-ladakh-ba",
+    "title": "Demo High Altitude Learner Grant",
+    "provider": "Demo Ladakh Education Trust",
+    "providerType": "ngo",
+    "type": "need",
+    "description": "An illustrative scholarship for undergraduates in Ladakh and Jammu and Kashmir, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 22000,
+      "period": "yearly"
+    },
+    "deadline": "2027-05-20",
+    "rules": {
+      "levels": [
+        "ug"
+      ],
+      "states": [
+        "Ladakh",
+        "Jammu and Kashmir"
+      ],
+      "maxIncome": 350000
+    },
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet",
+      "Income certificate",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-ladakh-ba",
+    "sourceUrl": "https://example.org/grantly-demo/ug-ladakh-ba",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-ug-open-always",
+    "title": "Demo Open Access Starter Award",
+    "provider": "Demo Open Learning Collective",
+    "providerType": "private",
+    "type": "special",
+    "description": "An illustrative scholarship for every student, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo",
+      "Mentoring sessions in this demo"
+    ],
+    "amount": {
+      "value": 5000,
+      "period": "one-time"
+    },
+    "deadline": null,
+    "rules": {},
+    "requiredDocuments": [
+      "Admission letter",
+      "Latest marksheet"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Fill in your personal and course details",
+      "Upload scanned documents",
+      "Verify details with your institution",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/ug-open-always",
+    "sourceUrl": "https://example.org/grantly-demo/ug-open-always",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-pg-mtech-merit",
+    "title": "Demo M.Tech Research Merit Award",
+    "provider": "Demo Institute of Technology Fund",
+    "providerType": "university",
+    "type": "merit",
+    "description": "An illustrative scholarship for M.Tech students, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 120000,
+      "period": "yearly"
+    },
+    "deadline": "2027-02-05",
+    "rules": {
+      "levels": [
+        "pg"
+      ],
+      "courses": [
+        "M.Tech"
+      ],
+      "minPercent": 75
+    },
+    "requiredDocuments": [
+      "Degree marksheet",
+      "Admission letter",
+      "Identity proof"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Enter your degree details",
+      "Upload scanned documents",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/pg-mtech-merit",
+    "sourceUrl": "https://example.org/grantly-demo/pg-mtech-merit",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-pg-mba-need",
+    "title": "Demo MBA Need Support",
+    "provider": "Demo Business School Trust",
+    "providerType": "private",
+    "type": "need",
+    "description": "An illustrative scholarship for MBA students, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 90000,
+      "period": "yearly"
+    },
+    "deadline": "2027-04-10",
+    "rules": {
+      "levels": [
+        "pg"
+      ],
+      "courses": [
+        "MBA"
+      ],
+      "maxIncome": 600000
+    },
+    "requiredDocuments": [
+      "Degree marksheet",
+      "Admission letter",
+      "Identity proof"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Enter your degree details",
+      "Upload scanned documents",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/pg-mba-need",
+    "sourceUrl": "https://example.org/grantly-demo/pg-mba-need",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-pg-women-punjab",
+    "title": "Demo Postgraduate Women Fellowship",
+    "provider": "Demo Punjab Women Foundation",
+    "providerType": "ngo",
+    "type": "special",
+    "description": "An illustrative scholarship for women postgraduates in Punjab, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo",
+      "Mentoring sessions in this demo"
+    ],
+    "amount": {
+      "value": 3000,
+      "period": "monthly"
+    },
+    "deadline": "2026-12-31",
+    "rules": {
+      "levels": [
+        "pg"
+      ],
+      "states": [
+        "Punjab"
+      ],
+      "genders": [
+        "female"
+      ]
+    },
+    "requiredDocuments": [
+      "Degree marksheet",
+      "Admission letter",
+      "Identity proof"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Enter your degree details",
+      "Upload scanned documents",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/pg-women-punjab",
+    "sourceUrl": "https://example.org/grantly-demo/pg-women-punjab",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-pg-msc-obc-ap",
+    "title": "Demo M.Sc OBC Scholarship",
+    "provider": "Demo Andhra Pradesh Backward Classes Board",
+    "providerType": "government",
+    "type": "need",
+    "description": "An illustrative scholarship for M.Sc students in Andhra Pradesh, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 28000,
+      "period": "yearly"
+    },
+    "deadline": "2027-03-20",
+    "rules": {
+      "levels": [
+        "pg"
+      ],
+      "courses": [
+        "M.Sc"
+      ],
+      "states": [
+        "Andhra Pradesh"
+      ],
+      "categories": [
+        "OBC",
+        "EWS"
+      ],
+      "maxIncome": 450000
+    },
+    "requiredDocuments": [
+      "Degree marksheet",
+      "Admission letter",
+      "Caste certificate"
+    ],
+    "steps": [
+      "Create an account on the demo portal",
+      "Enter your degree details",
+      "Upload scanned documents",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/pg-msc-obc-ap",
+    "sourceUrl": "https://example.org/grantly-demo/pg-msc-obc-ap",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-phd-research-open",
+    "title": "Demo Doctoral Research Grant",
+    "provider": "Demo National Research Trust",
+    "providerType": "private",
+    "type": "merit",
+    "description": "An illustrative scholarship for doctoral researchers, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo"
+    ],
+    "amount": {
+      "value": 150000,
+      "period": "yearly"
+    },
+    "deadline": "2027-05-31",
+    "rules": {
+      "levels": [
+        "phd"
+      ],
+      "minPercent": 65
+    },
+    "requiredDocuments": [
+      "Research proposal",
+      "Supervisor letter",
+      "Degree marksheet"
+    ],
+    "steps": [
+      "Prepare a short research summary",
+      "Create an account on the demo portal",
+      "Upload your proposal and documents",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/phd-research-open",
+    "sourceUrl": "https://example.org/grantly-demo/phd-research-open",
+    "dataType": "sample"
+  },
+  {
+    "id": "demo-phd-fellow-goa",
+    "title": "Demo Coastal Studies Fellowship",
+    "provider": "Demo Goa Research Council",
+    "providerType": "university",
+    "type": "special",
+    "description": "An illustrative scholarship for doctoral students in Goa, made up to show how GRANTLY works. Not a real scheme.",
+    "benefits": [
+      "Illustrative award of the stated amount",
+      "Paid to the student's bank account in this demo",
+      "Mentoring sessions in this demo"
+    ],
+    "amount": {
+      "value": 25000,
+      "period": "monthly"
+    },
+    "deadline": null,
+    "rules": {
+      "levels": [
+        "phd"
+      ],
+      "states": [
+        "Goa"
+      ]
+    },
+    "requiredDocuments": [
+      "Research proposal",
+      "Supervisor letter",
+      "Degree marksheet"
+    ],
+    "steps": [
+      "Prepare a short research summary",
+      "Create an account on the demo portal",
+      "Upload your proposal and documents",
+      "Submit and note the reference number"
+    ],
+    "applicationUrl": "https://example.org/grantly-demo/phd-fellow-goa",
+    "sourceUrl": "https://example.org/grantly-demo/phd-fellow-goa",
+    "dataType": "sample"
   }
 ]

@@ -28,6 +28,7 @@ const read = () => ({
 
 const nowIso = () => new Date().toISOString()
 
+/** Zustand store for tracked applications, notes, history and step progress. */
 export const useTrackerStore = create<TrackerState>((set, get) => {
   const persist = (patch: Partial<Pick<TrackerState, 'saved' | 'applications'>>) => {
     if (patch.saved) saveJSON(STORAGE_KEYS.saved, patch.saved)

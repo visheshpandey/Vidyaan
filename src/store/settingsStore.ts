@@ -17,6 +17,7 @@ const pick = (s: SettingsState): Settings => ({
   lastNotifiedOn: s.lastNotifiedOn,
 })
 
+/** Zustand store for theme, language and reminder settings. */
 export const useSettingsStore = create<SettingsState>((set, get) => ({
   ...read(),
   update: (patch) => {

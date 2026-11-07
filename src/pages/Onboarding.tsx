@@ -24,6 +24,7 @@ import type { Category, Gender, InstitutionType, Level, StudentProfile } from '@
 
 const STEPS = ['About you', 'Education', 'Eligibility details', 'Review']
 
+/** Four-step profile form that unlocks personalised matches. */
 export default function Onboarding() {
   const existing = useProfileStore((s) => s.profile)
   const setProfile = useProfileStore((s) => s.setProfile)

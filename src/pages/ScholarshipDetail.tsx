@@ -24,6 +24,7 @@ const SECTIONS = [
   { id: 'apply', label: 'How to apply' },
 ]
 
+/** Full scholarship page: eligibility breakdown, benefits, documents, steps and official link. */
 export default function ScholarshipDetail() {
   const { id = '' } = useParams()
   const navigate = useNavigate()

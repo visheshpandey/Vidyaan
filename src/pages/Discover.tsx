@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { SearchX, SlidersHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Modal } from '@/components/ui/Modal'
 import { PageHeader } from '@/components/ui/PageHeader'
+import { Pagination } from '@/components/ui/Pagination'
+import { paginate } from '@/features/discover/paginate'
 import { FilterChips } from '@/features/discover/FilterChips'
 import { FilterControls } from '@/features/discover/FilterControls'
 import { applyFilters } from '@/features/discover/filters'
@@ -27,6 +29,16 @@ export default function Discover() {
     () => rank(applyFilters(matches, filters, undefined, saved), filters.sort),
     [matches, filters, saved],
   )
+
+  const view = paginate(results, filters.page)
+  const resultsRef = useRef<HTMLElement | null>(null)
+  const lastPage = useRef(view.page)
+  useEffect(() => {
+    if (lastPage.current !== view.page) {
+      lastPage.current = view.page
+      resultsRef.current?.scrollIntoView?.({ block: 'start' })
+    }
+  }, [view.page])
 
   return (
     <>
@@ -64,10 +76,16 @@ export default function Discover() {
             <FilterControls filters={filters} onChange={patch} />
           </Card>
         </aside>
-        <section aria-label="Results" className="space-y-4">
+        <section
+          aria-label="Results"
+          ref={resultsRef}
+          className="scroll-mt-4 space-y-4"
+        >
           <FilterChips filters={filters} onChange={patch} />
           <p role="status" aria-live="polite" className="text-sm text-muted">
-            Showing {results.length} of {matches.length} scholarships
+            {view.total === 0
+              ? 'Showing 0 scholarships'
+              : `Showing ${view.first} to ${view.last} of ${view.total} scholarships`}
           </p>
           {results.length === 0 ? (
             <EmptyState
@@ -79,11 +97,16 @@ export default function Discover() {
             </EmptyState>
           ) : (
             <div className="space-y-3">
-              {results.map((m) => (
+              {view.items.map((m) => (
                 <ScholarshipRow key={m.scholarship.id} item={m} />
               ))}
             </div>
           )}
+          <Pagination
+            page={view.page}
+            totalPages={view.totalPages}
+            onChange={(page) => patch({ page })}
+          />
         </section>
       </div>
 

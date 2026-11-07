@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { TtlCache } from './cache'
 
-describe('TtlCache', () => {
+describe('R6.3 TtlCache', () => {
   it('returns a value until it expires', () => {
     let t = 1000
     const cache = new TtlCache<string>(500, () => t)

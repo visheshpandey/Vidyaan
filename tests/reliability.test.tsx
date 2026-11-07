@@ -22,7 +22,7 @@ function silenceConsoleError() {
   return vi.spyOn(console, 'error').mockImplementation(() => {})
 }
 
-describe('Error handling', () => {
+describe('R6.3 Error handling', () => {
   beforeEach(resetApp)
   afterEach(() => vi.restoreAllMocks())
 
@@ -76,7 +76,7 @@ describe('Error handling', () => {
   })
 })
 
-describe('Corrupt saved data', () => {
+describe('R6.3 Corrupt saved data', () => {
   beforeEach(resetApp)
 
   it('still renders the dashboard when every stored value is broken', () => {
@@ -104,7 +104,7 @@ describe('Corrupt saved data', () => {
   })
 })
 
-describe('Language', () => {
+describe('R5.5 Language', () => {
   beforeEach(() => {
     resetApp()
     loadDemoData()

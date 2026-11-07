@@ -59,6 +59,7 @@ function Metric({
   )
 }
 
+/** Home for a signed-up student: best matches, next steps and progress. */
 export default function Dashboard() {
   const profile = useProfileStore((s) => s.profile)
   const t = useT()

@@ -14,7 +14,7 @@ import type { Scholarship } from '@/types/scholarship'
 
 const STEPS = ['Register on the portal', 'Upload documents', 'Submit and print the receipt']
 
-describe('StepChecklist', () => {
+describe('R3.1 StepChecklist', () => {
   beforeEach(() => {
     resetAllData()
   })
@@ -50,7 +50,7 @@ describe('StepChecklist', () => {
   })
 })
 
-describe('WhatIfPanel', () => {
+describe('R2.3 WhatIfPanel', () => {
   const capped: Scholarship = {
     id: 'cap-test',
     title: 'Income Capped Award',
@@ -103,7 +103,7 @@ describe('WhatIfPanel', () => {
   })
 })
 
-describe('FilterControls (richer discovery)', () => {
+describe('R1.2 FilterControls (richer discovery)', () => {
   it('offers state, category, course, minimum award and saved-only filters', async () => {
     const onChange = vi.fn()
     render(<FilterControls filters={DEFAULT_FILTERS} onChange={onChange} />)

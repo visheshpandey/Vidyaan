@@ -43,6 +43,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string
 }
 
+/** Labelled text input with an optional hint and an error linked for screen readers. */
 export function TextField({ label, hint, error, className, ...rest }: InputProps) {
   return (
     <FieldShell label={label} hint={hint} error={error}>
@@ -99,6 +100,7 @@ export function SelectField({
   )
 }
 
+/** Labelled checkbox with an optional hint. */
 export function CheckboxField({
   label,
   ...rest

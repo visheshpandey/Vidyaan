@@ -4,6 +4,7 @@ import { buttonClass } from '@/components/ui/buttonStyles'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { ROUTES } from '@/constants/routes'
 
+/** Helpful 404 page with links back to useful places. */
 export default function NotFound() {
   return (
     <div className="mx-auto max-w-xl p-6">

@@ -59,11 +59,15 @@ const en = {
   'profile.language': 'Language',
   'profile.theme': 'Dark mode',
   'profile.reminders': 'Deadline reminders in this browser',
+  'landing.journey': 'One seamless digital journey',
+  'landing.cta': 'Ready to find your fit?',
 } as const
 
 export type MessageKey = keyof typeof en
 
 const hi: Record<MessageKey, string> = {
+  'landing.journey': 'एक सहज डिजिटल सफ़र',
+  'landing.cta': 'अपने लिए सही छात्रवृत्ति खोजने के लिए तैयार हैं?',
   'nav.dashboard': 'डैशबोर्ड',
   'nav.discover': 'खोजें',
   'nav.saved': 'सहेजे गए',

@@ -2,6 +2,14 @@
 
 **Find your fit. Follow through.**
 
+[![CI](https://img.shields.io/github/actions/workflow/status/visheshpandey/Vidyaan/ci.yml?branch=main&label=CI)](https://github.com/visheshpandey/Vidyaan/actions/workflows/ci.yml) ![License: MIT](https://img.shields.io/badge/license-MIT-green) ![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-blue)
+
+## Objective
+
+Students in India miss scholarships they qualify for because the information is scattered, written in dense language, and hard to track across deadlines and documents. GRANTLY puts discovery, eligibility, application steps, documents and deadlines in one simple, accessible, bilingual place, and never applies on the student's behalf.
+
+Personas and user stories: [docs/PERSONAS.md](docs/PERSONAS.md) and [docs/USER_STORIES.md](docs/USER_STORIES.md). Each requirement is traced to code and to tests whose titles carry the requirement ID.
+
 **GRANTLY is a unified scholarship discovery and management platform.** It is our answer to the challenge _Rethinking the Scholarship Experience_: help students **find** relevant educational financial assistance, **understand** the options in plain language, **navigate** each application step by step, and **keep track** of deadlines, documents and progress, so a complicated journey becomes a seamless digital one that is simple, intuitive and accessible.
 
 ## How GRANTLY answers the brief
@@ -34,6 +42,19 @@ It is a frontend-only app. There is no backend and no account: everything is sto
 | Data lock-in                                    | Export everything as JSON, applications as CSV, or clear it all                                                                                      |
 
 GRANTLY never submits an application for you. "View official application" always opens the provider's own site.
+
+## Screenshots
+
+| Screen       | Desktop (1280)                                                     | Phone (360)                                                     |
+| ------------ | ------------------------------------------------------------------ | --------------------------------------------------------------- |
+| Welcome      | ![Welcome on desktop](docs/screenshots/welcome-1280.png)           | ![Welcome on phone](docs/screenshots/welcome-360.png)           |
+| Discover     | ![Discover on desktop](docs/screenshots/discover-1280.png)         | ![Discover on phone](docs/screenshots/discover-360.png)         |
+| Dashboard    | ![Dashboard on desktop](docs/screenshots/dashboard-1280.png)       | ![Dashboard on phone](docs/screenshots/dashboard-360.png)       |
+| Applications | ![Applications on desktop](docs/screenshots/applications-1280.png) | ![Applications on phone](docs/screenshots/applications-360.png) |
+| Scholarship  | ![Scholarship on desktop](docs/screenshots/scholarship-1280.png)   | ![Scholarship on phone](docs/screenshots/scholarship-360.png)   |
+| Help         | ![Help on desktop](docs/screenshots/help-1280.png)                 | ![Help on phone](docs/screenshots/help-360.png)                 |
+
+Tablet (768) versions of Welcome, Discover and Dashboard are in `docs/screenshots/`. To regenerate them, run `npm run build`, start `npx vite preview --port 4177`, then run `npm run screenshots`.
 
 ## Data honesty
 
@@ -125,6 +146,23 @@ CI runs all of these on every push. Dependabot keeps dependencies current. See [
 ## Deploying
 
 The build output in `dist/` is a static site. On Vercel, import the repository and keep the defaults (build `npm run build`, output `dist`). `vercel.json` already contains the single-page-app rewrite and security headers.
+
+## Documentation
+
+| Document                                           | What it covers                                                 |
+| -------------------------------------------------- | -------------------------------------------------------------- |
+| [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md)       | Requirements R1.1 to R6.4 traced to code and tests             |
+| [docs/USER_STORIES.md](docs/USER_STORIES.md)       | User stories with Given/When/Then criteria                     |
+| [docs/PERSONAS.md](docs/PERSONAS.md)               | The three students we design for                               |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)       | Layers and where code belongs                                  |
+| [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md)     | Accessibility approach and checks                              |
+| [docs/API.md](docs/API.md)                         | Data layer, environment variables, JSON shape, backend plug-in |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)           | Vercel, headers, service worker, verification                  |
+| [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | Common problems and fixes                                      |
+| [SECURITY.md](SECURITY.md)                         | Security policy and measures                                   |
+| [CONTRIBUTING.md](CONTRIBUTING.md)                 | How to contribute                                              |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)           | Community standards                                            |
+| [CHANGELOG.md](CHANGELOG.md)                       | Release notes                                                  |
 
 ## Roadmap
 

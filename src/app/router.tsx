@@ -22,6 +22,7 @@ import {
 } from './pages'
 import { RouteError } from './RouteError'
 
+/** Route table for the app: public pages, the guarded app shell, and error pages. */
 export const router = createBrowserRouter([
   {
     element: <PublicLayout />,
