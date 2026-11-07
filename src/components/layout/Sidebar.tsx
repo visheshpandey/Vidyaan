@@ -4,16 +4,18 @@ import { Link, NavLink } from 'react-router-dom'
 import { APP_NAME } from '@/constants/app'
 import { NAV_ITEMS } from '@/constants/nav'
 import { ROUTES } from '@/constants/routes'
+import { useT } from '@/i18n/useT'
 
 export function Sidebar() {
+  const t = useT()
   return (
     <aside className="no-print hidden border-r border-line bg-surface lg:block">
       <div className="sticky top-0 flex h-dvh flex-col p-4">
-        <Link to={ROUTES.home} className="mb-6 flex items-center gap-2 px-2 py-3 font-serif text-2xl text-primary">
+        <Link to={ROUTES.home} className="mb-6 flex items-center gap-2 px-2 py-3 font-serif text-2xl text-heading">
           <GraduationCap aria-hidden /> {APP_NAME}
         </Link>
         <nav aria-label="Main" className="flex flex-col gap-1">
-          {NAV_ITEMS.map(({ to, label, icon: Icon }) => (
+          {NAV_ITEMS.map(({ to, key, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
@@ -25,7 +27,7 @@ export function Sidebar() {
               }
             >
               <Icon size={18} aria-hidden />
-              {label}
+              {t(key)}
             </NavLink>
           ))}
         </nav>

@@ -54,7 +54,7 @@ export default function ScholarshipDetail() {
           <StatusBadge verdict={result.verdict} />
           {s.dataType === 'sample' && <Badge>Demo data</Badge>}
         </div>
-        <h1 className="font-serif text-3xl text-primary">{s.title}</h1>
+        <h1 className="font-serif text-3xl text-heading">{s.title}</h1>
         <p className="text-muted">{s.provider}</p>
         <p className="mt-3 max-w-3xl text-ink">{s.description}</p>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -87,11 +87,11 @@ export default function ScholarshipDetail() {
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
           <Card>
-            <h2 className="font-serif text-xl text-primary">Why this result</h2>
+            <h2 className="font-serif text-xl text-heading">Why this result</h2>
             <EligibilityBreakdown result={result} />
           </Card>
           <Card>
-            <h2 className="font-serif text-xl text-primary">How to apply</h2>
+            <h2 className="font-serif text-xl text-heading">How to apply</h2>
             <ol className="mt-2 list-decimal space-y-2 pl-5 text-sm">
               {s.steps.map((step) => (
                 <li key={step}>{step}</li>
@@ -101,7 +101,7 @@ export default function ScholarshipDetail() {
         </div>
         <div className="space-y-6">
           <Card>
-            <h2 className="font-serif text-xl text-primary">At a glance</h2>
+            <h2 className="font-serif text-xl text-heading">At a glance</h2>
             <dl className="mt-2 space-y-3 text-sm">
               <div>
                 <dt className="text-muted">Amount</dt>
@@ -123,7 +123,7 @@ export default function ScholarshipDetail() {
             </ul>
           </Card>
           <Card>
-            <h2 className="font-serif text-xl text-primary">Documents you will need</h2>
+            <h2 className="font-serif text-xl text-heading">Documents you will need</h2>
             <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
               {s.requiredDocuments.map((d) => (
                 <li key={d}>{d}</li>

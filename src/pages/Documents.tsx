@@ -32,7 +32,7 @@ export default function Documents() {
       <PageHeader title="Documents" subtitle="Track which documents you have. Files are never uploaded; only names and dates are kept in this browser." />
       <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-2">
         <section aria-labelledby="my-docs">
-          <h2 id="my-docs" className="mb-3 font-serif text-2xl text-primary">
+          <h2 id="my-docs" className="mb-3 font-serif text-2xl text-heading">
             Your documents
           </h2>
           <Card className="space-y-4">
@@ -110,7 +110,7 @@ export default function Documents() {
         </section>
 
         <section aria-labelledby="readiness">
-          <h2 id="readiness" className="mb-3 font-serif text-2xl text-primary">
+          <h2 id="readiness" className="mb-3 font-serif text-2xl text-heading">
             Application readiness
           </h2>
           {open.length === 0 ? (

@@ -9,7 +9,7 @@ const TONES: Record<Tone, string> = {
   warning: 'bg-warning/10 text-warning border-warning/30',
   danger: 'bg-danger/10 text-danger border-danger/30',
   info: 'bg-secondary/10 text-secondary border-secondary/30',
-  accent: 'bg-accent/30 text-primary border-accent',
+  accent: 'bg-accent/30 text-heading border-accent',
 }
 
 /** Status pill. Always paired with text or an icon; colour is never the only signal. */

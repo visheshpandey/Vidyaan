@@ -11,6 +11,7 @@ const Onboarding = lazy(() => import('@/pages/Onboarding'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const Discover = lazy(() => import('@/pages/Discover'))
 const ScholarshipDetail = lazy(() => import('@/pages/ScholarshipDetail'))
+const Compare = lazy(() => import('@/pages/Compare'))
 const Saved = lazy(() => import('@/pages/Saved'))
 const Applications = lazy(() => import('@/pages/Applications'))
 const ApplicationDetail = lazy(() => import('@/pages/ApplicationDetail'))
@@ -37,6 +38,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.dashboard, element: <Dashboard /> },
       { path: ROUTES.discover, element: <Discover /> },
       { path: '/scholarship/:id', element: <ScholarshipDetail /> },
+      { path: ROUTES.compare, element: <Compare /> },
       { path: ROUTES.saved, element: <Saved /> },
       { path: ROUTES.applications, element: <Applications /> },
       { path: '/applications/:id', element: <ApplicationDetail /> },

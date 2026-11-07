@@ -75,7 +75,11 @@ export const scholarshipSchema: z.ZodType<Scholarship> = z.object({
 })
 
 export const settingsSchema = z.object({
-  remindersEnabled: z.boolean(),
+  remindersEnabled: z.boolean().catch(true),
+  theme: z.enum(['light', 'dark']).catch('light'),
+  language: z.enum(['en', 'hi']).catch('en'),
+  /** ISO date of the last day a browser reminder was shown. */
+  lastNotifiedOn: z.string().optional().catch(undefined),
 })
 export type Settings = z.infer<typeof settingsSchema>
-export const DEFAULT_SETTINGS: Settings = { remindersEnabled: true }
+export const DEFAULT_SETTINGS: Settings = { remindersEnabled: true, theme: 'light', language: 'en' }

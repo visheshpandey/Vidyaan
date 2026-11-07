@@ -20,7 +20,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
     if (!this.state.failed) return this.props.children
     return (
       <div role="alert" className="mx-auto max-w-md p-10 text-center">
-        <h1 className="font-serif text-2xl text-primary">Something went wrong</h1>
+        <h1 className="font-serif text-2xl text-heading">Something went wrong</h1>
         <p className="mt-2 text-sm text-muted">Your saved data is safe. Reload the page to continue.</p>
         <button
           className="mt-4 h-11 rounded-control bg-primary px-4 text-sm font-medium text-white"

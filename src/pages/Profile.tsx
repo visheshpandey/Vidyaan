@@ -17,6 +17,8 @@ import { ROUTES } from '@/constants/routes'
 import { loadDemoData, resetAllData } from '@/features/demo/demoMode'
 import { applicationsToCsv, downloadText } from '@/services/exportService'
 import { getScholarshipsSync } from '@/services/scholarshipService'
+import { useT } from '@/i18n/useT'
+import { useSettingsStore } from '@/store/settingsStore'
 import { useDocumentStore } from '@/store/documentStore'
 import { useProfileStore } from '@/store/profileStore'
 import { useTrackerStore } from '@/store/trackerStore'
@@ -33,6 +35,8 @@ export default function Profile() {
   const documents = useDocumentStore((s) => s.documents)
   const notify = useUiStore((s) => s.notify)
   const navigate = useNavigate()
+  const t = useT()
+  const settings = useSettingsStore()
   const [confirm, setConfirm] = useState<'demo' | 'clear' | null>(null)
   const set = <K extends keyof StudentProfile>(k: K, v: StudentProfile[K]) => update({ [k]: v })
 
@@ -60,7 +64,27 @@ export default function Profile() {
 
         <div className="space-y-6">
           <Card>
-            <h2 className="font-serif text-xl text-primary">Your data</h2>
+            <h2 className="font-serif text-xl text-heading">Preferences</h2>
+            <CheckboxField
+              label={t('profile.theme')}
+              checked={settings.theme === 'dark'}
+              onChange={(e) => settings.update({ theme: e.target.checked ? 'dark' : 'light' })}
+            />
+            <CheckboxField
+              label={t('profile.reminders')}
+              checked={settings.remindersEnabled}
+              onChange={async (e) => {
+                const on = e.target.checked
+                settings.update({ remindersEnabled: on })
+                if (on && typeof Notification !== 'undefined' && Notification.permission === 'default') {
+                  const result = await Notification.requestPermission()
+                  notify(result === 'granted' ? 'Reminders on' : 'Browser notifications are blocked. You will still see deadlines in the app.', 'info')
+                }
+              }}
+            />
+          </Card>
+          <Card>
+            <h2 className="font-serif text-xl text-heading">Your data</h2>
             <p className="mt-1 text-sm text-muted">Stored only in this browser. Nothing is sent anywhere.</p>
             <div className="mt-3 flex flex-col gap-2">
               <Button

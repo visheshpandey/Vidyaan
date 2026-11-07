@@ -8,6 +8,7 @@ import { buildDashboard } from '@/features/dashboard/selectors'
 import { rank } from '@/features/matching/rank'
 import { ScholarshipBrief } from '@/features/scholarships/ScholarshipBrief'
 import { useMatches } from '@/hooks/useMatches'
+import { useT } from '@/i18n/useT'
 import { useDocumentStore } from '@/store/documentStore'
 import { useProfileStore } from '@/store/profileStore'
 import { useTrackerStore } from '@/store/trackerStore'
@@ -16,7 +17,7 @@ import { formatDateTime } from '@/utils/date'
 function Metric({ label, value, to }: { label: string; value: number; to: string }) {
   return (
     <Link to={to} className="block rounded-card border border-line bg-surface p-5 hover:border-secondary">
-      <p className="tabular font-serif text-4xl text-primary">{value}</p>
+      <p className="tabular font-serif text-4xl text-heading">{value}</p>
       <p className="mt-1 text-sm text-muted">{label}</p>
     </Link>
   )
@@ -24,6 +25,7 @@ function Metric({ label, value, to }: { label: string; value: number; to: string
 
 export default function Dashboard() {
   const name = useProfileStore((s) => s.profile?.name)
+  const t = useT()
   const matches = useMatches()
   const saved = useTrackerStore((s) => s.saved)
   const applications = useTrackerStore((s) => s.applications)
@@ -39,7 +41,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <PageHeader title={`Welcome${name ? `, ${name}` : ''}`} subtitle="Here is where you stand today." />
+      <PageHeader title={`${t('dash.welcome')}${name ? `, ${name}` : ''}`} subtitle="Here is where you stand today." />
       <section aria-label="Summary" className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Metric label="Eligible scholarships" value={data.eligibleCount} to={ROUTES.discover} />
         <Metric label="Need more information" value={data.needsInfoCount} to={ROUTES.discover} />
@@ -49,8 +51,8 @@ export default function Dashboard() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         <section aria-labelledby="next-steps" className="lg:col-span-2">
-          <h2 id="next-steps" className="mb-3 font-serif text-2xl text-primary">
-            Your next steps
+          <h2 id="next-steps" className="mb-3 font-serif text-2xl text-heading">
+            {t('dash.nextSteps')}
           </h2>
           {data.nextSteps.length === 0 ? (
             <Card className="text-sm text-muted">You are all caught up. Browse Discover to find more.</Card>
@@ -71,8 +73,8 @@ export default function Dashboard() {
           )}
         </section>
         <section aria-labelledby="activity">
-          <h2 id="activity" className="mb-3 font-serif text-2xl text-primary">
-            Recent activity
+          <h2 id="activity" className="mb-3 font-serif text-2xl text-heading">
+            {t('dash.activity')}
           </h2>
           <Card>
             {data.activity.length === 0 ? (
@@ -95,8 +97,8 @@ export default function Dashboard() {
 
       <section aria-labelledby="top" className="mt-8">
         <div className="mb-3 flex items-end justify-between">
-          <h2 id="top" className="font-serif text-2xl text-primary">
-            Best matches for you
+          <h2 id="top" className="font-serif text-2xl text-heading">
+            {t('dash.best')}
           </h2>
           <Link to={ROUTES.discover} className="text-sm font-medium text-secondary underline">
             See all

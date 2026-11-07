@@ -29,7 +29,7 @@ export function Modal({ open, onOpenChange, title, description, children, varian
         >
           <div className="mb-4 flex items-start justify-between gap-4">
             <div>
-              <Dialog.Title className="font-serif text-xl text-primary">{title}</Dialog.Title>
+              <Dialog.Title className="font-serif text-xl text-heading">{title}</Dialog.Title>
               <Dialog.Description className={description ? 'mt-1 text-sm text-muted' : 'sr-only'}>
                 {description ?? title}
               </Dialog.Description>

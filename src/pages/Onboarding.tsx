@@ -52,7 +52,7 @@ export default function Onboarding() {
 
   return (
     <div className="mx-auto max-w-xl px-4 py-8">
-      <h1 className="font-serif text-3xl text-primary">Let us find your fit</h1>
+      <h1 className="font-serif text-3xl text-heading">Let us find your fit</h1>
       <p className="mb-6 mt-1 text-sm text-muted">
         Answer what you can. Anything you skip is marked &quot;needs information&quot;, never &quot;not eligible&quot;.
       </p>

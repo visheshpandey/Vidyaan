@@ -1,6 +1,6 @@
 import { Badge, type Tone } from '@/components/ui/Badge'
+import { useT } from '@/i18n/useT'
 import type { ApplicationStatus } from '@/types/tracker'
-import { STATUS_LABELS } from './transitions'
 
 const TONES: Record<ApplicationStatus, Tone> = {
   saved: 'neutral',
@@ -13,5 +13,6 @@ const TONES: Record<ApplicationStatus, Tone> = {
 }
 
 export function StatusPill({ status }: { status: ApplicationStatus }) {
-  return <Badge tone={TONES[status]}>{STATUS_LABELS[status]}</Badge>
+  const t = useT()
+  return <Badge tone={TONES[status]}>{t(`status.${status}`)}</Badge>
 }

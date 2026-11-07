@@ -1,5 +1,6 @@
 import { CircleAlert, CircleCheck, CircleX } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
+import { useT } from '@/i18n/useT'
 import type { Verdict } from '@/types/eligibility'
 
 const CONFIG = {
@@ -10,10 +11,11 @@ const CONFIG = {
 
 /** Icon plus text, so the verdict never relies on colour alone. */
 export function StatusBadge({ verdict }: { verdict: Verdict }) {
-  const { tone, label, Icon } = CONFIG[verdict]
+  const t = useT()
+  const { tone, Icon } = CONFIG[verdict]
   return (
     <Badge tone={tone} icon={<Icon size={14} aria-hidden />}>
-      {label}
+      {t(`verdict.${verdict}`)}
     </Badge>
   )
 }

@@ -54,7 +54,7 @@ export default function ApplicationDetail() {
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <StatusPill status={app.status} />
-          <h1 className="mt-1 font-serif text-3xl text-primary">{title}</h1>
+          <h1 className="mt-1 font-serif text-3xl text-heading">{title}</h1>
           <p className="text-sm text-muted">
             {s?.provider} · Deadline: {formatDeadline(s?.deadline ?? null)}
           </p>
@@ -71,7 +71,7 @@ export default function ApplicationDetail() {
 
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
-          <h2 className="font-serif text-xl text-primary">Notes</h2>
+          <h2 className="font-serif text-xl text-heading">Notes</h2>
           <label htmlFor="notes" className="sr-only">
             Notes for {title}
           </label>
@@ -90,7 +90,7 @@ export default function ApplicationDetail() {
         </Card>
         <div className="space-y-6">
           <Card>
-            <h2 className="font-serif text-xl text-primary">Document checklist</h2>
+            <h2 className="font-serif text-xl text-heading">Document checklist</h2>
             <ul className="mt-2 space-y-2 text-sm">
               {app.documentChecklist.map((name) => (
                 <li key={name} className="flex justify-between gap-2">
@@ -106,7 +106,7 @@ export default function ApplicationDetail() {
             </Link>
           </Card>
           <Card>
-            <h2 className="font-serif text-xl text-primary">History</h2>
+            <h2 className="font-serif text-xl text-heading">History</h2>
             <ol className="mt-2 space-y-2 text-sm">
               {[...app.history].reverse().map((h, i) => (
                 <li key={i}>

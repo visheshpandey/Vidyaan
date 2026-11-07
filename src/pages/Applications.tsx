@@ -67,7 +67,7 @@ export default function Applications() {
                     <Card className="flex flex-wrap items-center justify-between gap-3">
                       <div className="min-w-0">
                         <StatusPill status={a.status} />
-                        <h2 className="mt-1 font-serif text-lg text-primary">
+                        <h2 className="mt-1 font-serif text-lg text-heading">
                           <Link to={ROUTES.application(a.id)} className="hover:underline">
                             {title}
                           </Link>

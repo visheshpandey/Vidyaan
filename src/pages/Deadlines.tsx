@@ -66,7 +66,7 @@ export default function Deadlines() {
               <Button variant="ghost" size="sm" aria-label="Previous month" onClick={() => setMonth(addMonths(month, -1))}>
                 <ChevronLeft size={18} aria-hidden />
               </Button>
-              <h2 className="font-serif text-xl text-primary" aria-live="polite">
+              <h2 className="font-serif text-xl text-heading" aria-live="polite">
                 {format(month, 'MMMM yyyy')}
               </h2>
               <Button variant="ghost" size="sm" aria-label="Next month" onClick={() => setMonth(addMonths(month, 1))}>
@@ -103,7 +103,7 @@ export default function Deadlines() {
           </Card>
 
           <section aria-labelledby="upcoming">
-            <h2 id="upcoming" className="mb-3 font-serif text-2xl text-primary">
+            <h2 id="upcoming" className="mb-3 font-serif text-2xl text-heading">
               Upcoming
             </h2>
             <ul className="space-y-2">

@@ -2,6 +2,7 @@
 
 @theme {
   --color-primary: #183b32;
+  --color-heading: #183b32;
   --color-secondary: #246b55;
   --color-canvas: #f7f6f0;
   --color-surface: #ffffff;
@@ -16,6 +17,23 @@
   --font-serif: 'DM Serif Display', Georgia, serif;
   --radius-card: 12px;
   --radius-control: 10px;
+}
+
+/* Dark theme: swaps the same tokens, so no component needs dark-specific classes. */
+:root[data-theme='dark'] {
+  --color-primary: #2f7d63;
+  --color-heading: #8fd0b5;
+  --color-secondary: #5fb899;
+  --color-canvas: #0f1612;
+  --color-surface: #17211c;
+  --color-ink: #e8ece9;
+  --color-muted: #a3b0a8;
+  --color-line: #2c3a33;
+  --color-accent: #e4b77b;
+  --color-success: #5fc592;
+  --color-warning: #e0a85a;
+  --color-danger: #e57f77;
+  color-scheme: dark;
 }
 
 html {

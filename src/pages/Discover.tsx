@@ -12,10 +12,12 @@ import { activeFilterCount, applyFilters, DEFAULT_FILTERS, type Filters } from '
 import { rank } from '@/features/matching/rank'
 import { ScholarshipBrief } from '@/features/scholarships/ScholarshipBrief'
 import { useDebounce } from '@/hooks/useDebounce'
+import { useT } from '@/i18n/useT'
 import { useMatches } from '@/hooks/useMatches'
 
 export default function Discover() {
   const matches = useMatches()
+  const t = useT()
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
   const [sheetOpen, setSheetOpen] = useState(false)
   const [text, setText] = useState('')
@@ -35,7 +37,7 @@ export default function Discover() {
 
   return (
     <>
-      <PageHeader title="Discover" subtitle="Scholarships ranked by how well they fit your profile." />
+      <PageHeader title={t('discover.title')} subtitle="Scholarships ranked by how well they fit your profile." />
       <div className="flex gap-2">
         <div className="flex-1">
           <label htmlFor="search" className="sr-only">
@@ -46,7 +48,7 @@ export default function Discover() {
             type="search"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Search by name, provider or course"
+            placeholder={t('discover.search')}
             className="h-11 w-full rounded-control border border-line bg-surface px-3 text-sm placeholder:text-muted"
           />
         </div>
