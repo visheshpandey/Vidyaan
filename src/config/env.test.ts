@@ -4,7 +4,7 @@ import { parseEnv } from './env'
 describe('parseEnv', () => {
   it('uses safe defaults when nothing is set', () => {
     expect(parseEnv({})).toEqual({
-      appName: 'Vidyaan',
+      appName: 'GRANTLY',
       apiBaseUrl: undefined,
       apiTimeoutMs: 8000,
       apiCacheMs: 600000,
@@ -13,13 +13,13 @@ describe('parseEnv', () => {
 
   it('reads valid values (numbers arrive as strings)', () => {
     const env = parseEnv({
-      VITE_APP_NAME: 'Vidyaan Staging',
+      VITE_APP_NAME: 'GRANTLY Staging',
       VITE_API_BASE_URL: 'https://api.example.org/v1',
       VITE_API_TIMEOUT_MS: '3000',
       VITE_API_CACHE_MS: '0',
     })
     expect(env).toEqual({
-      appName: 'Vidyaan Staging',
+      appName: 'GRANTLY Staging',
       apiBaseUrl: 'https://api.example.org/v1',
       apiTimeoutMs: 3000,
       apiCacheMs: 0,
@@ -33,7 +33,7 @@ describe('parseEnv', () => {
       VITE_API_TIMEOUT_MS: 'abc',
       VITE_API_CACHE_MS: '-5',
     })
-    expect(env.appName).toBe('Vidyaan')
+    expect(env.appName).toBe('GRANTLY')
     expect(env.apiBaseUrl).toBeUndefined()
     expect(env.apiTimeoutMs).toBe(8000)
     expect(env.apiCacheMs).toBe(600000)

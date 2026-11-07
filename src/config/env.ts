@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const DEFAULTS = {
-  appName: 'Vidyaan',
+  appName: 'GRANTLY',
   apiTimeoutMs: 8000,
   /** Matches the project rule: cache API responses for 10 minutes. */
   apiCacheMs: 10 * 60 * 1000,

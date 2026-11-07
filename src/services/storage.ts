@@ -41,7 +41,7 @@ export function saveJSON(key: StorageKey, value: unknown): boolean {
   }
 }
 
-/** Removes every Vidyaan key. Used by "Clear local data" and "Reset demo". */
+/** Removes every GRANTLY key. Used by "Clear local data" and "Reset demo". */
 export function clearAllData(): void {
   const store = getStore()
   if (!store) return

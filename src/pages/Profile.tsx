@@ -224,7 +224,7 @@ export default function Profile() {
                 onClick={() =>
                   runDownload(
                     notify,
-                    'vidyaan-data.json',
+                    'grantly-data.json',
                     JSON.stringify({ profile, saved, applications, documents }, null, 2),
                     'application/json',
                   )
@@ -239,7 +239,7 @@ export default function Profile() {
                 onClick={() =>
                   runDownload(
                     notify,
-                    'vidyaan-applications.csv',
+                    'grantly-applications.csv',
                     applicationsToCsv(applications, titleOf),
                     'text/csv',
                   )

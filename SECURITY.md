@@ -6,7 +6,7 @@ Please do not open a public issue for a security problem. Use GitHub's private "
 
 ## What the app stores, and where
 
-Vidyaan has no backend and no accounts. Everything is kept in this browser's `localStorage`, under keys that start with `vidyaan:v1:`:
+GRANTLY has no backend and no accounts. Everything is kept in this browser's `localStorage`, under keys that start with `grantly:v1:`:
 
 | Key | Contents |
 | --- | --- |

@@ -11,7 +11,7 @@ test.describe('student journey', () => {
   test('landing page explains the product and has no horizontal scroll', async ({ page }) => {
     await page.goto('/')
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
-    await expect(page).toHaveTitle(/Vidyaan/)
+    await expect(page).toHaveTitle(/GRANTLY/)
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
     )

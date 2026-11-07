@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vidyaan-theta.vercel.app/sitemap.xml
+Sitemap: https://grantly.vercel.app/sitemap.xml

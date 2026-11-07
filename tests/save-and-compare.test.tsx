@@ -30,7 +30,7 @@ describe('Saving scholarships', () => {
     expect(unsave).toHaveAttribute('aria-pressed', 'true')
     expect(await screen.findByText('Saved to your list')).toBeInTheDocument()
     expect(useTrackerStore.getState().saved).toEqual([first.id])
-    expect(JSON.parse(localStorage.getItem('vidyaan:v1:saved') ?? '[]')).toEqual([first.id])
+    expect(JSON.parse(localStorage.getItem('grantly:v1:saved') ?? '[]')).toEqual([first.id])
 
     await user.click(unsave)
 

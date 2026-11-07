@@ -25,7 +25,7 @@
 | Test | same name plus `.test` | `readiness.test.ts` |
 | Constant | UPPER_SNAKE_CASE | `SEARCH_DEBOUNCE_MS` |
 | Type or interface | PascalCase | `Application` |
-| Storage key | `vidyaan:v1:<name>` | `vidyaan:v1:profile` |
+| Storage key | `grantly:v1:<name>` | `grantly:v1:profile` |
 | i18n key | `area.name` | `dash.nextSteps` |
 
 ## Commits

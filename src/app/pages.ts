@@ -13,6 +13,7 @@ export const ApplicationDetail = lazy(() => import('@/pages/ApplicationDetail'))
 export const Documents = lazy(() => import('@/pages/Documents'))
 export const Deadlines = lazy(() => import('@/pages/Deadlines'))
 export const Profile = lazy(() => import('@/pages/Profile'))
+export const Help = lazy(() => import('@/pages/Help'))
 export const NotFound = lazy(() => import('@/pages/NotFound'))
 
 /** The signed-in layout (sidebar, header, menus) is only needed after onboarding. */

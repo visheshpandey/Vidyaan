@@ -1,6 +1,6 @@
 # Architecture
 
-Vidyaan is a frontend-only React app. All data lives in the browser. This page explains how the code is organised so you can find things and add features without making a mess.
+GRANTLY is a frontend-only React app. All data lives in the browser. This page explains how the code is organised so you can find things and add features without making a mess.
 
 ## Folder map
 
@@ -80,7 +80,7 @@ Zustand, split by domain: `profileStore`, `trackerStore` (saved plus application
 
 ## Storage
 
-Keys are versioned (`vidyaan:v1:*`). `loadJSON` parses with a Zod schema and returns a fallback for missing, corrupt or invalid data. Storage errors (private mode, full quota) are caught.
+Keys are versioned (`grantly:v1:*`). `loadJSON` parses with a Zod schema and returns a fallback for missing, corrupt or invalid data. Storage errors (private mode, full quota) are caught.
 
 ## Eligibility engine
 

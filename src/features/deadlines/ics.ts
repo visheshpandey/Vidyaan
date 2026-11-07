@@ -17,7 +17,7 @@ export function buildIcs(events: CalendarEvent[], now: Date = new Date()): strin
     .replace(/\.\d{3}/, '')
   const body = events.flatMap((e) => [
     'BEGIN:VEVENT',
-    `UID:${e.id}@vidyaan`,
+    `UID:${e.id}@grantly`,
     `DTSTAMP:${stamp}`,
     `DTSTART;VALUE=DATE:${compact(e.date)}`,
     `SUMMARY:${escape(e.title)}`,
@@ -26,7 +26,7 @@ export function buildIcs(events: CalendarEvent[], now: Date = new Date()): strin
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Vidyaan//Deadlines//EN',
+    'PRODID:-//GRANTLY//Deadlines//EN',
     ...body,
     'END:VCALENDAR',
   ].join('\r\n')

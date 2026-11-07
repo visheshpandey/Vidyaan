@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Compass, ListChecks, Route as RouteIcon } from 'lucide-react'
+import { CalendarCheck, Compass, ListChecks, Route as RouteIcon } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { buttonClass } from '@/components/ui/buttonStyles'
@@ -29,8 +29,13 @@ const STEPS = [
   },
   {
     icon: RouteIcon,
-    title: 'Manage',
-    text: 'Track every application, keep documents ready and never miss a deadline.',
+    title: 'Navigate',
+    text: 'Follow a step-by-step guide for each application and keep the right documents ready.',
+  },
+  {
+    icon: CalendarCheck,
+    title: 'Track',
+    text: 'See every application, note and deadline in one place and never miss a date.',
   },
 ]
 
@@ -116,7 +121,7 @@ export default function Landing() {
           <h2 id="steps" className="sr-only">
             How it works
           </h2>
-          <ol className="grid gap-6 sm:grid-cols-3">
+          <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map(({ icon: Icon, title, text }) => (
               <li key={title} className="flex gap-3">
                 <span

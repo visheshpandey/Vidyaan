@@ -1,4 +1,4 @@
-# Vidyaan: Design Brief for Stitch
+# GRANTLY: Design Brief for Stitch
 
 Use Part 1 as the project-wide prompt. Then paste one screen prompt from Part 4 at a time. Part 3 lists what is weak in the current build, so the redesign can fix it.
 
@@ -6,7 +6,7 @@ Use Part 1 as the project-wide prompt. Then paste one screen prompt from Part 4 
 
 ## Part 1. Project prompt (paste first)
 
-Design a responsive web app called **Vidyaan**, a scholarship discovery and application tracker for Indian students (school, diploma, undergraduate, postgraduate, PhD). Tagline: **"Find your fit. Follow through."**
+Design a responsive web app called **GRANTLY**, a scholarship discovery and application tracker for Indian students (school, diploma, undergraduate, postgraduate, PhD). Tagline: **"Find your fit. Follow through."**
 
 **What it does**
 1. Checks every scholarship against the student's profile and gives one of three results: **Eligible**, **Needs information**, **Not eligible**. Every result shows the exact reasons in plain language.
@@ -95,7 +95,7 @@ These are the weak spots. Ask Stitch to fix them.
 Each prompt assumes Part 1 and Part 2 are loaded. Design desktop (1440) and mobile (390) for each.
 
 ### 1. Landing
-Hero on the left: serif headline "Find your fit. Follow through.", one sentence ("Vidyaan checks scholarships against your profile, explains every result in plain language, and helps you track each application to the end."), primary button "Check my eligibility", secondary "Try the demo (Priya)", small note "No account needed. Everything stays in your browser." On the right: a real scholarship card for "Demo Merit Award for Engineering Students" (Demo Education Trust, ₹40,000 per year, 15 Dec 2026, In 38 days, Eligible) with caption "An example result for a sample student." Below: three steps (Tell us about you, See your results with reasons, Track every application). Then a section "Every result comes with a reason" with the three verdict badges and one sentence each. Then a trust band and a closing call to action. Footer: "Vidyaan never applies for you. Always confirm details on the official site."
+Hero on the left: serif headline "Find your fit. Follow through.", one sentence ("GRANTLY checks scholarships against your profile, explains every result in plain language, and helps you track each application to the end."), primary button "Check my eligibility", secondary "Try the demo (Priya)", small note "No account needed. Everything stays in your browser." On the right: a real scholarship card for "Demo Merit Award for Engineering Students" (Demo Education Trust, ₹40,000 per year, 15 Dec 2026, In 38 days, Eligible) with caption "An example result for a sample student." Below: three steps (Tell us about you, See your results with reasons, Track every application). Then a section "Every result comes with a reason" with the three verdict badges and one sentence each. Then a trust band and a closing call to action. Footer: "GRANTLY never applies for you. Always confirm details on the official site."
 
 ### 2. Onboarding (4 steps)
 Steps: About you (name, gender optional, state), Education (level, course, year, institution type), Eligibility details (category, family income, last exam percentage, disability, minority, preferences chips: Merit-based, Need-based, Government, Private, Women-focused, Research), Review. Top: progress bar "Step 2 of 4: Education". Helper line: "Answer what you can. Anything you skip is marked 'needs information', never 'not eligible'." Review shows each answer, with skipped ones highlighted as "Not provided". Final button "Show my matches". Show error and filled states.
@@ -107,7 +107,7 @@ Greeting "Welcome, Priya". Four metric tiles: Eligible scholarships 9, Need more
 Title, search box ("Search by name, provider or course…"), left filter panel on desktop (Eligibility, Education level, Provider, Closing within, Sort by), "Filters" button opening a bottom sheet on mobile. Removable chips for active filters. Live count "15 scholarships found". Two-column card grid. Empty state: "No scholarships match" with "Clear search and filters".
 
 ### 5. Scholarship detail
-Back link. Verdict badge and "Demo data" tag, serif title, provider, description. Buttons: Save, Start tracking (or Open tracker), "View official application". Note: "Vidyaan never submits applications for you." Left column: "Why this result" breakdown and "How to apply" numbered steps. Right column: "At a glance" (amount, deadline, benefits), "Documents you will need", and a source line ("Demo data: details are illustrative. Confirm on the official site.").
+Back link. Verdict badge and "Demo data" tag, serif title, provider, description. Buttons: Save, Start tracking (or Open tracker), "View official application". Note: "GRANTLY never submits applications for you." Left column: "Why this result" breakdown and "How to apply" numbered steps. Right column: "At a glance" (amount, deadline, benefits), "Documents you will need", and a source line ("Demo data: details are illustrative. Confirm on the official site.").
 
 ### 6. Compare
 Table with up to three scholarships as columns. Rows: Your result, Provider, Amount, Deadline, Levels, Income limit, Minimum marks, Documents, Not met. Remove link under each title and "Clear all". Horizontal scroll on mobile with a sticky first column. Empty state: "Nothing to compare yet" with "Choose scholarships".

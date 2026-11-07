@@ -11,4 +11,5 @@ export const ROUTES = {
   documents: '/documents',
   deadlines: '/deadlines',
   profile: '/profile',
+  help: '/help',
 } as const

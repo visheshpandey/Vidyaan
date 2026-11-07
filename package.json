@@ -1,5 +1,5 @@
 {
-  "name": "vidyaan",
+  "name": "grantly",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -59,12 +59,14 @@
   "engines": {
     "node": ">=20"
   },
-  "description": "Vidyaan: our GRANTLY solution, a unified scholarship discovery and application management platform for Indian students",
+  "description": "GRANTLY: a unified scholarship discovery and management platform. Find, understand, navigate and track educational financial assistance.",
   "license": "MIT",
   "keywords": [
     "grantly",
     "scholarship",
     "scholarship-discovery",
+    "scholarship-management",
+    "financial-aid",
     "application-tracker",
     "eligibility",
     "education",

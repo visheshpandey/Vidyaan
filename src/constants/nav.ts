@@ -1,5 +1,6 @@
 import {
   Bookmark,
+  CircleHelp,
   CalendarClock,
   ClipboardList,
   FileText,
@@ -55,6 +56,7 @@ export const NAV_ITEMS: NavItem[] = [
     icon: CalendarClock,
   },
   { to: ROUTES.profile, group: 'account', label: 'Profile', key: 'nav.profile', icon: UserRound },
+  { to: ROUTES.help, group: 'account', label: 'Help', key: 'nav.help', icon: CircleHelp },
 ]
 
 /** Items shown directly in the mobile bottom bar; the rest live under "More". */

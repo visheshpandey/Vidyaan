@@ -1,4 +1,4 @@
-const PREFIX = 'vidyaan:v1'
+const PREFIX = 'grantly:v1'
 
 export const STORAGE_KEYS = {
   profile: `${PREFIX}:profile`,

@@ -217,7 +217,7 @@ export default function ScholarshipDetail() {
               <CompareToggle id={s.id} title={s.title} />
             </div>
             <p className="text-xs text-muted">
-              Vidyaan never submits applications for you. You apply on the official site.
+              GRANTLY never submits applications for you. You apply on the official site.
             </p>
           </Card>
         </aside>

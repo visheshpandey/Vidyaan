@@ -1,28 +1,39 @@
-# Vidyaan
+# GRANTLY
 
 **Find your fit. Follow through.**
 
-> Submission for the **GRANTLY: Unified Scholarship Discovery & Management Platform** challenge ("Rethinking the Scholarship Experience"). Vidyaan is the product name of our GRANTLY solution.
+**GRANTLY is a unified scholarship discovery and management platform.** It is our answer to the challenge _Rethinking the Scholarship Experience_: help students **find** relevant educational financial assistance, **understand** the options in plain language, **navigate** each application step by step, and **keep track** of deadlines, documents and progress, so a complicated journey becomes a seamless digital one that is simple, intuitive and accessible.
 
-Vidyaan is a scholarship discovery and application tracker for Indian students. It checks every scholarship against your profile, explains each result in plain language, and helps you follow each application through to the end.
+## How GRANTLY answers the brief
+
+| The brief says                            | What GRANTLY does                                                                                                           | Where                                                          |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| "Finding relevant opportunities"          | Eligibility-first Discover: search, filters (kept in the URL), sorting, best matches first, Compare                         | `features/discover`, `features/matching`, `pages/Discover.tsx` |
+| "Understanding available options"         | Every scholarship shows Eligible, Needs information or Not eligible with the exact reasons, a glossary and a Help page      | `features/matching/EligibilityBreakdown.tsx`, `pages/Help.tsx` |
+| "Navigating application processes"        | Step-by-step guide per scholarship, application tracker (Saved to Disbursed), board with drag-and-drop, official links only | `features/applications`, `pages/ApplicationDetail.tsx`         |
+| "Keeping track of important information"  | Notes, document readiness with expiry dates, deadline calendar, `.ics` export, reminders, history                           | `features/documents`, `features/deadlines`                     |
+| "Simpler, more intuitive, and accessible" | Four-step onboarding, plain language, keyboard and screen-reader support, dark mode, English and Hindi, mobile first        | `pages/Onboarding.tsx`, `docs/ACCESSIBILITY.md`                |
+| "Seamless digital journey"                | One flow: onboard, match, save, track, prepare documents, meet deadlines, with demo data to try it in one click             | `features/demo`, `e2e/journey.spec.ts`                         |
+
+Acceptance criteria and where each one is implemented and tested are in [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md).
 
 It is a frontend-only app. There is no backend and no account: everything is stored in your browser.
 
 ## What it does
 
-| Problem | Feature |
-| --- | --- |
-| Hard to know which scholarships you qualify for | Eligibility engine with three outcomes: **Eligible**, **Needs information**, **Not eligible**, each with the exact reasons |
-| Skipped answers wrongly treated as failures | A missing answer is never "not eligible". It becomes "Needs information" with a link to add it |
-| Too many scholarships to browse | Discover: debounced search, filters kept in the URL (shareable), removable chips, sorting by match, deadline or amount |
-| Applications get lost | Tracker from Saved to Disbursed with notes and history. Change status with the "Move to" menu, or drag cards on the board (mouse, touch or keyboard) |
-| Missing paperwork | Documents page with expiry dates and per-application readiness |
-| Missed dates | Deadlines calendar, upcoming list, `.ics` export and an optional once-a-day browser reminder |
-| Choosing between options | Compare up to three scholarships side by side |
-| Different languages and lighting | Dark mode, and English or Hindi for the main screens |
-| Data lock-in | Export everything as JSON, applications as CSV, or clear it all |
+| Problem                                         | Feature                                                                                                                                              |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hard to know which scholarships you qualify for | Eligibility engine with three outcomes: **Eligible**, **Needs information**, **Not eligible**, each with the exact reasons                           |
+| Skipped answers wrongly treated as failures     | A missing answer is never "not eligible". It becomes "Needs information" with a link to add it                                                       |
+| Too many scholarships to browse                 | Discover: debounced search, filters kept in the URL (shareable), removable chips, sorting by match, deadline or amount                               |
+| Applications get lost                           | Tracker from Saved to Disbursed with notes and history. Change status with the "Move to" menu, or drag cards on the board (mouse, touch or keyboard) |
+| Missing paperwork                               | Documents page with expiry dates and per-application readiness                                                                                       |
+| Missed dates                                    | Deadlines calendar, upcoming list, `.ics` export and an optional once-a-day browser reminder                                                         |
+| Choosing between options                        | Compare up to three scholarships side by side                                                                                                        |
+| Different languages and lighting                | Dark mode, and English or Hindi for the main screens                                                                                                 |
+| Data lock-in                                    | Export everything as JSON, applications as CSV, or clear it all                                                                                      |
 
-Vidyaan never submits an application for you. "View official application" always opens the provider's own site.
+GRANTLY never submits an application for you. "View official application" always opens the provider's own site.
 
 ## Data honesty
 
@@ -37,26 +48,26 @@ npm run dev          # http://localhost:5173
 
 Press **Try the demo (Priya)** on the landing page to load a sample student with applications and documents.
 
-| Script | Purpose |
-| --- | --- |
-| `npm run dev` | Start the dev server |
-| `npm run build` | Typecheck and build for production |
-| `npm run preview` | Serve the production build |
-| `npm run lint` | Lint with oxlint |
-| `npm run typecheck` | TypeScript strict check |
-| `npm test` | Run unit and accessibility tests |
-| `npm run test:coverage` | Tests with coverage |
+| Script                  | Purpose                            |
+| ----------------------- | ---------------------------------- |
+| `npm run dev`           | Start the dev server               |
+| `npm run build`         | Typecheck and build for production |
+| `npm run preview`       | Serve the production build         |
+| `npm run lint`          | Lint with oxlint                   |
+| `npm run typecheck`     | TypeScript strict check            |
+| `npm test`              | Run unit and accessibility tests   |
+| `npm run test:coverage` | Tests with coverage                |
 
 ## Environment
 
 No configuration is required. To change defaults, copy [.env.example](.env.example) to `.env.local`. All variables are optional and validated at startup in `src/config/env.ts`; a missing or malformed value falls back to a safe default. Code reads config from `env`, never from `import.meta.env` directly.
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `VITE_APP_NAME` | `Vidyaan` | Product name in the UI |
-| `VITE_API_BASE_URL` | empty | Our own backend. Empty means bundled data only |
-| `VITE_API_TIMEOUT_MS` | `8000` | Request timeout |
-| `VITE_API_CACHE_MS` | `600000` | Response cache time (10 minutes) |
+| Variable              | Default   | Purpose                                        |
+| --------------------- | --------- | ---------------------------------------------- |
+| `VITE_APP_NAME`       | `GRANTLY` | Product name in the UI                         |
+| `VITE_API_BASE_URL`   | empty     | Our own backend. Empty means bundled data only |
+| `VITE_API_TIMEOUT_MS` | `8000`    | Request timeout                                |
+| `VITE_API_CACHE_MS`   | `600000`  | Response cache time (10 minutes)               |
 
 `VITE_` variables are public in the built site, so never put secrets in them. The browser only calls our own backend, with a fallback to bundled data if it is down (`src/api/`).
 
@@ -91,14 +102,14 @@ Self-hosted fonts with a metric-matched fallback (no render-blocking third-party
 
 ## Testing and quality
 
-| Check | Command | What it covers |
-| --- | --- | --- |
-| Lint | `npm run lint` | ESLint with type-aware TypeScript rules, React hooks, jsx-a11y. Zero errors |
-| Types | `npm run typecheck` | TypeScript strict plus `noUncheckedIndexedAccess`, `noImplicitReturns`, no `any` |
-| Unit and component tests | `npm test` | Matching engine, stores, storage, sanitizers, API client, every page with axe, user flows |
-| Coverage | `npm run test:coverage` | Fails below 80 percent statements, 75 percent branches |
-| End to end | `npm run e2e` | Real browser on desktop and phone sizes: demo journey, search in URL, tracking, 404, no console errors |
-| All at once | `npm run check` | Lint, typecheck, tests and build |
+| Check                    | Command                 | What it covers                                                                                         |
+| ------------------------ | ----------------------- | ------------------------------------------------------------------------------------------------------ |
+| Lint                     | `npm run lint`          | ESLint with type-aware TypeScript rules, React hooks, jsx-a11y. Zero errors                            |
+| Types                    | `npm run typecheck`     | TypeScript strict plus `noUncheckedIndexedAccess`, `noImplicitReturns`, no `any`                       |
+| Unit and component tests | `npm test`              | Matching engine, stores, storage, sanitizers, API client, every page with axe, user flows              |
+| Coverage                 | `npm run test:coverage` | Fails below 80 percent statements, 75 percent branches                                                 |
+| End to end               | `npm run e2e`           | Real browser on desktop and phone sizes: demo journey, search in URL, tracking, 404, no console errors |
+| All at once              | `npm run check`         | Lint, typecheck, tests and build                                                                       |
 
 CI runs all of these on every push. Dependabot keeps dependencies current. See [SECURITY.md](SECURITY.md).
 

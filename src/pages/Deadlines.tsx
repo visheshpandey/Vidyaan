@@ -52,7 +52,7 @@ export default function Deadlines() {
             size="sm"
             disabled={upcoming.length === 0}
             onClick={() => {
-              const ok = downloadText('vidyaan-deadlines.ics', buildIcs(upcoming), 'text/calendar')
+              const ok = downloadText('grantly-deadlines.ics', buildIcs(upcoming), 'text/calendar')
               notify(
                 ok
                   ? 'Calendar file downloaded'

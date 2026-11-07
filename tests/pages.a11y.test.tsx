@@ -11,6 +11,7 @@ import Dashboard from '@/pages/Dashboard'
 import Deadlines from '@/pages/Deadlines'
 import Discover from '@/pages/Discover'
 import Documents from '@/pages/Documents'
+import Help from '@/pages/Help'
 import Landing from '@/pages/Landing'
 import Onboarding from '@/pages/Onboarding'
 import Profile from '@/pages/Profile'
@@ -40,6 +41,7 @@ const PAGES: Array<[string, string, string, () => React.ReactElement]> = [
   ['Documents', '/documents', '/documents', () => <Documents />],
   ['Deadlines', '/deadlines', '/deadlines', () => <Deadlines />],
   ['Profile', '/profile', '/profile', () => <Profile />],
+  ['Help', '/help', '/help', () => <Help />],
 ]
 
 describe(

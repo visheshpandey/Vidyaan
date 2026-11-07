@@ -10,6 +10,7 @@ const en = {
   'nav.profile': 'Profile',
   'nav.compare': 'Compare',
   'nav.more': 'More',
+  'nav.help': 'Help',
   'nav.group.activity': 'My activity',
   'nav.group.account': 'Account',
   'nav.search': 'Search scholarships…',
@@ -17,7 +18,7 @@ const en = {
   tagline: 'Find your fit. Follow through.',
   'landing.headline': 'Your future deserves an opportunity.',
   'landing.intro':
-    'Vidyaan checks scholarships against your profile, explains every result in plain language, and helps you track each application to the end.',
+    'GRANTLY brings scholarship discovery and management into one place. Find financial assistance that fits you, understand every result in plain language, follow each application step by step, and never miss a deadline.',
   'landing.start': 'Check my eligibility',
   'landing.open': 'Open dashboard',
   'landing.demo': 'Try the demo (Priya)',
@@ -72,6 +73,7 @@ const hi: Record<MessageKey, string> = {
   'nav.profile': 'प्रोफ़ाइल',
   'nav.compare': 'तुलना',
   'nav.more': 'और',
+  'nav.help': 'सहायता',
   'nav.group.activity': 'मेरी गतिविधि',
   'nav.group.account': 'खाता',
   'nav.search': 'छात्रवृत्तियाँ खोजें…',
@@ -79,7 +81,7 @@ const hi: Record<MessageKey, string> = {
   tagline: 'अपने लिए सही छात्रवृत्ति खोजें, और आवेदन पूरा करें।',
   'landing.headline': 'आपका भविष्य एक अच्छे अवसर का हकदार है।',
   'landing.intro':
-    'विद्यान आपकी प्रोफ़ाइल के आधार पर छात्रवृत्तियों की पात्रता जाँचता है, हर नतीजे को सरल भाषा में समझाता है, और हर आवेदन को अंत तक ट्रैक करने में मदद करता है।',
+    'GRANTLY आपकी प्रोफ़ाइल के आधार पर छात्रवृत्तियों की पात्रता जाँचता है, हर नतीजे को सरल भाषा में समझाता है, और हर आवेदन को अंत तक ट्रैक करने में मदद करता है।',
   'landing.start': 'मेरी पात्रता जाँचें',
   'landing.open': 'डैशबोर्ड खोलें',
   'landing.demo': 'डेमो देखें (प्रिया)',

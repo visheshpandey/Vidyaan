@@ -26,7 +26,7 @@ export function useReminders(): void {
     const due = dueReminders(collectEvents(getScholarshipsSync(), saved, applications, documents))
     if (due.length === 0) return
     try {
-      new Notification('Vidyaan reminder', { body: reminderSummary(due) })
+      new Notification('GRANTLY reminder', { body: reminderSummary(due) })
       update({ lastNotifiedOn: today })
     } catch {
       // Notifications are a nicety. Deadlines are still shown in the app.
