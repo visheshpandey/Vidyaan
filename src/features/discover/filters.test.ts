@@ -2,9 +2,18 @@ import { describe, expect, it } from 'vitest'
 import { DEMO_PROFILE } from '@/data/demo'
 import { evaluate } from '@/features/matching/engine'
 import { getScholarshipsSync } from '@/services/scholarshipService'
-import { activeFilterCount, applyFilters, DEFAULT_FILTERS, filtersFromParams, filtersToParams } from './filters'
+import {
+  activeFilterCount,
+  applyFilters,
+  DEFAULT_FILTERS,
+  filtersFromParams,
+  filtersToParams,
+} from './filters'
 
-const items = getScholarshipsSync().map((scholarship) => ({ scholarship, result: evaluate(DEMO_PROFILE, scholarship) }))
+const items = getScholarshipsSync().map((scholarship) => ({
+  scholarship,
+  result: evaluate(DEMO_PROFILE, scholarship),
+}))
 
 describe('applyFilters', () => {
   it('returns everything by default', () => {
@@ -14,7 +23,11 @@ describe('applyFilters', () => {
   it('searches title and provider case-insensitively', () => {
     const r = applyFilters(items, { ...DEFAULT_FILTERS, query: 'AICTE' })
     expect(r.length).toBeGreaterThan(0)
-    expect(r.every((m) => /aicte/i.test(m.scholarship.title + m.scholarship.provider + m.scholarship.description))).toBe(true)
+    expect(
+      r.every((m) =>
+        /aicte/i.test(m.scholarship.title + m.scholarship.provider + m.scholarship.description),
+      ),
+    ).toBe(true)
   })
 
   it('filters by verdict', () => {
@@ -40,7 +53,13 @@ describe('applyFilters', () => {
 
 describe('url state', () => {
   it('round-trips filters', () => {
-    const f = { ...DEFAULT_FILTERS, query: 'aicte', verdict: 'eligible' as const, closingWithin: 30 as const, sort: 'amount' as const }
+    const f = {
+      ...DEFAULT_FILTERS,
+      query: 'aicte',
+      verdict: 'eligible' as const,
+      closingWithin: 30 as const,
+      sort: 'amount' as const,
+    }
     expect(filtersFromParams(filtersToParams(f))).toEqual(f)
   })
   it('omits defaults and ignores junk values', () => {

@@ -15,13 +15,12 @@ import {
 } from '@/constants/options'
 import { ROUTES } from '@/constants/routes'
 import { validateStep, type Errors } from '@/features/onboarding/validate'
+import { parseNumber, toOptions } from '@/utils/forms'
 import { useProfileStore } from '@/store/profileStore'
 import { useUiStore } from '@/store/uiStore'
 import type { Category, Gender, InstitutionType, Level, StudentProfile } from '@/types/profile'
 
 const STEPS = ['About you', 'Education', 'Eligibility details', 'Review']
-const toOptions = (list: string[]) => list.map((v) => ({ value: v, label: v }))
-const num = (v: string) => (v === '' ? undefined : Number(v))
 
 export default function Onboarding() {
   const existing = useProfileStore((s) => s.profile)
@@ -48,19 +47,34 @@ export default function Onboarding() {
   }
 
   const togglePref = (pref: string) =>
-    set('preferences', p.preferences.includes(pref) ? p.preferences.filter((x) => x !== pref) : [...p.preferences, pref])
+    set(
+      'preferences',
+      p.preferences.includes(pref)
+        ? p.preferences.filter((x) => x !== pref)
+        : [...p.preferences, pref],
+    )
 
   return (
     <div className="mx-auto max-w-xl px-4 py-8">
       <h1 className="font-serif text-3xl text-heading">Let us find your fit</h1>
       <p className="mb-6 mt-1 text-sm text-muted">
-        Answer what you can. Anything you skip is marked &quot;needs information&quot;, never &quot;not eligible&quot;.
+        Answer what you can. Anything you skip is marked &quot;needs information&quot;, never
+        &quot;not eligible&quot;.
       </p>
-      <Progress value={((step + 1) / STEPS.length) * 100} label={`Step ${step + 1} of ${STEPS.length}: ${STEPS[step]}`} />
+      <Progress
+        value={((step + 1) / STEPS.length) * 100}
+        label={`Step ${step + 1} of ${STEPS.length}: ${STEPS[step]}`}
+      />
       <Card className="mt-4 space-y-4">
         {step === 0 && (
           <>
-            <TextField label="Your name" value={p.name} error={errors.name} onChange={(e) => set('name', e.target.value)} autoComplete="given-name" />
+            <TextField
+              label="Your name"
+              value={p.name}
+              error={errors.name}
+              onChange={(e) => set('name', e.target.value)}
+              autoComplete="given-name"
+            />
             <SelectField
               label="Gender"
               hint="Optional. Some scholarships are for women only."
@@ -85,7 +99,9 @@ export default function Onboarding() {
               placeholder="Select a level"
               options={LEVEL_OPTIONS}
               value={p.educationLevel ?? ''}
-              onChange={(e) => set('educationLevel', (e.target.value || undefined) as Level | undefined)}
+              onChange={(e) =>
+                set('educationLevel', (e.target.value || undefined) as Level | undefined)
+              }
             />
             <SelectField
               label="Course"
@@ -100,14 +116,16 @@ export default function Onboarding() {
               inputMode="numeric"
               value={p.academicYear ?? ''}
               error={errors.academicYear}
-              onChange={(e) => set('academicYear', num(e.target.value))}
+              onChange={(e) => set('academicYear', parseNumber(e.target.value))}
             />
             <SelectField
               label="Institution type"
               placeholder="Select a type"
               options={INSTITUTION_OPTIONS}
               value={p.institutionType ?? ''}
-              onChange={(e) => set('institutionType', (e.target.value || undefined) as InstitutionType | undefined)}
+              onChange={(e) =>
+                set('institutionType', (e.target.value || undefined) as InstitutionType | undefined)
+              }
             />
           </>
         )}
@@ -118,7 +136,9 @@ export default function Onboarding() {
               placeholder="Select a category"
               options={CATEGORY_OPTIONS}
               value={p.category ?? ''}
-              onChange={(e) => set('category', (e.target.value || undefined) as Category | undefined)}
+              onChange={(e) =>
+                set('category', (e.target.value || undefined) as Category | undefined)
+              }
             />
             <TextField
               label="Annual family income (₹)"
@@ -127,7 +147,7 @@ export default function Onboarding() {
               hint="Used only on this device to check income limits."
               value={p.annualFamilyIncome ?? ''}
               error={errors.annualFamilyIncome}
-              onChange={(e) => set('annualFamilyIncome', num(e.target.value))}
+              onChange={(e) => set('annualFamilyIncome', parseNumber(e.target.value))}
             />
             <TextField
               label="Last exam percentage"
@@ -135,15 +155,30 @@ export default function Onboarding() {
               inputMode="decimal"
               value={p.lastExamPercent ?? ''}
               error={errors.lastExamPercent}
-              onChange={(e) => set('lastExamPercent', num(e.target.value))}
+              onChange={(e) => set('lastExamPercent', parseNumber(e.target.value))}
             />
-            <CheckboxField label="I have a disability" checked={p.disability ?? false} onChange={(e) => set('disability', e.target.checked)} />
-            <CheckboxField label="I belong to a minority community" checked={p.minority ?? false} onChange={(e) => set('minority', e.target.checked)} />
+            <CheckboxField
+              label="I have a disability"
+              checked={p.disability ?? false}
+              onChange={(e) => set('disability', e.target.checked)}
+            />
+            <CheckboxField
+              label="I belong to a minority community"
+              checked={p.minority ?? false}
+              onChange={(e) => set('minority', e.target.checked)}
+            />
             <fieldset>
-              <legend className="mb-1 text-sm font-medium">What are you looking for? (optional)</legend>
+              <legend className="mb-1 text-sm font-medium">
+                What are you looking for? (optional)
+              </legend>
               <div className="grid grid-cols-1 sm:grid-cols-2">
                 {PREFERENCES.map((pref) => (
-                  <CheckboxField key={pref} label={pref} checked={p.preferences.includes(pref)} onChange={() => togglePref(pref)} />
+                  <CheckboxField
+                    key={pref}
+                    label={pref}
+                    checked={p.preferences.includes(pref)}
+                    onChange={() => togglePref(pref)}
+                  />
                 ))}
               </div>
             </fieldset>
@@ -154,7 +189,11 @@ export default function Onboarding() {
           <Button variant="secondary" onClick={() => setStep(step - 1)} disabled={step === 0}>
             Back
           </Button>
-          {step < STEPS.length - 1 ? <Button onClick={next}>Continue</Button> : <Button onClick={finish}>Show my matches</Button>}
+          {step < STEPS.length - 1 ? (
+            <Button onClick={next}>Continue</Button>
+          ) : (
+            <Button onClick={finish}>Show my matches</Button>
+          )}
         </div>
       </Card>
     </div>
@@ -168,7 +207,12 @@ function Review({ p }: { p: StudentProfile }) {
     ['Level', p.educationLevel],
     ['Course', p.course],
     ['Category', p.category],
-    ['Family income', p.annualFamilyIncome === undefined ? undefined : `₹${p.annualFamilyIncome.toLocaleString('en-IN')}`],
+    [
+      'Family income',
+      p.annualFamilyIncome === undefined
+        ? undefined
+        : `₹${p.annualFamilyIncome.toLocaleString('en-IN')}`,
+    ],
     ['Last exam', p.lastExamPercent === undefined ? undefined : `${p.lastExamPercent}%`],
   ]
   return (

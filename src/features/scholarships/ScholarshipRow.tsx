@@ -17,7 +17,7 @@ import { useT } from '@/i18n/useT'
 import type { Level } from '@/types/profile'
 import type { ProviderType } from '@/types/scholarship'
 import { deadlineLabel, formatDeadline } from '@/utils/date'
-import { formatRupees } from '@/utils/format'
+import { formatRupees, periodLabel } from '@/utils/format'
 import { SaveButton } from './SaveButton'
 
 const PROVIDER_ICON: Record<ProviderType, LucideIcon> = {
@@ -33,8 +33,6 @@ const LEVEL_SHORT: Record<Level, string> = {
   pg: 'PG',
   phd: 'PhD',
 }
-const PERIOD = { 'one-time': 'one-time', yearly: 'per year', monthly: 'per month' } as const
-
 /** Horizontal result row: the main list item on Discover, Saved and the dashboard. */
 export function ScholarshipRow({ item, as: Heading = 'h2' }: { item: Matched; as?: 'h2' | 'h3' }) {
   const { scholarship: s, result } = item
@@ -63,7 +61,7 @@ export function ScholarshipRow({ item, as: Heading = 'h2' }: { item: Matched; as
             <dt className="sr-only">Amount</dt>
             <dd className="tabular font-semibold text-ink">
               {formatRupees(s.amount.value)}{' '}
-              <span className="font-normal text-muted">{PERIOD[s.amount.period]}</span>
+              <span className="font-normal text-muted">{periodLabel(s.amount.period)}</span>
             </dd>
           </div>
           <div className="flex items-center gap-1 text-muted">

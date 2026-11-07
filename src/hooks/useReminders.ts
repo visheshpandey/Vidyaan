@@ -6,8 +6,11 @@ import { useDocumentStore } from '@/store/documentStore'
 import { useSettingsStore } from '@/store/settingsStore'
 import { useTrackerStore } from '@/store/trackerStore'
 
-/** Shows at most one browser notification per day, only if the student opted in and allowed it. */
-export function useReminders() {
+/**
+ * Shows at most one browser notification per day, only if the student opted in and allowed it.
+ * A failing Notification API (some mobile browsers throw) is ignored: reminders must never break the app.
+ */
+export function useReminders(): void {
   const enabled = useSettingsStore((s) => s.remindersEnabled)
   const lastNotifiedOn = useSettingsStore((s) => s.lastNotifiedOn)
   const update = useSettingsStore((s) => s.update)
@@ -16,12 +19,17 @@ export function useReminders() {
   const documents = useDocumentStore((s) => s.documents)
 
   useEffect(() => {
-    if (!enabled || typeof Notification === 'undefined' || Notification.permission !== 'granted') return
+    if (!enabled || typeof Notification === 'undefined' || Notification.permission !== 'granted')
+      return
     const today = new Date().toISOString().slice(0, 10)
     if (lastNotifiedOn === today) return
     const due = dueReminders(collectEvents(getScholarshipsSync(), saved, applications, documents))
     if (due.length === 0) return
-    new Notification('Vidyaan reminder', { body: reminderSummary(due) })
-    update({ lastNotifiedOn: today })
+    try {
+      new Notification('Vidyaan reminder', { body: reminderSummary(due) })
+      update({ lastNotifiedOn: today })
+    } catch {
+      // Notifications are a nicety. Deadlines are still shown in the app.
+    }
   }, [enabled, lastNotifiedOn, saved, applications, documents, update])
 }

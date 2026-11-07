@@ -11,6 +11,13 @@ export function formatLakh(value: number): string {
   return `₹${Number((value / 100000).toFixed(2))}L`
 }
 
+const PERIOD_LABELS = { 'one-time': 'one-time', yearly: 'per year', monthly: 'per month' } as const
+
+/** Human label for how often an award is paid, e.g. "per year". */
+export function periodLabel(period: keyof typeof PERIOD_LABELS): string {
+  return PERIOD_LABELS[period]
+}
+
 const LEVEL_LABELS: Record<string, string> = {
   school: 'School',
   diploma: 'Diploma',

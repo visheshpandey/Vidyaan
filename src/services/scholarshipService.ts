@@ -1,31 +1,25 @@
-import { z } from 'zod'
-import raw from '@/data/scholarships.json'
-import { scholarshipSchema } from '@/data/schemas'
+import { loadBundledScholarships } from '@/api/bundledScholarships'
+import { scholarshipsApi } from '@/api/scholarshipsApi'
 import type { Scholarship } from '@/types/scholarship'
 
-let cache: Scholarship[] | null = null
-
-/** Parses and validates the bundled scholarship records (invalid records are dropped). */
-function load(): Scholarship[] {
-  if (cache) return cache
-  const parsed = z.array(z.unknown()).parse(raw)
-  cache = parsed.flatMap((item) => {
-    const r = scholarshipSchema.safeParse(item)
-    return r.success ? [r.data] : []
-  })
-  return cache
-}
-
-/** Async on purpose: mirrors a real API so a backend can replace it later. */
+/**
+ * All scholarships. Async on purpose: with VITE_API_BASE_URL set this comes from our backend
+ * (cached, with a fallback to bundled data). Without it, it returns the bundled data.
+ */
 export async function listScholarships(): Promise<Scholarship[]> {
-  return load()
+  return scholarshipsApi.fetchScholarships()
 }
 
+/** One scholarship by id, or undefined if it does not exist. */
 export async function getScholarship(id: string): Promise<Scholarship | undefined> {
-  return load().find((s) => s.id === id)
+  const all = await scholarshipsApi.fetchScholarships()
+  return all.find((s) => s.id === id)
 }
 
-/** Synchronous accessor for derived selectors (data is bundled, so this is safe). */
+/**
+ * Synchronous accessor for derived selectors. Always the bundled data, which is
+ * what the UI renders from today. Switch components to `listScholarships` to use a backend.
+ */
 export function getScholarshipsSync(): Scholarship[] {
-  return load()
+  return loadBundledScholarships()
 }

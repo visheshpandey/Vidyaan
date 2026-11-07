@@ -1,5 +1,14 @@
 import { useMemo, useState } from 'react'
-import { addMonths, eachDayOfInterval, endOfMonth, endOfWeek, format, isSameMonth, startOfMonth, startOfWeek } from 'date-fns'
+import {
+  addMonths,
+  eachDayOfInterval,
+  endOfMonth,
+  endOfWeek,
+  format,
+  isSameMonth,
+  startOfMonth,
+  startOfWeek,
+} from 'date-fns'
 import { CalendarClock, ChevronLeft, ChevronRight, Download } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
@@ -13,13 +22,14 @@ import { downloadText } from '@/services/exportService'
 import { getScholarshipsSync } from '@/services/scholarshipService'
 import { useDocumentStore } from '@/store/documentStore'
 import { useTrackerStore } from '@/store/trackerStore'
+import { useUiStore } from '@/store/uiStore'
 import { deadlineLabel, formatDeadline } from '@/utils/date'
-
 
 export default function Deadlines() {
   const saved = useTrackerStore((s) => s.saved)
   const applications = useTrackerStore((s) => s.applications)
   const documents = useDocumentStore((s) => s.documents)
+  const notify = useUiStore((s) => s.notify)
   const [month, setMonth] = useState(() => startOfMonth(new Date()))
 
   const events = useMemo(
@@ -41,7 +51,15 @@ export default function Deadlines() {
             variant="secondary"
             size="sm"
             disabled={upcoming.length === 0}
-            onClick={() => downloadText('vidyaan-deadlines.ics', buildIcs(upcoming), 'text/calendar')}
+            onClick={() => {
+              const ok = downloadText('vidyaan-deadlines.ics', buildIcs(upcoming), 'text/calendar')
+              notify(
+                ok
+                  ? 'Calendar file downloaded'
+                  : 'Could not download the calendar file. Please try again.',
+                ok ? 'success' : 'error',
+              )
+            }}
           >
             <Download size={16} aria-hidden /> Add to calendar (.ics)
           </Button>
@@ -63,13 +81,23 @@ export default function Deadlines() {
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
           <Card>
             <div className="mb-3 flex items-center justify-between">
-              <Button variant="ghost" size="sm" aria-label="Previous month" onClick={() => setMonth(addMonths(month, -1))}>
+              <Button
+                variant="ghost"
+                size="sm"
+                aria-label="Previous month"
+                onClick={() => setMonth(addMonths(month, -1))}
+              >
                 <ChevronLeft size={18} aria-hidden />
               </Button>
               <h2 className="font-serif text-xl text-heading" aria-live="polite">
                 {format(month, 'MMMM yyyy')}
               </h2>
-              <Button variant="ghost" size="sm" aria-label="Next month" onClick={() => setMonth(addMonths(month, 1))}>
+              <Button
+                variant="ghost"
+                size="sm"
+                aria-label="Next month"
+                onClick={() => setMonth(addMonths(month, 1))}
+              >
                 <ChevronRight size={18} aria-hidden />
               </Button>
             </div>
@@ -93,7 +121,10 @@ export default function Deadlines() {
                     {here.length > 0 && (
                       <span className="mt-1 block rounded bg-primary px-1 text-white">
                         {here.length}
-                        <span className="sr-only"> event{here.length === 1 ? '' : 's'}: {here.map((e) => e.title).join(', ')}</span>
+                        <span className="sr-only">
+                          {' '}
+                          event{here.length === 1 ? '' : 's'}: {here.map((e) => e.title).join(', ')}
+                        </span>
                       </span>
                     )}
                   </li>
@@ -112,11 +143,22 @@ export default function Deadlines() {
                   <Card className="flex items-center justify-between gap-3 p-4">
                     <div>
                       <p className="text-sm font-medium">
-                        {e.scholarshipId ? <Link to={ROUTES.scholarship(e.scholarshipId)} className="hover:underline">{e.title}</Link> : e.title}
+                        {e.scholarshipId ? (
+                          <Link
+                            to={ROUTES.scholarship(e.scholarshipId)}
+                            className="hover:underline"
+                          >
+                            {e.title}
+                          </Link>
+                        ) : (
+                          e.title
+                        )}
                       </p>
                       <p className="text-xs text-muted">{formatDeadline(e.date)}</p>
                     </div>
-                    <span className="text-xs font-medium text-secondary">{deadlineLabel(e.date)}</span>
+                    <span className="text-xs font-medium text-secondary">
+                      {deadlineLabel(e.date)}
+                    </span>
                   </Card>
                 </li>
               ))}

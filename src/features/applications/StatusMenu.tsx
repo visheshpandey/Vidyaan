@@ -18,7 +18,10 @@ export function StatusMenu({ app, title }: { app: Application; title: string }) 
         </Button>
       </Menu.Trigger>
       <Menu.Portal>
-        <Menu.Content align="end" className="z-50 min-w-48 rounded-card border border-line bg-surface p-1 shadow-lg">
+        <Menu.Content
+          align="end"
+          className="z-50 min-w-48 rounded-card border border-line bg-surface p-1 shadow-lg"
+        >
           {APPLICATION_STATUSES.map((status) => (
             <Menu.Item
               key={status}

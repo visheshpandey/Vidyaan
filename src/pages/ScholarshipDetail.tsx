@@ -14,9 +14,7 @@ import { useMatches } from '@/hooks/useMatches'
 import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import { daysUntil, deadlineLabel, formatDeadline } from '@/utils/date'
-import { formatRupees } from '@/utils/format'
-
-const PERIOD = { 'one-time': 'one-time', yearly: 'per year', monthly: 'per month' } as const
+import { formatRupees, periodLabel } from '@/utils/format'
 
 const SECTIONS = [
   { id: 'about', label: 'About' },
@@ -168,7 +166,7 @@ export default function ScholarshipDetail() {
                 {formatRupees(s.amount.value)}
               </p>
               <p className="text-sm text-muted">
-                {PERIOD[s.amount.period]}
+                {periodLabel(s.amount.period)}
                 {s.dataType === 'sample' && ' (reported)'}
               </p>
             </div>

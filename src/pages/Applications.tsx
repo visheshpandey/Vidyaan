@@ -7,21 +7,19 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ROUTES } from '@/constants/routes'
 import { Board } from '@/features/applications/Board'
-import { StatusMenu } from '@/features/applications/StatusMenu'
-import { StatusPill } from '@/features/applications/StatusPill'
+import { ApplicationListItem } from '@/features/applications/ApplicationListItem'
+import { countByStatus, filterByStatus, type StatusFilter } from '@/features/applications/selectors'
 import { STATUS_LABELS } from '@/features/applications/transitions'
 import { getScholarshipsSync } from '@/services/scholarshipService'
 import { useTrackerStore } from '@/store/trackerStore'
-import { APPLICATION_STATUSES, type ApplicationStatus } from '@/types/tracker'
-import { deadlineLabel, formatDeadline } from '@/utils/date'
+import { APPLICATION_STATUSES } from '@/types/tracker'
 
 export default function Applications() {
   const applications = useTrackerStore((s) => s.applications)
   const [view, setView] = useState<'list' | 'board'>('board')
-  const [filter, setFilter] = useState<ApplicationStatus | 'all'>('all')
+  const [filter, setFilter] = useState<StatusFilter>('all')
   const byId = new Map(getScholarshipsSync().map((s) => [s.id, s]))
-  const shown = applications.filter((a) => filter === 'all' || a.status === filter)
-  const count = (st: ApplicationStatus) => applications.filter((a) => a.status === st).length
+  const shown = filterByStatus(applications, filter)
 
   return (
     <>
@@ -83,7 +81,7 @@ export default function Applications() {
                 >
                   {st === 'all'
                     ? `All (${applications.length})`
-                    : `${STATUS_LABELS[st]} (${count(st)})`}
+                    : `${STATUS_LABELS[st]} (${countByStatus(applications, st)})`}
                 </button>
               ))}
             </div>
@@ -94,29 +92,11 @@ export default function Applications() {
               <Card className="text-sm text-muted">No applications in this stage.</Card>
             ) : (
               <ul className="space-y-3">
-                {shown.map((a) => {
-                  const s = byId.get(a.scholarshipId)
-                  const title = s?.title ?? 'Scholarship'
-                  return (
-                    <li key={a.id}>
-                      <Card className="flex flex-wrap items-center justify-between gap-3">
-                        <div className="min-w-0">
-                          <StatusPill status={a.status} />
-                          <h2 className="mt-1 font-serif text-lg text-heading">
-                            <Link to={ROUTES.application(a.id)} className="hover:underline">
-                              {title}
-                            </Link>
-                          </h2>
-                          <p className="text-sm text-muted">
-                            {s?.provider} · Deadline: {formatDeadline(s?.deadline ?? null)}
-                            {s?.deadline && ` (${deadlineLabel(s.deadline)})`}
-                          </p>
-                        </div>
-                        <StatusMenu app={a} title={title} />
-                      </Card>
-                    </li>
-                  )
-                })}
+                {shown.map((a) => (
+                  <li key={a.id}>
+                    <ApplicationListItem app={a} scholarship={byId.get(a.scholarshipId)} />
+                  </li>
+                ))}
               </ul>
             )}
           </div>

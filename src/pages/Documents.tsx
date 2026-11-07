@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/Card'
 import { ConfirmDialog } from '@/components/ui/Modal'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { Progress } from '@/components/ui/Progress'
-import { readiness } from '@/features/documents/readiness'
+import { overallReadiness, readiness } from '@/features/documents/readiness'
 import { isActive } from '@/features/applications/transitions'
 import { getScholarshipsSync } from '@/services/scholarshipService'
 import { useDocumentStore } from '@/store/documentStore'
@@ -21,8 +21,7 @@ export default function Documents() {
   const [name, setName] = useState('')
   const [toRemove, setToRemove] = useState<{ id: string; name: string } | null>(null)
   const titles = new Map(getScholarshipsSync().map((s) => [s.id, s.title]))
-  const have = documents.filter((d) => d.status === 'available').length
-  const overall = documents.length === 0 ? 0 : Math.round((have / documents.length) * 100)
+  const { available: have, percent: overall } = overallReadiness(documents)
   const open = applications.filter((a) => isActive(a) || a.status === 'saved')
 
   const onAdd = (e: FormEvent) => {

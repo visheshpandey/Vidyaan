@@ -5,7 +5,15 @@ import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 
 /** Toggles a scholarship in the saved list and announces the result. */
-export function SaveButton({ id, title, compact }: { id: string; title: string; compact?: boolean }) {
+export function SaveButton({
+  id,
+  title,
+  compact,
+}: {
+  id: string
+  title: string
+  compact?: boolean
+}) {
   const isSaved = useTrackerStore((s) => s.saved.includes(id))
   const toggle = useTrackerStore((s) => s.toggleSaved)
   const notify = useUiStore((s) => s.notify)

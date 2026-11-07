@@ -11,7 +11,11 @@ export const STATUS_LABELS: Record<ApplicationStatus, string> = {
 }
 
 /** Creates a new application in the Saved stage. */
-export function createApplication(scholarshipId: string, now: string, checklist: string[]): Application {
+export function createApplication(
+  scholarshipId: string,
+  now: string,
+  checklist: string[],
+): Application {
   return {
     id: `app-${scholarshipId}`,
     scholarshipId,

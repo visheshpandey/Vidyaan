@@ -1,56 +1,28 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useMemo, useState } from 'react'
 import { SearchX, SlidersHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Modal } from '@/components/ui/Modal'
 import { PageHeader } from '@/components/ui/PageHeader'
-import { SEARCH_DEBOUNCE_MS } from '@/constants/limits'
 import { FilterChips } from '@/features/discover/FilterChips'
 import { FilterControls } from '@/features/discover/FilterControls'
-import {
-  activeFilterCount,
-  applyFilters,
-  filtersFromParams,
-  filtersToParams,
-  type Filters,
-} from '@/features/discover/filters'
+import { applyFilters } from '@/features/discover/filters'
+import { useDiscoverFilters } from '@/features/discover/useDiscoverFilters'
 import { rank } from '@/features/matching/rank'
 import { ScholarshipRow } from '@/features/scholarships/ScholarshipRow'
-import { useDebounce } from '@/hooks/useDebounce'
 import { useT } from '@/i18n/useT'
 import { useMatches } from '@/hooks/useMatches'
 
 export default function Discover() {
   const matches = useMatches()
   const t = useT()
-  const [params, setParams] = useSearchParams()
-  const filters = useMemo(() => filtersFromParams(params), [params])
   const [sheetOpen, setSheetOpen] = useState(false)
-  const [text, setText] = useState(filters.query)
-  const query = useDebounce(text, SEARCH_DEBOUNCE_MS)
-  const patch = (p: Partial<Filters>) =>
-    setParams(filtersToParams({ ...filters, ...p, query: p.query ?? filters.query }), {
-      replace: true,
-    })
-  const effective = filters
-
-  // Keep the URL in step with the (debounced) search box so results can be shared and bookmarked.
-  useEffect(() => {
-    if (query === text && query !== filters.query)
-      setParams(filtersToParams({ ...filters, query }), { replace: true })
-  }, [query, text, filters, setParams])
-
+  const { filters, text, setText, patch, reset, activeCount } = useDiscoverFilters()
   const results = useMemo(
-    () => rank(applyFilters(matches, effective), effective.sort),
-    [matches, effective],
+    () => rank(applyFilters(matches, filters), filters.sort),
+    [matches, filters],
   )
-  const reset = () => {
-    setParams({}, { replace: true })
-    setText('')
-  }
-  const activeCount = activeFilterCount(effective)
 
   return (
     <>

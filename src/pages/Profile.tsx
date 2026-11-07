@@ -24,9 +24,21 @@ import { useProfileStore } from '@/store/profileStore'
 import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import type { Category, Gender, InstitutionType, Level, StudentProfile } from '@/types/profile'
+import { parseNumber, toOptions } from '@/utils/forms'
 
-const toOptions = (list: string[]) => list.map((v) => ({ value: v, label: v }))
-const num = (v: string) => (v === '' ? undefined : Number(v))
+/** Runs a download and tells the student whether it worked. */
+function runDownload(
+  notify: (message: string, tone?: 'success' | 'info' | 'error') => void,
+  filename: string,
+  content: string,
+  type: string,
+): void {
+  const ok = downloadText(filename, content, type)
+  notify(
+    ok ? 'File downloaded' : 'Could not download the file. Please try again.',
+    ok ? 'success' : 'error',
+  )
+}
 
 export default function Profile() {
   const profile = useProfileStore((s) => s.profile) ?? { name: '', preferences: [] }
@@ -44,22 +56,94 @@ export default function Profile() {
 
   return (
     <>
-      <PageHeader title="Profile" subtitle="Changes apply instantly. Your matches update as you edit." />
+      <PageHeader
+        title="Profile"
+        subtitle="Changes apply instantly. Your matches update as you edit."
+      />
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="space-y-4 lg:col-span-2">
-          <TextField label="Name" value={profile.name} onChange={(e) => set('name', e.target.value)} />
+          <TextField
+            label="Name"
+            value={profile.name}
+            onChange={(e) => set('name', e.target.value)}
+          />
           <div className="grid gap-4 sm:grid-cols-2">
-            <SelectField label="Education level" placeholder="Not set" options={LEVEL_OPTIONS} value={profile.educationLevel ?? ''} onChange={(e) => set('educationLevel', (e.target.value || undefined) as Level | undefined)} />
-            <SelectField label="Course" placeholder="Not set" options={toOptions(COURSES)} value={profile.course ?? ''} onChange={(e) => set('course', e.target.value || undefined)} />
-            <SelectField label="State" placeholder="Not set" options={toOptions(STATES)} value={profile.state ?? ''} onChange={(e) => set('state', e.target.value || undefined)} />
-            <SelectField label="Institution type" placeholder="Not set" options={INSTITUTION_OPTIONS} value={profile.institutionType ?? ''} onChange={(e) => set('institutionType', (e.target.value || undefined) as InstitutionType | undefined)} />
-            <SelectField label="Gender" placeholder="Not set" options={GENDER_OPTIONS} value={profile.gender ?? ''} onChange={(e) => set('gender', (e.target.value || undefined) as Gender | undefined)} />
-            <SelectField label="Category" placeholder="Not set" options={CATEGORY_OPTIONS} value={profile.category ?? ''} onChange={(e) => set('category', (e.target.value || undefined) as Category | undefined)} />
-            <TextField label="Annual family income (₹)" type="number" inputMode="numeric" min={0} value={profile.annualFamilyIncome ?? ''} onChange={(e) => set('annualFamilyIncome', num(e.target.value))} />
-            <TextField label="Last exam percentage" type="number" inputMode="decimal" min={0} max={100} value={profile.lastExamPercent ?? ''} onChange={(e) => set('lastExamPercent', num(e.target.value))} />
+            <SelectField
+              label="Education level"
+              placeholder="Not set"
+              options={LEVEL_OPTIONS}
+              value={profile.educationLevel ?? ''}
+              onChange={(e) =>
+                set('educationLevel', (e.target.value || undefined) as Level | undefined)
+              }
+            />
+            <SelectField
+              label="Course"
+              placeholder="Not set"
+              options={toOptions(COURSES)}
+              value={profile.course ?? ''}
+              onChange={(e) => set('course', e.target.value || undefined)}
+            />
+            <SelectField
+              label="State"
+              placeholder="Not set"
+              options={toOptions(STATES)}
+              value={profile.state ?? ''}
+              onChange={(e) => set('state', e.target.value || undefined)}
+            />
+            <SelectField
+              label="Institution type"
+              placeholder="Not set"
+              options={INSTITUTION_OPTIONS}
+              value={profile.institutionType ?? ''}
+              onChange={(e) =>
+                set('institutionType', (e.target.value || undefined) as InstitutionType | undefined)
+              }
+            />
+            <SelectField
+              label="Gender"
+              placeholder="Not set"
+              options={GENDER_OPTIONS}
+              value={profile.gender ?? ''}
+              onChange={(e) => set('gender', (e.target.value || undefined) as Gender | undefined)}
+            />
+            <SelectField
+              label="Category"
+              placeholder="Not set"
+              options={CATEGORY_OPTIONS}
+              value={profile.category ?? ''}
+              onChange={(e) =>
+                set('category', (e.target.value || undefined) as Category | undefined)
+              }
+            />
+            <TextField
+              label="Annual family income (₹)"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              value={profile.annualFamilyIncome ?? ''}
+              onChange={(e) => set('annualFamilyIncome', parseNumber(e.target.value))}
+            />
+            <TextField
+              label="Last exam percentage"
+              type="number"
+              inputMode="decimal"
+              min={0}
+              max={100}
+              value={profile.lastExamPercent ?? ''}
+              onChange={(e) => set('lastExamPercent', parseNumber(e.target.value))}
+            />
           </div>
-          <CheckboxField label="I have a disability" checked={profile.disability ?? false} onChange={(e) => set('disability', e.target.checked)} />
-          <CheckboxField label="I belong to a minority community" checked={profile.minority ?? false} onChange={(e) => set('minority', e.target.checked)} />
+          <CheckboxField
+            label="I have a disability"
+            checked={profile.disability ?? false}
+            onChange={(e) => set('disability', e.target.checked)}
+          />
+          <CheckboxField
+            label="I belong to a minority community"
+            checked={profile.minority ?? false}
+            onChange={(e) => set('minority', e.target.checked)}
+          />
         </Card>
 
         <div className="space-y-6">
@@ -76,22 +160,45 @@ export default function Profile() {
               onChange={async (e) => {
                 const on = e.target.checked
                 settings.update({ remindersEnabled: on })
-                if (on && typeof Notification !== 'undefined' && Notification.permission === 'default') {
-                  const result = await Notification.requestPermission()
-                  notify(result === 'granted' ? 'Reminders on' : 'Browser notifications are blocked. You will still see deadlines in the app.', 'info')
+                if (
+                  on &&
+                  typeof Notification !== 'undefined' &&
+                  Notification.permission === 'default'
+                ) {
+                  try {
+                    const result = await Notification.requestPermission()
+                    notify(
+                      result === 'granted'
+                        ? 'Reminders on'
+                        : 'Browser notifications are blocked. You will still see deadlines in the app.',
+                      'info',
+                    )
+                  } catch {
+                    notify(
+                      'Your browser could not turn on reminders. You will still see deadlines in the app.',
+                      'info',
+                    )
+                  }
                 }
               }}
             />
           </Card>
           <Card>
             <h2 className="font-serif text-xl text-heading">Your data</h2>
-            <p className="mt-1 text-sm text-muted">Stored only in this browser. Nothing is sent anywhere.</p>
+            <p className="mt-1 text-sm text-muted">
+              Stored only in this browser. Nothing is sent anywhere.
+            </p>
             <div className="mt-3 flex flex-col gap-2">
               <Button
                 variant="secondary"
                 size="sm"
                 onClick={() =>
-                  downloadText('vidyaan-data.json', JSON.stringify({ profile, saved, applications, documents }, null, 2), 'application/json')
+                  runDownload(
+                    notify,
+                    'vidyaan-data.json',
+                    JSON.stringify({ profile, saved, applications, documents }, null, 2),
+                    'application/json',
+                  )
                 }
               >
                 Export everything (JSON)
@@ -100,7 +207,14 @@ export default function Profile() {
                 variant="secondary"
                 size="sm"
                 disabled={applications.length === 0}
-                onClick={() => downloadText('vidyaan-applications.csv', applicationsToCsv(applications, titleOf), 'text/csv')}
+                onClick={() =>
+                  runDownload(
+                    notify,
+                    'vidyaan-applications.csv',
+                    applicationsToCsv(applications, titleOf),
+                    'text/csv',
+                  )
+                }
               >
                 Export applications (CSV)
               </Button>
@@ -122,8 +236,8 @@ export default function Profile() {
         description="This replaces your profile, saved list, applications and documents with the sample student, Priya."
         confirmLabel="Load demo"
         onConfirm={() => {
-          loadDemoData()
-          notify('Demo data loaded')
+          if (loadDemoData()) notify('Demo data loaded')
+          else notify('Could not load the demo data. Please try again.', 'error')
         }}
       />
       <ConfirmDialog
@@ -134,7 +248,10 @@ export default function Profile() {
         confirmLabel="Clear everything"
         danger
         onConfirm={() => {
-          resetAllData()
+          if (!resetAllData()) {
+            notify('Could not clear your data. Please try again.', 'error')
+            return
+          }
           notify('All data cleared', 'info')
           navigate(ROUTES.home)
         }}

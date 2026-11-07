@@ -7,14 +7,18 @@ import { StatusBadge } from '@/features/matching/StatusBadge'
 import type { Matched } from '@/features/matching/rank'
 import { deadlineLabel, formatDeadline } from '@/utils/date'
 import { useT } from '@/i18n/useT'
-import { formatRupees } from '@/utils/format'
+import { formatRupees, periodLabel } from '@/utils/format'
 import { CompareToggle } from '@/features/compare/CompareToggle'
 import { SaveButton } from './SaveButton'
 
-const PERIOD = { 'one-time': 'one-time', yearly: 'per year', monthly: 'per month' } as const
-
 /** The signature card: used on Discover, Dashboard and Saved. */
-export function ScholarshipBrief({ item, as: Heading = 'h2' }: { item: Matched; as?: 'h2' | 'h3' }) {
+export function ScholarshipBrief({
+  item,
+  as: Heading = 'h2',
+}: {
+  item: Matched
+  as?: 'h2' | 'h3'
+}) {
   const { scholarship: s, result } = item
   const t = useT()
   return (
@@ -35,7 +39,8 @@ export function ScholarshipBrief({ item, as: Heading = 'h2' }: { item: Matched; 
         <div>
           <dt className="sr-only">Amount</dt>
           <dd className="tabular font-semibold text-ink">
-            {formatRupees(s.amount.value)} <span className="font-normal text-muted">{PERIOD[s.amount.period]}</span>
+            {formatRupees(s.amount.value)}{' '}
+            <span className="font-normal text-muted">{periodLabel(s.amount.period)}</span>
           </dd>
         </div>
         <div className="flex items-center gap-1 text-muted">
@@ -48,7 +53,10 @@ export function ScholarshipBrief({ item, as: Heading = 'h2' }: { item: Matched; 
         </div>
       </dl>
       <div className="mt-auto flex items-center justify-between gap-2 pt-1">
-        <Link to={ROUTES.scholarship(s.id)} className="text-sm font-medium text-secondary underline">
+        <Link
+          to={ROUTES.scholarship(s.id)}
+          className="text-sm font-medium text-secondary underline"
+        >
           {t('common.seeWhy')}
         </Link>
         <div className="flex items-center gap-3">

@@ -1,6 +1,18 @@
 import type { DocumentItem } from '@/types/document'
 import type { Application } from '@/types/tracker'
 
+/** Share of the student's documents that are available, as a whole percentage. 0 when the list is empty. */
+export function overallReadiness(documents: DocumentItem[]): {
+  available: number
+  percent: number
+} {
+  const available = documents.filter((d) => d.status === 'available').length
+  return {
+    available,
+    percent: documents.length === 0 ? 0 : Math.round((available / documents.length) * 100),
+  }
+}
+
 export interface Readiness {
   ready: number
   total: number

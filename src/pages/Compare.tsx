@@ -9,9 +9,7 @@ import { StatusBadge } from '@/features/matching/StatusBadge'
 import { useMatches } from '@/hooks/useMatches'
 import { useCompareStore } from '@/store/compareStore'
 import { formatDeadline } from '@/utils/date'
-import { formatRupees, levelLabel } from '@/utils/format'
-
-const PERIOD = { 'one-time': 'one-time', yearly: 'per year', monthly: 'per month' } as const
+import { formatRupees, levelLabel, periodLabel } from '@/utils/format'
 
 export default function Compare() {
   const ids = useCompareStore((s) => s.ids)
@@ -42,11 +40,23 @@ export default function Compare() {
   const rows: Array<[string, (m: (typeof picked)[number]) => React.ReactNode]> = [
     ['Your result', (m) => <StatusBadge verdict={m.result.verdict} />],
     ['Provider', (m) => m.scholarship.provider],
-    ['Amount', (m) => `${formatRupees(m.scholarship.amount.value)} ${PERIOD[m.scholarship.amount.period]}`],
+    [
+      'Amount',
+      (m) =>
+        `${formatRupees(m.scholarship.amount.value)} ${periodLabel(m.scholarship.amount.period)}`,
+    ],
     ['Deadline', (m) => formatDeadline(m.scholarship.deadline)],
     ['Levels', (m) => m.scholarship.rules.levels?.map(levelLabel).join(', ') ?? 'Any'],
-    ['Income limit', (m) => (m.scholarship.rules.maxIncome ? formatRupees(m.scholarship.rules.maxIncome) : 'None listed')],
-    ['Minimum marks', (m) => (m.scholarship.rules.minPercent ? `${m.scholarship.rules.minPercent}%` : 'None listed')],
+    [
+      'Income limit',
+      (m) =>
+        m.scholarship.rules.maxIncome ? formatRupees(m.scholarship.rules.maxIncome) : 'None listed',
+    ],
+    [
+      'Minimum marks',
+      (m) =>
+        m.scholarship.rules.minPercent ? `${m.scholarship.rules.minPercent}%` : 'None listed',
+    ],
     ['Documents', (m) => m.scholarship.requiredDocuments.join(', ')],
     [
       'Not met',
@@ -76,7 +86,10 @@ export default function Compare() {
               <td className="p-3" />
               {picked.map(({ scholarship: s }) => (
                 <th key={s.id} scope="col" className="p-3 align-top">
-                  <Link to={ROUTES.scholarship(s.id)} className="font-serif text-lg text-heading hover:underline">
+                  <Link
+                    to={ROUTES.scholarship(s.id)}
+                    className="font-serif text-lg text-heading hover:underline"
+                  >
                     {s.title}
                   </Link>
                   <button
