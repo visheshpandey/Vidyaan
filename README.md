@@ -98,7 +98,7 @@ Skip link, labelled form fields with associated errors, status shown with icon a
 
 ## Performance
 
-Self-hosted fonts with a metric-matched fallback (no render-blocking third-party requests), the landing page in the first bundle and every other route loaded on demand, React in its own long-cached chunk, immutable caching for hashed assets, debounced search, and reserved space to avoid layout shift. Mobile Lighthouse on the production build: performance 88 or higher, accessibility, best practices and SEO 100.
+Self-hosted fonts with a metric-matched fallback (no render-blocking third-party requests), the landing page in the first bundle and every other route loaded on demand, React in its own long-cached chunk, immutable caching for hashed assets, debounced search, and reserved space to avoid layout shift. Mobile Lighthouse on the live site: first and largest paint 0.8 s, no layout shift, accessibility 100, SEO 100, best practices 96. Main-thread blocking time is the remaining area to improve.
 
 ## Testing and quality
 
