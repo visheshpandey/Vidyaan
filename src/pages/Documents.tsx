@@ -30,7 +30,7 @@ export default function Documents() {
   return (
     <>
       <PageHeader title="Documents" subtitle="Track which documents you have. Files are never uploaded; only names and dates are kept in this browser." />
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-2">
         <section aria-labelledby="my-docs">
           <h2 id="my-docs" className="mb-3 font-serif text-2xl text-primary">
             Your documents
@@ -72,7 +72,7 @@ export default function Documents() {
                           )}
                         </div>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <label className="text-xs text-muted">
                           <span className="sr-only">Expiry date for {d.name}</span>
                           <input
