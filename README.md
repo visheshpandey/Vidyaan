@@ -12,10 +12,12 @@ It is a frontend-only app. There is no backend and no account: everything is sto
 | --- | --- |
 | Hard to know which scholarships you qualify for | Eligibility engine with three outcomes: **Eligible**, **Needs information**, **Not eligible**, each with the exact reasons |
 | Skipped answers wrongly treated as failures | A missing answer is never "not eligible". It becomes "Needs information" with a link to add it |
-| Too many scholarships to browse | Discover: debounced search, filters, removable chips, sorting by match, deadline or amount |
-| Applications get lost | Tracker from Saved to Disbursed, notes, history and a keyboard-friendly "Move to" menu |
+| Too many scholarships to browse | Discover: debounced search, filters kept in the URL (shareable), removable chips, sorting by match, deadline or amount |
+| Applications get lost | Tracker from Saved to Disbursed with notes and history. Change status with the "Move to" menu, or drag cards on the board (mouse, touch or keyboard) |
 | Missing paperwork | Documents page with expiry dates and per-application readiness |
-| Missed dates | Deadlines calendar, upcoming list and `.ics` export |
+| Missed dates | Deadlines calendar, upcoming list, `.ics` export and an optional once-a-day browser reminder |
+| Choosing between options | Compare up to three scholarships side by side |
+| Different languages and lighting | Dark mode, and English or Hindi for the main screens |
 | Data lock-in | Export everything as JSON, applications as CSV, or clear it all |
 
 Vidyaan never submits an application for you. "View official application" always opens the provider's own site.
@@ -80,7 +82,7 @@ The build output in `dist/` is a static site. On Vercel, import the repository a
 
 ## Roadmap
 
-Compare view, drag-and-drop board, dark mode, Hindi, browser notifications, and replacing the bundled dataset with verified records.
+Full Hindi coverage of every screen, and replacing the bundled dataset with verified records.
 
 ## License
 

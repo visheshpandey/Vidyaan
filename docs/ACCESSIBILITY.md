@@ -13,6 +13,8 @@ Target: WCAG 2.1 AA.
 - Visible focus ring on every interactive element; touch targets are at least 40 to 44px.
 - `prefers-reduced-motion` disables animation.
 - The gold accent is used only as a fill, never as text on white (it fails contrast).
+- Board drag-and-drop can be done by keyboard (Space to pick up, arrows to move, Space to drop), and every card also has a "Move to" menu.
+- Text colours were measured against WCAG AA in both light and dark themes.
 - Layouts reflow with no horizontal scrolling at 360px.
 
 ## Testing

@@ -41,12 +41,12 @@ export default function Dashboard() {
 
   return (
     <>
-      <PageHeader title={`${t('dash.welcome')}${name ? `, ${name}` : ''}`} subtitle="Here is where you stand today." />
+      <PageHeader title={`${t('dash.welcome')}${name ? `, ${name}` : ''}`} subtitle={t('dash.subtitle')} />
       <section aria-label="Summary" className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Metric label="Eligible scholarships" value={data.eligibleCount} to={ROUTES.discover} />
-        <Metric label="Need more information" value={data.needsInfoCount} to={ROUTES.discover} />
-        <Metric label="Active applications" value={data.activeCount} to={ROUTES.applications} />
-        <Metric label="Deadlines in 30 days" value={data.deadlinesSoon.length} to={ROUTES.deadlines} />
+        <Metric label={t('dash.eligible')} value={data.eligibleCount} to={ROUTES.discover} />
+        <Metric label={t('dash.needsInfo')} value={data.needsInfoCount} to={ROUTES.discover} />
+        <Metric label={t('dash.active')} value={data.activeCount} to={ROUTES.applications} />
+        <Metric label={t('dash.deadlines')} value={data.deadlinesSoon.length} to={ROUTES.deadlines} />
       </section>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
