@@ -3,6 +3,7 @@
 @theme {
   --color-primary: #183b32;
   --color-heading: #183b32;
+  --color-sidebar: #183b32;
   --color-secondary: #246b55;
   --color-canvas: #f7f6f0;
   --color-surface: #ffffff;
@@ -23,6 +24,7 @@
 :root[data-theme='dark'] {
   --color-primary: #2f7d63;
   --color-heading: #8fd0b5;
+  --color-sidebar: #0c1f18;
   --color-secondary: #5fb899;
   --color-canvas: #0f1612;
   --color-surface: #17211c;

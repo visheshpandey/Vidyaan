@@ -5,14 +5,17 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { ROUTES } from '@/constants/routes'
 import { rank } from '@/features/matching/rank'
-import { ScholarshipBrief } from '@/features/scholarships/ScholarshipBrief'
+import { ScholarshipRow } from '@/features/scholarships/ScholarshipRow'
 import { useMatches } from '@/hooks/useMatches'
 import { useTrackerStore } from '@/store/trackerStore'
 
 export default function Saved() {
   const saved = useTrackerStore((s) => s.saved)
   const matches = useMatches()
-  const items = rank(matches.filter((m) => saved.includes(m.scholarship.id)), 'deadline')
+  const items = rank(
+    matches.filter((m) => saved.includes(m.scholarship.id)),
+    'deadline',
+  )
   return (
     <>
       <PageHeader title="Saved" subtitle="Scholarships you bookmarked, soonest deadline first." />
@@ -29,9 +32,9 @@ export default function Saved() {
           Save scholarships from Discover to compare and come back to them later.
         </EmptyState>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="space-y-3">
           {items.map((m) => (
-            <ScholarshipBrief key={m.scholarship.id} item={m} />
+            <ScholarshipRow key={m.scholarship.id} item={m} />
           ))}
         </div>
       )}

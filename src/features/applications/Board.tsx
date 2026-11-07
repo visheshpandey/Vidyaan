@@ -41,7 +41,10 @@ function Card({ app, title, deadline }: { app: Application; title: string; deadl
           <GripVertical size={16} aria-hidden />
         </button>
         <div className="min-w-0">
-          <Link to={ROUTES.application(app.id)} className="font-medium text-heading hover:underline">
+          <Link
+            to={ROUTES.application(app.id)}
+            className="font-medium text-heading hover:underline"
+          >
             {title}
           </Link>
           <p className="text-xs text-muted">{deadline}</p>
@@ -54,18 +57,40 @@ function Card({ app, title, deadline }: { app: Application; title: string; deadl
   )
 }
 
-function Column({ status, children, count }: { status: ApplicationStatus; children: React.ReactNode; count: number }) {
+const COLUMN_ACCENT: Record<ApplicationStatus, string> = {
+  saved: 'border-t-muted',
+  preparing: 'border-t-warning',
+  submitted: 'border-t-secondary',
+  under_review: 'border-t-accent',
+  approved: 'border-t-success',
+  disbursed: 'border-t-success',
+  not_selected: 'border-t-danger',
+}
+
+function Column({
+  status,
+  children,
+  count,
+}: {
+  status: ApplicationStatus
+  children: React.ReactNode
+  count: number
+}) {
   const { setNodeRef, isOver } = useDroppable({ id: status })
   const t = useT()
   return (
     <section
       ref={setNodeRef}
       aria-label={`${t(`status.${status}`)}, ${count} applications`}
-      className={clsx('flex min-h-40 w-60 shrink-0 flex-col gap-2 rounded-card bg-canvas p-2', isOver && 'ring-2 ring-secondary')}
+      className={clsx(
+        'flex min-h-40 w-60 shrink-0 flex-col gap-2 rounded-card border-t-4 bg-canvas p-2',
+        COLUMN_ACCENT[status],
+        isOver && 'ring-2 ring-secondary',
+      )}
     >
-      <h3 className="px-1 text-sm font-medium text-ink">
+      <h2 className="px-1 text-sm font-medium text-ink">
         {t(`status.${status}`)} <span className="tabular text-muted">({count})</span>
-      </h3>
+      </h2>
       {children}
     </section>
   )
@@ -88,7 +113,9 @@ export function Board({ applications }: { applications: Application[] }) {
     const status = over.id as ApplicationStatus
     if (!app || app.status === status || !APPLICATION_STATUSES.includes(status)) return
     setStatus(app.id, status)
-    notify(`${byId.get(app.scholarshipId)?.title ?? 'Application'} moved to ${t(`status.${status}`)}`)
+    notify(
+      `${byId.get(app.scholarshipId)?.title ?? 'Application'} moved to ${t(`status.${status}`)}`,
+    )
   }
 
   return (
@@ -100,7 +127,14 @@ export function Board({ applications }: { applications: Application[] }) {
             <Column key={status} status={status} count={items.length}>
               {items.map((a) => {
                 const s = byId.get(a.scholarshipId)
-                return <Card key={a.id} app={a} title={s?.title ?? 'Scholarship'} deadline={formatDeadline(s?.deadline ?? null)} />
+                return (
+                  <Card
+                    key={a.id}
+                    app={a}
+                    title={s?.title ?? 'Scholarship'}
+                    deadline={formatDeadline(s?.deadline ?? null)}
+                  />
+                )
               })}
             </Column>
           )

@@ -21,6 +21,8 @@ export default function Documents() {
   const [name, setName] = useState('')
   const [toRemove, setToRemove] = useState<{ id: string; name: string } | null>(null)
   const titles = new Map(getScholarshipsSync().map((s) => [s.id, s.title]))
+  const have = documents.filter((d) => d.status === 'available').length
+  const overall = documents.length === 0 ? 0 : Math.round((have / documents.length) * 100)
   const open = applications.filter((a) => isActive(a) || a.status === 'saved')
 
   const onAdd = (e: FormEvent) => {
@@ -121,6 +123,21 @@ export default function Documents() {
         </section>
 
         <section aria-labelledby="readiness">
+          <Card className="mb-4">
+            <p className="text-sm text-muted">Your readiness</p>
+            <p className="tabular font-serif text-5xl text-heading">{overall}%</p>
+            <div className="mt-2">
+              <Progress
+                value={overall}
+                label={`${have} of ${documents.length} documents available`}
+              />
+            </div>
+            <p className="mt-2 text-sm text-muted">
+              {overall === 100
+                ? 'Everything on your list is ready.'
+                : 'Add the missing documents to raise your readiness.'}
+            </p>
+          </Card>
           <h2 id="readiness" className="mb-3 font-serif text-2xl text-heading">
             Application readiness
           </h2>

@@ -17,7 +17,7 @@ import { deadlineLabel, formatDeadline } from '@/utils/date'
 
 export default function Applications() {
   const applications = useTrackerStore((s) => s.applications)
-  const [view, setView] = useState<'list' | 'board'>('list')
+  const [view, setView] = useState<'list' | 'board'>('board')
   const [filter, setFilter] = useState<ApplicationStatus | 'all'>('all')
   const byId = new Map(getScholarshipsSync().map((s) => [s.id, s]))
   const shown = applications.filter((a) => filter === 'all' || a.status === filter)

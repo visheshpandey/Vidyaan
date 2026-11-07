@@ -17,7 +17,7 @@ import {
   type Filters,
 } from '@/features/discover/filters'
 import { rank } from '@/features/matching/rank'
-import { ScholarshipBrief } from '@/features/scholarships/ScholarshipBrief'
+import { ScholarshipRow } from '@/features/scholarships/ScholarshipRow'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useT } from '@/i18n/useT'
 import { useMatches } from '@/hooks/useMatches'
@@ -89,7 +89,7 @@ export default function Discover() {
         <section aria-label="Results" className="space-y-4">
           <FilterChips filters={filters} onChange={patch} />
           <p role="status" aria-live="polite" className="text-sm text-muted">
-            {results.length} scholarship{results.length === 1 ? '' : 's'} found
+            Showing {results.length} of {matches.length} scholarships
           </p>
           {results.length === 0 ? (
             <EmptyState
@@ -100,9 +100,9 @@ export default function Discover() {
               Try removing a filter or searching with fewer words.
             </EmptyState>
           ) : (
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-3">
               {results.map((m) => (
-                <ScholarshipBrief key={m.scholarship.id} item={m} />
+                <ScholarshipRow key={m.scholarship.id} item={m} />
               ))}
             </div>
           )}
