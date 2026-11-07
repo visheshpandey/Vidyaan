@@ -10,7 +10,7 @@ export const APPLICATION_STATUSES = [
 
 export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number]
 
-export interface StatusChange {
+interface StatusChange {
   status: ApplicationStatus
   at: string
 }

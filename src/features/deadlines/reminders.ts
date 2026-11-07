@@ -1,7 +1,7 @@
 import { daysUntil } from '@/utils/date'
 import type { DeadlineEvent } from './events'
 
-export const REMINDER_WINDOW_DAYS = 3
+const REMINDER_WINDOW_DAYS = 3
 
 /** Events happening today or within the next few days. */
 export function dueReminders(events: DeadlineEvent[], now: Date = new Date()): DeadlineEvent[] {

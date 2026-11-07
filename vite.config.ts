@@ -34,10 +34,14 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./tests/setup.ts'],
+    // Playwright end-to-end specs live in e2e/ and run with `npm run e2e`.
+    exclude: ['node_modules', 'dist', 'e2e'],
     coverage: {
       provider: 'v8',
       include: ['src/**/*.{ts,tsx}'],
       exclude: ['src/main.tsx', 'src/**/*.test.*'],
+      // Fails `npm run test:coverage` (and CI) if coverage drops below these floors.
+      thresholds: { statements: 80, branches: 75, functions: 80, lines: 80 },
     },
   },
 })

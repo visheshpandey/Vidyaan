@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from 'react'
 import { buttonClass, type Size, type Variant } from './buttonStyles'
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant
   size?: Size
 }

@@ -1,5 +1,5 @@
 /** Why a request failed. Callers branch on this instead of parsing messages. */
-export type ApiErrorCode = 'network' | 'timeout' | 'http' | 'invalid'
+type ApiErrorCode = 'network' | 'timeout' | 'http' | 'invalid'
 
 /** The only error type the API layer throws. */
 export class ApiError extends Error {

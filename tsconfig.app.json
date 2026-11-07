@@ -19,11 +19,12 @@
     /* Linting */
     "strict": true,
     "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
     "paths": { "@/*": ["./src/*"] },
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "tests"]
+  "include": ["src", "tests", "e2e"]
 }

@@ -14,7 +14,7 @@ const FIELDS: Array<keyof StudentProfile> = [
   'minority',
 ]
 
-export interface Completeness {
+interface Completeness {
   percent: number
   filled: number
   total: number

@@ -14,7 +14,7 @@ import { ROUTES } from './routes'
 
 export type NavGroup = 'main' | 'activity' | 'account'
 
-export interface NavItem {
+interface NavItem {
   to: string
   group: NavGroup
   label: string

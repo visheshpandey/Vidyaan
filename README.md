@@ -83,11 +83,24 @@ Match results are derived from the profile on every render and never stored. Sto
 
 ## Accessibility
 
-Skip link, labelled form fields with associated errors, status shown with icon and text (never colour alone), keyboard-operable menus and dialogs, live regions for results and toasts, reduced-motion support, 44px touch targets. Every page is checked with axe in the test suite. See [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md).
+Skip link, labelled form fields with associated errors, status shown with icon and text (never colour alone), keyboard-operable menus, dialogs and drag-and-drop, live regions for results and toasts, reduced-motion support, 44px touch targets, text contrast checked in light and dark themes. Every page is checked with axe in the test suite. See [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md).
 
 ## Performance
 
-Routes are code-split and lazy loaded, dependencies are split into vendor, UI and data chunks, fonts use `display=swap`, and search input is debounced.
+Self-hosted fonts with a metric-matched fallback (no render-blocking third-party requests), the landing page in the first bundle and every other route loaded on demand, React in its own long-cached chunk, immutable caching for hashed assets, debounced search, and reserved space to avoid layout shift. Mobile Lighthouse on the production build: performance 88 or higher, accessibility, best practices and SEO 100.
+
+## Testing and quality
+
+| Check | Command | What it covers |
+| --- | --- | --- |
+| Lint | `npm run lint` | ESLint with type-aware TypeScript rules, React hooks, jsx-a11y. Zero errors |
+| Types | `npm run typecheck` | TypeScript strict plus `noUncheckedIndexedAccess`, `noImplicitReturns`, no `any` |
+| Unit and component tests | `npm test` | Matching engine, stores, storage, sanitizers, API client, every page with axe, user flows |
+| Coverage | `npm run test:coverage` | Fails below 80 percent statements, 75 percent branches |
+| End to end | `npm run e2e` | Real browser on desktop and phone sizes: demo journey, search in URL, tracking, 404, no console errors |
+| All at once | `npm run check` | Lint, typecheck, tests and build |
+
+CI runs all of these on every push. Dependabot keeps dependencies current. See [SECURITY.md](SECURITY.md).
 
 ## Security and privacy
 

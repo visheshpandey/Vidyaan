@@ -13,7 +13,7 @@ export function overallReadiness(documents: DocumentItem[]): {
   }
 }
 
-export interface Readiness {
+interface Readiness {
   ready: number
   total: number
   percent: number

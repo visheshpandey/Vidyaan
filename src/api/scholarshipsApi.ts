@@ -9,7 +9,7 @@ import { getJson } from './httpClient'
 const responseSchema = z.array(scholarshipSchema)
 const CACHE_KEY = 'scholarships'
 
-export interface ScholarshipsApiConfig {
+interface ScholarshipsApiConfig {
   baseUrl: string | undefined
   timeoutMs: number
   cacheMs: number
@@ -17,7 +17,7 @@ export interface ScholarshipsApiConfig {
   now?: () => number
 }
 
-export interface ScholarshipsApi {
+interface ScholarshipsApi {
   /** Returns scholarships from the backend (cached), or the bundled data if there is no backend or it fails. */
   fetchScholarships: () => Promise<Scholarship[]>
 }

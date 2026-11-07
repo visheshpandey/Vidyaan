@@ -7,19 +7,19 @@ import type { StudentProfile } from '@/types/profile'
 import type { Application } from '@/types/tracker'
 import { daysUntil } from '@/utils/date'
 
-export interface NextStep {
+interface NextStep {
   id: string
   text: string
   to: string
 }
 
-export interface ActivityItem {
+interface ActivityItem {
   id: string
   text: string
   at: string
 }
 
-export interface DashboardData {
+interface DashboardData {
   eligibleCount: number
   needsInfoCount: number
   savedCount: number

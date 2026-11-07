@@ -26,3 +26,8 @@ jobs:
       - run: npm run typecheck
       - run: npm run test:coverage
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+        env:
+          E2E_CHANNEL: chromium
+          CI: 'true'

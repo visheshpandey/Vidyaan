@@ -13,8 +13,8 @@ export interface EligibilityRules {
 }
 
 export type ProviderType = 'government' | 'private' | 'university' | 'ngo'
-export type ScholarshipType = 'merit' | 'need' | 'special'
-export type AmountPeriod = 'one-time' | 'yearly' | 'monthly'
+type ScholarshipType = 'merit' | 'need' | 'special'
+type AmountPeriod = 'one-time' | 'yearly' | 'monthly'
 
 export interface Scholarship {
   id: string

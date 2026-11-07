@@ -2,7 +2,7 @@ import type { z } from 'zod'
 import { env } from '@/config/env'
 import { ApiError } from './ApiError'
 
-export interface GetJsonOptions {
+interface GetJsonOptions {
   /** Defaults to VITE_API_BASE_URL. */
   baseUrl?: string
   /** Defaults to VITE_API_TIMEOUT_MS. */

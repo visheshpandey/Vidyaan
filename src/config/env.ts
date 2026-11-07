@@ -21,7 +21,7 @@ const envSchema = z.object({
   VITE_API_CACHE_MS: z.coerce.number().int().nonnegative().catch(DEFAULTS.apiCacheMs),
 })
 
-export interface AppEnv {
+interface AppEnv {
   readonly appName: string
   /** Base URL of our own backend. Undefined means the app uses its bundled data. */
   readonly apiBaseUrl: string | undefined
