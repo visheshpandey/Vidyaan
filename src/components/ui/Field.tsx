@@ -5,14 +5,16 @@ const CONTROL =
   'h-11 w-full rounded-control border border-line bg-surface px-3 text-sm text-ink placeholder:text-muted'
 
 interface FieldShellProps {
+  id?: string
   label: string
   hint?: string
   error?: string
   children: (ids: { id: string; describedBy?: string; invalid: boolean }) => ReactNode
 }
 
-function FieldShell({ label, hint, error, children }: FieldShellProps) {
-  const id = useId()
+function FieldShell({ id: explicitId, label, hint, error, children }: FieldShellProps) {
+  const generatedId = useId()
+  const id = explicitId ?? generatedId
   const hintId = `${id}-hint`
   const errId = `${id}-err`
   const describedBy =
@@ -44,12 +46,12 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 /** Labelled text input with an optional hint and an error linked for screen readers. */
-export function TextField({ label, hint, error, className, ...rest }: InputProps) {
+export function TextField({ id, label, hint, error, className, ...rest }: InputProps) {
   return (
-    <FieldShell label={label} hint={hint} error={error}>
-      {({ id, describedBy, invalid }) => (
+    <FieldShell id={id} label={label} hint={hint} error={error}>
+      {({ id: controlId, describedBy, invalid }) => (
         <input
-          id={id}
+          id={controlId}
           aria-describedby={describedBy}
           aria-invalid={invalid || undefined}
           className={clsx(CONTROL, invalid && 'border-danger', className)}
@@ -70,6 +72,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 
 /** Native select: best keyboard, screen reader and mobile behaviour. */
 export function SelectField({
+  id,
   label,
   hint,
   error,
@@ -79,10 +82,10 @@ export function SelectField({
   ...rest
 }: SelectProps) {
   return (
-    <FieldShell label={label} hint={hint} error={error}>
-      {({ id, describedBy, invalid }) => (
+    <FieldShell id={id} label={label} hint={hint} error={error}>
+      {({ id: controlId, describedBy, invalid }) => (
         <select
-          id={id}
+          id={controlId}
           aria-describedby={describedBy}
           aria-invalid={invalid || undefined}
           className={clsx(CONTROL, invalid && 'border-danger', className)}

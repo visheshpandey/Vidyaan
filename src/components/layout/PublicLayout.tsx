@@ -25,7 +25,7 @@ export function PublicLayout() {
           <PreferenceToggles />
           <Link
             to={onboarded ? ROUTES.dashboard : ROUTES.onboarding}
-            className={buttonClass('secondary', 'sm', 'whitespace-nowrap')}
+            className={buttonClass('secondary', 'sm', 'whitespace-nowrap max-sm:hidden')}
           >
             {onboarded ? t('landing.open') : t('landing.start')}
           </Link>

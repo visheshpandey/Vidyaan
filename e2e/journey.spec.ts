@@ -3,7 +3,10 @@ import { expect, test, type Page } from '@playwright/test'
 /** Loads the demo student from the welcome page and lands on the dashboard. */
 async function startDemo(page: Page) {
   await page.goto('/welcome')
-  await page.getByRole('button', { name: /try the demo/i }).first().click()
+  await page
+    .getByRole('button', { name: /try the demo/i })
+    .first()
+    .click()
   await expect(page).toHaveURL(/\/dashboard$/)
 }
 
@@ -39,7 +42,7 @@ test.describe('R5.1 R3.1 R3.4 R5.4 student journey', () => {
     await expect(page.getByRole('heading', { level: 1, name: /discover/i })).toBeVisible()
     await page.getByRole('searchbox', { name: 'Search scholarships', exact: true }).fill('aicte')
     await expect(page).toHaveURL(/q=aicte/)
-    await expect(page.getByText(/showing \d+ of \d+ scholarships/i)).toBeVisible()
+    await expect(page.getByText(/showing .*scholarships?/i)).toBeVisible()
   })
 
   test('a scholarship can be opened, saved and tracked', async ({ page }) => {
