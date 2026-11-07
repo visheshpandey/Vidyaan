@@ -9,3 +9,22 @@ export function parseNumber(v: string): number | undefined {
   const n = Number(v)
   return Number.isFinite(n) ? n : undefined
 }
+
+export interface FormErrorItem {
+  fieldId?: string
+  message: string
+}
+
+/**
+ * Normalises errors from an array or record into a list of items for error summaries.
+ */
+export function normalizeErrors(
+  errors: FormErrorItem[] | Record<string, string | undefined>,
+): FormErrorItem[] {
+  if (Array.isArray(errors)) {
+    return errors.filter((item) => Boolean(item.message))
+  }
+  return Object.entries(errors)
+    .filter((entry): entry is [string, string] => Boolean(entry[1]))
+    .map(([fieldId, message]) => ({ fieldId, message }))
+}

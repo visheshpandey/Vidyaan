@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { CheckboxField, SelectField, TextField } from '@/components/ui/Field'
+import { ErrorSummary } from '@/components/ui/ErrorSummary'
 import { Progress } from '@/components/ui/Progress'
 import {
   CATEGORY_OPTIONS,
@@ -69,9 +70,11 @@ export default function Onboarding() {
         label={`Step ${step + 1} of ${STEPS.length}: ${STEPS[step]}`}
       />
       <Card className="mt-4 space-y-4">
+        <ErrorSummary errors={errors} />
         {step === 0 && (
           <>
             <TextField
+              id="name"
               label="Your name"
               value={p.name}
               error={errors.name}
@@ -115,6 +118,7 @@ export default function Onboarding() {
               onChange={(e) => set('course', e.target.value || undefined)}
             />
             <TextField
+              id="academicYear"
               label="Current year of study"
               type="number"
               inputMode="numeric"
@@ -148,6 +152,7 @@ export default function Onboarding() {
               }
             />
             <TextField
+              id="annualFamilyIncome"
               label="Annual family income (₹)"
               type="number"
               inputMode="numeric"
@@ -159,6 +164,7 @@ export default function Onboarding() {
               onChange={(e) => set('annualFamilyIncome', parseNumber(e.target.value))}
             />
             <TextField
+              id="lastExamPercent"
               label="Last exam percentage"
               type="number"
               inputMode="decimal"
@@ -198,7 +204,14 @@ export default function Onboarding() {
         )}
         {step === 3 && <Review p={p} />}
         <div className="flex justify-between pt-2">
-          <Button variant="secondary" onClick={() => setStep(step - 1)} disabled={step === 0}>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setErrors({})
+              setStep(step - 1)
+            }}
+            disabled={step === 0}
+          >
             Back
           </Button>
           {step < STEPS.length - 1 ? (

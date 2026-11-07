@@ -1,30 +1,12 @@
 import { useEffect, useId, useRef } from 'react'
 import clsx from 'clsx'
-
-export interface ErrorSummaryItem {
-  fieldId?: string
-  message: string
-}
+import { normalizeErrors, type FormErrorItem } from '@/utils/forms'
 
 export interface ErrorSummaryProps {
   title?: string
-  errors: ErrorSummaryItem[] | Record<string, string | undefined>
+  errors: FormErrorItem[] | Record<string, string | undefined>
   className?: string
   autoFocus?: boolean
-}
-
-/**
- * Normalises errors from an array or record into a list of items.
- */
-export function normalizeErrors(
-  errors: ErrorSummaryItem[] | Record<string, string | undefined>,
-): ErrorSummaryItem[] {
-  if (Array.isArray(errors)) {
-    return errors.filter((item) => Boolean(item.message))
-  }
-  return Object.entries(errors)
-    .filter((entry): entry is [string, string] => Boolean(entry[1]))
-    .map(([fieldId, message]) => ({ fieldId, message }))
 }
 
 /**

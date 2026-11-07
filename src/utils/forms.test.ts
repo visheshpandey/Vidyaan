@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseNumber, toOptions } from './forms'
+import { normalizeErrors, parseNumber, toOptions } from './forms'
 
 describe('R5.2 forms helpers', () => {
   it('builds select options', () => {
@@ -15,5 +15,13 @@ describe('R5.2 forms helpers', () => {
     expect(parseNumber('240000')).toBe(240000)
     expect(parseNumber('78.5')).toBe(78.5)
     expect(parseNumber('abc')).toBeUndefined()
+  })
+  it('normalises record and array error shapes for summaries', () => {
+    expect(normalizeErrors({ name: 'Name required', age: undefined })).toEqual([
+      { fieldId: 'name', message: 'Name required' },
+    ])
+    expect(normalizeErrors([{ fieldId: 'doc', message: 'Doc required' }])).toEqual([
+      { fieldId: 'doc', message: 'Doc required' },
+    ])
   })
 })

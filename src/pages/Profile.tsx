@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { CheckboxField, SelectField, TextField } from '@/components/ui/Field'
+import { ErrorSummary } from '@/components/ui/ErrorSummary'
 import { ConfirmDialog } from '@/components/ui/Modal'
 import { PageHeader } from '@/components/ui/PageHeader'
 import {
@@ -15,6 +16,7 @@ import {
 } from '@/constants/options'
 import { ROUTES } from '@/constants/routes'
 import { loadDemoData, resetAllData } from '@/features/demo/demoMode'
+import { validateProfile, type ProfileErrors } from '@/features/profile/validate'
 import { applicationsToCsv, downloadText } from '@/services/exportService'
 import { WhatIfPanel } from '@/features/matching/WhatIfPanel'
 import { useScholarships } from '@/hooks/useScholarships'
@@ -47,23 +49,32 @@ function runDownload(
  * Name input that keeps its own draft while typing and saves the cleaned value when the field loses focus.
  * Cleaning on every keystroke would stop people typing spaces between words.
  */
-function NameField({ value, onCommit }: { value: string; onCommit: (name: string) => void }) {
+function NameField({
+  value,
+  error,
+  onCommit,
+}: {
+  value: string
+  error?: string
+  onCommit: (name: string) => void
+}) {
   const [draft, setDraft] = useState(value)
   return (
     <TextField
+      id="profile-name"
       label="Name"
       value={draft}
+      error={error}
       maxLength={TEXT_LIMITS.name}
       autoComplete="name"
-      onChange={(e) => setDraft(e.target.value)}
+      onChange={(e) => {
+        setDraft(e.target.value)
+        onCommit(e.target.value)
+      }}
       onBlur={() => {
         const clean = sanitizeText(draft, TEXT_LIMITS.name)
-        if (clean === '') {
-          setDraft(value)
-        } else {
-          setDraft(clean)
-          onCommit(clean)
-        }
+        setDraft(clean)
+        onCommit(clean)
       }}
     />
   )
@@ -81,9 +92,29 @@ export default function Profile() {
   const t = useT()
   const settings = useSettingsStore()
   const [confirm, setConfirm] = useState<'demo' | 'clear' | null>(null)
-  const set = <K extends keyof StudentProfile>(k: K, v: StudentProfile[K]) => update({ [k]: v })
+  const [errors, setErrors] = useState<ProfileErrors>({})
+  const [p, setP] = useState<StudentProfile>(profile)
+
+  const set = <K extends keyof StudentProfile>(k: K, v: StudentProfile[K]) => {
+    const next = { ...p, [k]: v }
+    setP(next)
+    const errs = validateProfile(next)
+    if (!errs[k]) {
+      update({ [k]: v })
+    }
+  }
 
   const titleOf = (id: string) => scholarships.find((s) => s.id === id)?.title ?? id
+
+  const onSaveProfile = (e: FormEvent) => {
+    e.preventDefault()
+    const found = validateProfile(p)
+    setErrors(found)
+    if (Object.keys(found).length === 0) {
+      update(p)
+      notify('Profile updated')
+    }
+  }
 
   /** Asks the browser for notification permission. Failure is explained, never thrown. */
   const askForNotifications = async () => {
@@ -112,90 +143,117 @@ export default function Profile() {
       />
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="space-y-4 lg:col-span-2">
-          <NameField
-            key={profile.name}
-            value={profile.name}
-            onCommit={(name) => set('name', name)}
-          />
-          <div className="grid gap-4 sm:grid-cols-2">
-            <SelectField
-              label="Education level"
-              placeholder="Not set"
-              options={LEVEL_OPTIONS}
-              value={profile.educationLevel ?? ''}
-              onChange={(e) =>
-                set('educationLevel', (e.target.value || undefined) as Level | undefined)
-              }
+          <form onSubmit={onSaveProfile} noValidate className="space-y-4">
+            <ErrorSummary errors={errors} />
+            <NameField
+              key={p.name}
+              value={p.name}
+              error={errors.name}
+              onCommit={(name) => {
+                set('name', name)
+                if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }))
+              }}
             />
-            <SelectField
-              label="Course"
-              placeholder="Not set"
-              options={toOptions(COURSES)}
-              value={profile.course ?? ''}
-              onChange={(e) => set('course', e.target.value || undefined)}
+            <div className="grid gap-4 sm:grid-cols-2">
+              <SelectField
+                label="Education level"
+                placeholder="Not set"
+                options={LEVEL_OPTIONS}
+                value={p.educationLevel ?? ''}
+                onChange={(e) =>
+                  set('educationLevel', (e.target.value || undefined) as Level | undefined)
+                }
+              />
+              <SelectField
+                label="Course"
+                placeholder="Not set"
+                options={toOptions(COURSES)}
+                value={p.course ?? ''}
+                onChange={(e) => set('course', e.target.value || undefined)}
+              />
+              <SelectField
+                label="State"
+                placeholder="Not set"
+                options={toOptions(STATES)}
+                value={p.state ?? ''}
+                onChange={(e) => set('state', e.target.value || undefined)}
+              />
+              <SelectField
+                label="Institution type"
+                placeholder="Not set"
+                options={INSTITUTION_OPTIONS}
+                value={p.institutionType ?? ''}
+                onChange={(e) =>
+                  set(
+                    'institutionType',
+                    (e.target.value || undefined) as InstitutionType | undefined,
+                  )
+                }
+              />
+              <SelectField
+                label="Gender"
+                placeholder="Not set"
+                options={GENDER_OPTIONS}
+                value={p.gender ?? ''}
+                onChange={(e) =>
+                  set('gender', (e.target.value || undefined) as Gender | undefined)
+                }
+              />
+              <SelectField
+                label="Category"
+                placeholder="Not set"
+                options={CATEGORY_OPTIONS}
+                value={p.category ?? ''}
+                onChange={(e) =>
+                  set('category', (e.target.value || undefined) as Category | undefined)
+                }
+              />
+              <TextField
+                id="annualFamilyIncome"
+                label="Annual family income (₹)"
+                type="number"
+                inputMode="numeric"
+                min={0}
+                max={LIMITS.maxIncome}
+                value={p.annualFamilyIncome ?? ''}
+                error={errors.annualFamilyIncome}
+                onChange={(e) => {
+                  set('annualFamilyIncome', parseNumber(e.target.value))
+                  if (errors.annualFamilyIncome)
+                    setErrors((prev) => ({ ...prev, annualFamilyIncome: undefined }))
+                }}
+              />
+              <TextField
+                id="lastExamPercent"
+                label="Last exam percentage"
+                type="number"
+                inputMode="decimal"
+                min={0}
+                max={LIMITS.maxPercent}
+                step="any"
+                value={p.lastExamPercent ?? ''}
+                error={errors.lastExamPercent}
+                onChange={(e) => {
+                  set('lastExamPercent', parseNumber(e.target.value))
+                  if (errors.lastExamPercent)
+                    setErrors((prev) => ({ ...prev, lastExamPercent: undefined }))
+                }}
+              />
+            </div>
+            <CheckboxField
+              label="I have a disability"
+              checked={p.disability ?? false}
+              onChange={(e) => set('disability', e.target.checked)}
             />
-            <SelectField
-              label="State"
-              placeholder="Not set"
-              options={toOptions(STATES)}
-              value={profile.state ?? ''}
-              onChange={(e) => set('state', e.target.value || undefined)}
+            <CheckboxField
+              label="I belong to a minority community"
+              checked={p.minority ?? false}
+              onChange={(e) => set('minority', e.target.checked)}
             />
-            <SelectField
-              label="Institution type"
-              placeholder="Not set"
-              options={INSTITUTION_OPTIONS}
-              value={profile.institutionType ?? ''}
-              onChange={(e) =>
-                set('institutionType', (e.target.value || undefined) as InstitutionType | undefined)
-              }
-            />
-            <SelectField
-              label="Gender"
-              placeholder="Not set"
-              options={GENDER_OPTIONS}
-              value={profile.gender ?? ''}
-              onChange={(e) => set('gender', (e.target.value || undefined) as Gender | undefined)}
-            />
-            <SelectField
-              label="Category"
-              placeholder="Not set"
-              options={CATEGORY_OPTIONS}
-              value={profile.category ?? ''}
-              onChange={(e) =>
-                set('category', (e.target.value || undefined) as Category | undefined)
-              }
-            />
-            <TextField
-              label="Annual family income (₹)"
-              type="number"
-              inputMode="numeric"
-              min={0}
-              max={LIMITS.maxIncome}
-              value={profile.annualFamilyIncome ?? ''}
-              onChange={(e) => set('annualFamilyIncome', parseNumber(e.target.value))}
-            />
-            <TextField
-              label="Last exam percentage"
-              type="number"
-              inputMode="decimal"
-              min={0}
-              max={LIMITS.maxPercent}
-              step="any"
-              value={profile.lastExamPercent ?? ''}
-              onChange={(e) => set('lastExamPercent', parseNumber(e.target.value))}
-            />
-          </div>
-          <CheckboxField
-            label="I have a disability"
-            checked={profile.disability ?? false}
-            onChange={(e) => set('disability', e.target.checked)}
-          />
-          <CheckboxField
-            label="I belong to a minority community"
-            checked={profile.minority ?? false}
-            onChange={(e) => set('minority', e.target.checked)}
-          />
+            <div className="flex justify-end pt-2">
+              <Button type="submit">Save profile</Button>
+            </div>
+          </form>
         </Card>
 
         <div className="space-y-6">

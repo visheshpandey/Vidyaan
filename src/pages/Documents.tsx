@@ -3,6 +3,7 @@ import { Plus, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { ErrorSummary } from '@/components/ui/ErrorSummary'
 import { ConfirmDialog } from '@/components/ui/Modal'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { Progress } from '@/components/ui/Progress'
@@ -13,7 +14,7 @@ import { useDocumentStore } from '@/store/documentStore'
 import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import { daysUntil, formatDeadline } from '@/utils/date'
-import { TEXT_LIMITS } from '@/utils/sanitize'
+import { sanitizeText, TEXT_LIMITS } from '@/utils/sanitize'
 
 /** Document checklist with availability, expiry dates and readiness. */
 export default function Documents() {
@@ -22,6 +23,7 @@ export default function Documents() {
   const applications = useTrackerStore((s) => s.applications)
   const notify = useUiStore((s) => s.notify)
   const [name, setName] = useState('')
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [toRemove, setToRemove] = useState<{ id: string; name: string } | null>(null)
   const titles = new Map(scholarships.map((s) => [s.id, s.title]))
   const { available: have, percent: overall } = overallReadiness(documents)
@@ -29,6 +31,16 @@ export default function Documents() {
 
   const onAdd = (e: FormEvent) => {
     e.preventDefault()
+    const clean = sanitizeText(name, TEXT_LIMITS.documentName)
+    if (!clean) {
+      setErrors({ 'new-doc': 'Enter a document name' })
+      return
+    }
+    if (documents.some((d) => d.name.toLowerCase() === clean.toLowerCase())) {
+      setErrors({ 'new-doc': 'This document is already in your list' })
+      return
+    }
+    setErrors({})
     addDocument(name)
     setName('')
   }
@@ -45,23 +57,38 @@ export default function Documents() {
             Your documents
           </h2>
           <Card className="space-y-4">
-            <form onSubmit={onAdd} className="flex gap-2">
-              <label htmlFor="new-doc" className="sr-only">
-                New document name
-              </label>
-              <input
-                id="new-doc"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Caste certificate…"
-                autoComplete="off"
-                spellCheck={false}
-                maxLength={TEXT_LIMITS.documentName}
-                className="h-11 min-w-0 flex-1 rounded-control border border-line px-3 text-sm"
-              />
-              <Button type="submit" disabled={!name.trim()}>
-                <Plus size={16} aria-hidden /> Add
-              </Button>
+            <ErrorSummary errors={errors} />
+            <form onSubmit={onAdd} className="space-y-2">
+              <div className="flex gap-2">
+                <label htmlFor="new-doc" className="sr-only">
+                  New document name
+                </label>
+                <input
+                  id="new-doc"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value)
+                    if (errors['new-doc']) setErrors({})
+                  }}
+                  placeholder="e.g. Caste certificate…"
+                  autoComplete="off"
+                  spellCheck={false}
+                  maxLength={TEXT_LIMITS.documentName}
+                  aria-invalid={Boolean(errors['new-doc']) || undefined}
+                  aria-describedby={errors['new-doc'] ? 'new-doc-err' : undefined}
+                  className={`h-11 min-w-0 flex-1 rounded-control border px-3 text-sm ${
+                    errors['new-doc'] ? 'border-danger' : 'border-line'
+                  }`}
+                />
+                <Button type="submit" disabled={name.length === 0}>
+                  <Plus size={16} aria-hidden /> Add
+                </Button>
+              </div>
+              {errors['new-doc'] && (
+                <p id="new-doc-err" role="alert" className="text-xs text-danger">
+                  {errors['new-doc']}
+                </p>
+              )}
             </form>
             {documents.length === 0 ? (
               <p className="text-sm text-muted">No documents yet. Add the ones you usually need.</p>
