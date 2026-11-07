@@ -12,7 +12,7 @@ import { SaveButton } from './SaveButton'
 const PERIOD = { 'one-time': 'one-time', yearly: 'per year', monthly: 'per month' } as const
 
 /** The signature card: used on Discover, Dashboard and Saved. */
-export function ScholarshipBrief({ item }: { item: Matched }) {
+export function ScholarshipBrief({ item, as: Heading = 'h2' }: { item: Matched; as?: 'h2' | 'h3' }) {
   const { scholarship: s, result } = item
   return (
     <Card className="flex flex-col gap-3">
@@ -21,11 +21,11 @@ export function ScholarshipBrief({ item }: { item: Matched }) {
         {s.dataType === 'sample' && <Badge>Demo data</Badge>}
       </div>
       <div>
-        <h3 className="font-serif text-xl leading-snug text-primary">
+        <Heading className="font-serif text-xl leading-snug text-primary">
           <Link to={ROUTES.scholarship(s.id)} className="hover:underline">
             {s.title}
           </Link>
-        </h3>
+        </Heading>
         <p className="text-sm text-muted">{s.provider}</p>
       </div>
       <dl className="flex flex-wrap gap-x-6 gap-y-1 text-sm">

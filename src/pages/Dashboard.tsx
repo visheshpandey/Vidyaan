@@ -104,7 +104,7 @@ export default function Dashboard() {
         </div>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {top.map((m) => (
-            <ScholarshipBrief key={m.scholarship.id} item={m} />
+            <ScholarshipBrief key={m.scholarship.id} item={m} as="h3" />
           ))}
         </div>
       </section>
