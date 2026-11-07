@@ -22,7 +22,7 @@ export function AppShell() {
   const search = (e: FormEvent) => {
     e.preventDefault()
     const query = q.trim()
-    navigate(query ? `${ROUTES.discover}?q=${encodeURIComponent(query)}` : ROUTES.discover)
+    void navigate(query ? `${ROUTES.discover}?q=${encodeURIComponent(query)}` : ROUTES.discover)
   }
 
   return (

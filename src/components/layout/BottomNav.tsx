@@ -41,7 +41,7 @@ export function BottomNav() {
             {more.map(({ to, key, icon: Icon }) => (
               <Menu.Item
                 key={to}
-                onSelect={() => navigate(to)}
+                onSelect={() => void navigate(to)}
                 className="flex h-11 cursor-pointer items-center gap-3 rounded-control px-3 text-sm outline-none data-[highlighted]:bg-canvas"
               >
                 <Icon size={18} aria-hidden />

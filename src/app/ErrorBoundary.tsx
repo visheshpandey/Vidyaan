@@ -21,7 +21,9 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
     return (
       <div role="alert" className="mx-auto max-w-md p-10 text-center">
         <h1 className="font-serif text-2xl text-heading">Something went wrong</h1>
-        <p className="mt-2 text-sm text-muted">Your saved data is safe. Reload the page to continue.</p>
+        <p className="mt-2 text-sm text-muted">
+          Your saved data is safe. Reload the page to continue.
+        </p>
         <button
           className="mt-4 h-11 rounded-control bg-primary px-4 text-sm font-medium text-white"
           onClick={() => window.location.reload()}

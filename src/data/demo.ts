@@ -32,10 +32,33 @@ export function buildDemoApplications(): Application[] {
     )
   return [
     make('demo-need-ug', ['Income certificate', 'Marksheet', 'Bank passbook'], [['preparing', 6]]),
-    make('demo-mp-state', ['Domicile certificate', 'Income certificate', 'Marksheet'], [['preparing', 4]]),
-    make('central-sector-college', ['Class 12 marksheet', 'Income certificate'], [['preparing', 9], ['submitted', 3]]),
-    make('demo-open-merit', ['Marksheet', 'College ID'], [['preparing', 10], ['submitted', 7], ['under_review', 2]]),
-    createApplication('demo-women-stem', ago(1), ['Marksheet', 'Statement of purpose', 'College ID']),
+    make(
+      'demo-mp-state',
+      ['Domicile certificate', 'Income certificate', 'Marksheet'],
+      [['preparing', 4]],
+    ),
+    make(
+      'central-sector-college',
+      ['Class 12 marksheet', 'Income certificate'],
+      [
+        ['preparing', 9],
+        ['submitted', 3],
+      ],
+    ),
+    make(
+      'demo-open-merit',
+      ['Marksheet', 'College ID'],
+      [
+        ['preparing', 10],
+        ['submitted', 7],
+        ['under_review', 2],
+      ],
+    ),
+    createApplication('demo-women-stem', ago(1), [
+      'Marksheet',
+      'Statement of purpose',
+      'College ID',
+    ]),
   ]
 }
 

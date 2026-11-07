@@ -1,9 +1,37 @@
 export const STATES = [
-  'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Delhi', 'Goa', 'Gujarat',
-  'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra',
-  'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim',
-  'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal',
-  'Jammu and Kashmir', 'Ladakh', 'Chandigarh', 'Puducherry',
+  'Andhra Pradesh',
+  'Arunachal Pradesh',
+  'Assam',
+  'Bihar',
+  'Chhattisgarh',
+  'Delhi',
+  'Goa',
+  'Gujarat',
+  'Haryana',
+  'Himachal Pradesh',
+  'Jharkhand',
+  'Karnataka',
+  'Kerala',
+  'Madhya Pradesh',
+  'Maharashtra',
+  'Manipur',
+  'Meghalaya',
+  'Mizoram',
+  'Nagaland',
+  'Odisha',
+  'Punjab',
+  'Rajasthan',
+  'Sikkim',
+  'Tamil Nadu',
+  'Telangana',
+  'Tripura',
+  'Uttar Pradesh',
+  'Uttarakhand',
+  'West Bengal',
+  'Jammu and Kashmir',
+  'Ladakh',
+  'Chandigarh',
+  'Puducherry',
 ]
 
 export const LEVEL_OPTIONS = [
@@ -14,7 +42,20 @@ export const LEVEL_OPTIONS = [
   { value: 'phd', label: 'PhD' },
 ]
 
-export const COURSES = ['B.Tech', 'B.E.', 'B.Sc', 'B.A.', 'B.Com', 'BBA', 'MBBS', 'M.Tech', 'M.Sc', 'MBA', 'Diploma', 'Other']
+export const COURSES = [
+  'B.Tech',
+  'B.E.',
+  'B.Sc',
+  'B.A.',
+  'B.Com',
+  'BBA',
+  'MBBS',
+  'M.Tech',
+  'M.Sc',
+  'MBA',
+  'Diploma',
+  'Other',
+]
 
 export const CATEGORY_OPTIONS = [
   { value: 'GEN', label: 'General' },
@@ -36,4 +77,11 @@ export const INSTITUTION_OPTIONS = [
   { value: 'aided', label: 'Government-aided' },
 ]
 
-export const PREFERENCES = ['Merit-based', 'Need-based', 'Government', 'Private', 'Women-focused', 'Research']
+export const PREFERENCES = [
+  'Merit-based',
+  'Need-based',
+  'Government',
+  'Private',
+  'Women-focused',
+  'Research',
+]

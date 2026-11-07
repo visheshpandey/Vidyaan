@@ -17,7 +17,8 @@ const same = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLow
 const checkLevel: RuleCheck = (p, r) => {
   if (!r.levels?.length) return null
   const rule = 'Education level'
-  if (!p.educationLevel) return unknown(rule, 'educationLevel', 'Add your education level to check this')
+  if (!p.educationLevel)
+    return unknown(rule, 'educationLevel', 'Add your education level to check this')
   const ok = r.levels.includes(p.educationLevel)
   return {
     rule,
@@ -33,7 +34,9 @@ const checkCourse: RuleCheck = (p, r) => {
   const rule = 'Course'
   if (!p.course) return unknown(rule, 'course', 'Add your course to check this')
   const course = p.course
-  const ok = r.courses.some((c) => same(c, course) || course.toLowerCase().includes(c.toLowerCase()))
+  const ok = r.courses.some(
+    (c) => same(c, course) || course.toLowerCase().includes(c.toLowerCase()),
+  )
   return {
     rule,
     result: ok ? 'met' : 'not-met',
@@ -111,7 +114,8 @@ const checkPercent: RuleCheck = (p, r) => {
 const checkDisability: RuleCheck = (p, r) => {
   if (!r.disabilityRequired) return null
   const rule = 'Disability'
-  if (p.disability === undefined) return unknown(rule, 'disability', 'Tell us if this applies to you')
+  if (p.disability === undefined)
+    return unknown(rule, 'disability', 'Tell us if this applies to you')
   return {
     rule,
     result: p.disability ? 'met' : 'not-met',

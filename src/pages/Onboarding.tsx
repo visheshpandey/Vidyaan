@@ -43,7 +43,7 @@ export default function Onboarding() {
   const finish = () => {
     setProfile(p)
     notify('Profile saved. Here are your matches.')
-    navigate(ROUTES.dashboard)
+    void navigate(ROUTES.dashboard)
   }
 
   const togglePref = (pref: string) =>

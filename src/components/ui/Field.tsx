@@ -15,7 +15,8 @@ function FieldShell({ label, hint, error, children }: FieldShellProps) {
   const id = useId()
   const hintId = `${id}-hint`
   const errId = `${id}-err`
-  const describedBy = [hint && !error ? hintId : '', error ? errId : ''].filter(Boolean).join(' ') || undefined
+  const describedBy =
+    [hint && !error ? hintId : '', error ? errId : ''].filter(Boolean).join(' ') || undefined
   return (
     <div className="space-y-1.5">
       <label htmlFor={id} className="block text-sm font-medium text-ink">
@@ -67,7 +68,15 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 /** Native select: best keyboard, screen reader and mobile behaviour. */
-export function SelectField({ label, hint, error, options, placeholder, className, ...rest }: SelectProps) {
+export function SelectField({
+  label,
+  hint,
+  error,
+  options,
+  placeholder,
+  className,
+  ...rest
+}: SelectProps) {
   return (
     <FieldShell label={label} hint={hint} error={error}>
       {({ id, describedBy, invalid }) => (

@@ -198,7 +198,7 @@ export default function ScholarshipDetail() {
                 onClick={() => {
                   const app = startTracking(s.id, s.requiredDocuments)
                   notify('Added to your tracker')
-                  navigate(ROUTES.application(app.id))
+                  void navigate(ROUTES.application(app.id))
                 }}
               >
                 Start tracking

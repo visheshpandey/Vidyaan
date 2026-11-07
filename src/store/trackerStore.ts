@@ -53,7 +53,9 @@ export const useTrackerStore = create<TrackerState>((set, get) => {
     },
     setStatus: (id, status) =>
       persist({
-        applications: get().applications.map((a) => (a.id === id ? applyStatus(a, status, nowIso()) : a)),
+        applications: get().applications.map((a) =>
+          a.id === id ? applyStatus(a, status, nowIso()) : a,
+        ),
       }),
     setNotes: (id, notes) =>
       persist({

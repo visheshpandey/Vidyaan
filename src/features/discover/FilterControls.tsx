@@ -48,7 +48,9 @@ export function FilterControls({ filters, onChange }: Props) {
       <SelectField
         label="Closing within"
         value={String(filters.closingWithin)}
-        onChange={(e) => onChange({ closingWithin: Number(e.target.value) as Filters['closingWithin'] })}
+        onChange={(e) =>
+          onChange({ closingWithin: Number(e.target.value) as Filters['closingWithin'] })
+        }
         options={[
           { value: '0', label: 'Any time' },
           { value: '30', label: '30 days' },

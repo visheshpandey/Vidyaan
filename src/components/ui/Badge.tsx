@@ -13,7 +13,15 @@ const TONES: Record<Tone, string> = {
 }
 
 /** Status pill. Always paired with text or an icon; colour is never the only signal. */
-export function Badge({ tone = 'neutral', icon, children }: { tone?: Tone; icon?: ReactNode; children: ReactNode }) {
+export function Badge({
+  tone = 'neutral',
+  icon,
+  children,
+}: {
+  tone?: Tone
+  icon?: ReactNode
+  children: ReactNode
+}) {
   return (
     <span
       className={clsx(

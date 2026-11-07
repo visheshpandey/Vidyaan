@@ -88,7 +88,7 @@ export default function Landing() {
                 className="border-white/40! bg-transparent! text-white! hover:bg-white/10!"
                 onClick={() => {
                   loadDemoData()
-                  navigate(ROUTES.dashboard)
+                  void navigate(ROUTES.dashboard)
                 }}
               >
                 {t('landing.demo')}

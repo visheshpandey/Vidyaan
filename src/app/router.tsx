@@ -1,25 +1,24 @@
-/* oxlint-disable react/only-export-components -- route table, not a component module */
-import { lazy } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { AppShell } from '@/components/layout/AppShell'
 import { PublicLayout } from '@/components/layout/PublicLayout'
 import { ROUTES } from '@/constants/routes'
+import {
+  ApplicationDetail,
+  Applications,
+  Compare,
+  Dashboard,
+  Deadlines,
+  Discover,
+  Documents,
+  Landing,
+  NotFound,
+  Onboarding,
+  Profile,
+  Saved,
+  ScholarshipDetail,
+} from './pages'
 import { RequireOnboarding } from './RequireOnboarding'
 import { RouteError } from './RouteError'
-
-const Landing = lazy(() => import('@/pages/Landing'))
-const Onboarding = lazy(() => import('@/pages/Onboarding'))
-const Dashboard = lazy(() => import('@/pages/Dashboard'))
-const Discover = lazy(() => import('@/pages/Discover'))
-const ScholarshipDetail = lazy(() => import('@/pages/ScholarshipDetail'))
-const Compare = lazy(() => import('@/pages/Compare'))
-const Saved = lazy(() => import('@/pages/Saved'))
-const Applications = lazy(() => import('@/pages/Applications'))
-const ApplicationDetail = lazy(() => import('@/pages/ApplicationDetail'))
-const Documents = lazy(() => import('@/pages/Documents'))
-const Deadlines = lazy(() => import('@/pages/Deadlines'))
-const Profile = lazy(() => import('@/pages/Profile'))
-const NotFound = lazy(() => import('@/pages/NotFound'))
 
 export const router = createBrowserRouter([
   {

@@ -10,7 +10,8 @@ export type SortKey = 'eligibility' | 'amount' | 'deadline'
 
 const VERDICT_ORDER: Record<Verdict, number> = { eligible: 0, needs_info: 1, not_eligible: 2 }
 
-const deadlineMs = (s: Scholarship) => (s.deadline ? Date.parse(s.deadline) : Number.POSITIVE_INFINITY)
+const deadlineMs = (s: Scholarship) =>
+  s.deadline ? Date.parse(s.deadline) : Number.POSITIVE_INFINITY
 
 const byDeadline = (a: Matched, b: Matched) => {
   const x = deadlineMs(a.scholarship)

@@ -2,7 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { buildIcs } from './ics'
 
 describe('buildIcs', () => {
-  const ics = buildIcs([{ id: 'a', title: 'Merit, 2027; apply', date: '2027-03-01' }], new Date('2026-11-07T10:00:00Z'))
+  const ics = buildIcs(
+    [{ id: 'a', title: 'Merit, 2027; apply', date: '2027-03-01' }],
+    new Date('2026-11-07T10:00:00Z'),
+  )
 
   it('wraps events in a calendar', () => {
     expect(ics.startsWith('BEGIN:VCALENDAR')).toBe(true)

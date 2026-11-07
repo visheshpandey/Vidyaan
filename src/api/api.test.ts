@@ -111,7 +111,7 @@ describe('createScholarshipsApi', () => {
 
   it('fetches again after the cache expires', async () => {
     let t = 0
-    fetchMock.mockImplementation(async () => jsonResponse(remote))
+    fetchMock.mockImplementation(() => Promise.resolve(jsonResponse(remote)))
     const api = createScholarshipsApi({ ...config, now: () => t })
     await api.fetchScholarships()
     t = 60_001

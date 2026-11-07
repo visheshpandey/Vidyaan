@@ -11,7 +11,12 @@
     "deadline": null,
     "rules": { "levels": ["diploma", "ug"], "genders": ["female"], "maxIncome": 800000 },
     "requiredDocuments": ["Admission proof", "Income certificate", "Bank passbook"],
-    "steps": ["Register on the National Scholarship Portal", "Fill the application form", "Upload documents", "Submit and keep the acknowledgement"],
+    "steps": [
+      "Register on the National Scholarship Portal",
+      "Fill the application form",
+      "Upload documents",
+      "Submit and keep the acknowledgement"
+    ],
     "applicationUrl": "https://scholarships.gov.in",
     "sourceUrl": "https://scholarships.gov.in",
     "dataType": "sample"
@@ -27,8 +32,18 @@
     "amount": { "value": 50000, "period": "yearly" },
     "deadline": null,
     "rules": { "levels": ["diploma", "ug"], "disabilityRequired": true, "maxIncome": 800000 },
-    "requiredDocuments": ["Disability certificate", "Admission proof", "Income certificate", "Bank passbook"],
-    "steps": ["Register on the National Scholarship Portal", "Fill the application form", "Upload documents", "Submit and keep the acknowledgement"],
+    "requiredDocuments": [
+      "Disability certificate",
+      "Admission proof",
+      "Income certificate",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Register on the National Scholarship Portal",
+      "Fill the application form",
+      "Upload documents",
+      "Submit and keep the acknowledgement"
+    ],
     "applicationUrl": "https://scholarships.gov.in",
     "sourceUrl": "https://scholarships.gov.in",
     "dataType": "sample"
@@ -44,8 +59,18 @@
     "amount": { "value": 12000, "period": "yearly" },
     "deadline": null,
     "rules": { "levels": ["ug"], "maxIncome": 450000 },
-    "requiredDocuments": ["Class 12 marksheet", "Income certificate", "Admission proof", "Bank passbook"],
-    "steps": ["Register on the National Scholarship Portal", "Fill the application form", "Upload documents", "Submit for institute verification"],
+    "requiredDocuments": [
+      "Class 12 marksheet",
+      "Income certificate",
+      "Admission proof",
+      "Bank passbook"
+    ],
+    "steps": [
+      "Register on the National Scholarship Portal",
+      "Fill the application form",
+      "Upload documents",
+      "Submit for institute verification"
+    ],
     "applicationUrl": "https://scholarships.gov.in",
     "sourceUrl": "https://scholarships.gov.in",
     "dataType": "sample"
@@ -60,9 +85,24 @@
     "benefits": ["Reported tuition fee reimbursement"],
     "amount": { "value": 150000, "period": "yearly" },
     "deadline": null,
-    "rules": { "levels": ["ug"], "states": ["Madhya Pradesh"], "minPercent": 70, "maxIncome": 600000 },
-    "requiredDocuments": ["Class 12 marksheet", "Domicile certificate", "Income certificate", "Admission proof"],
-    "steps": ["Register on the state scholarship portal", "Fill the application", "Upload documents", "Submit and track status"],
+    "rules": {
+      "levels": ["ug"],
+      "states": ["Madhya Pradesh"],
+      "minPercent": 70,
+      "maxIncome": 600000
+    },
+    "requiredDocuments": [
+      "Class 12 marksheet",
+      "Domicile certificate",
+      "Income certificate",
+      "Admission proof"
+    ],
+    "steps": [
+      "Register on the state scholarship portal",
+      "Fill the application",
+      "Upload documents",
+      "Submit and track status"
+    ],
     "applicationUrl": "https://medhavikalyan.mp.gov.in",
     "sourceUrl": "https://medhavikalyan.mp.gov.in",
     "dataType": "sample"
@@ -79,7 +119,12 @@
     "deadline": null,
     "rules": { "levels": ["ug"], "minPercent": 60 },
     "requiredDocuments": ["Class 12 marksheet", "Admission proof", "Income proof"],
-    "steps": ["Create an account on the foundation's portal", "Complete the aptitude test", "Upload documents", "Submit"],
+    "steps": [
+      "Create an account on the foundation's portal",
+      "Complete the aptitude test",
+      "Upload documents",
+      "Submit"
+    ],
     "applicationUrl": "https://scholarships.reliancefoundation.org",
     "sourceUrl": "https://scholarships.reliancefoundation.org",
     "dataType": "sample"
@@ -145,7 +190,12 @@
     "benefits": ["Illustrative monthly stipend"],
     "amount": { "value": 3000, "period": "monthly" },
     "deadline": "2027-02-05",
-    "rules": { "levels": ["ug", "pg"], "genders": ["female"], "courses": ["B.Tech", "B.Sc", "M.Tech", "M.Sc"], "minPercent": 70 },
+    "rules": {
+      "levels": ["ug", "pg"],
+      "genders": ["female"],
+      "courses": ["B.Tech", "B.Sc", "M.Tech", "M.Sc"],
+      "minPercent": 70
+    },
     "requiredDocuments": ["Marksheet", "Statement of purpose", "College ID"],
     "steps": ["Create an account", "Write a short statement", "Upload documents", "Submit"],
     "applicationUrl": "https://example.org/demo-women-stem",

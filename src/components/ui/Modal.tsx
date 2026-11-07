@@ -14,7 +14,14 @@ interface ModalProps {
   variant?: 'dialog' | 'sheet'
 }
 
-export function Modal({ open, onOpenChange, title, description, children, variant = 'dialog' }: ModalProps) {
+export function Modal({
+  open,
+  onOpenChange,
+  title,
+  description,
+  children,
+  variant = 'dialog',
+}: ModalProps) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
@@ -35,7 +42,10 @@ export function Modal({ open, onOpenChange, title, description, children, varian
               </Dialog.Description>
             </div>
             <Dialog.Close asChild>
-              <button aria-label="Close" className="grid size-10 place-items-center rounded-control hover:bg-canvas">
+              <button
+                aria-label="Close"
+                className="grid size-10 place-items-center rounded-control hover:bg-canvas"
+              >
                 <X size={18} aria-hidden />
               </button>
             </Dialog.Close>
@@ -57,7 +67,15 @@ interface ConfirmProps {
   danger?: boolean
 }
 
-export function ConfirmDialog({ open, onOpenChange, title, description, confirmLabel, onConfirm, danger }: ConfirmProps) {
+export function ConfirmDialog({
+  open,
+  onOpenChange,
+  title,
+  description,
+  confirmLabel,
+  onConfirm,
+  danger,
+}: ConfirmProps) {
   return (
     <Modal open={open} onOpenChange={onOpenChange} title={title} description={description}>
       <div className="flex justify-end gap-2">

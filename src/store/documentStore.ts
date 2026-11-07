@@ -25,7 +25,8 @@ export const useDocumentStore = create<DocumentState>((set, get) => {
     documents: read(),
     addDocument: (name) => {
       const trimmed = name.trim()
-      if (!trimmed || get().documents.some((d) => d.name.toLowerCase() === trimmed.toLowerCase())) return
+      if (!trimmed || get().documents.some((d) => d.name.toLowerCase() === trimmed.toLowerCase()))
+        return
       persist([...get().documents, { id: `doc-${Date.now()}`, name: trimmed, status: 'missing' }])
     },
     setStatus: (id, status) =>

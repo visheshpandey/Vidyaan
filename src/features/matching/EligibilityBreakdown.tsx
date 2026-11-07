@@ -32,7 +32,11 @@ function Row({ c }: { c: Criterion }) {
 /** Plain-language list of every rule and whether the student meets it. */
 export function EligibilityBreakdown({ result }: { result: EligibilityResult }) {
   if (result.criteria.length === 0) {
-    return <p className="text-sm text-muted">No specific eligibility rules are listed for this scholarship.</p>
+    return (
+      <p className="text-sm text-muted">
+        No specific eligibility rules are listed for this scholarship.
+      </p>
+    )
   }
   return (
     <ul className="divide-y divide-line">

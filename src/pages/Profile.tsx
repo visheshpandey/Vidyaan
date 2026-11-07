@@ -54,6 +54,25 @@ export default function Profile() {
 
   const titleOf = (id: string) => getScholarshipsSync().find((s) => s.id === id)?.title ?? id
 
+  /** Asks the browser for notification permission. Failure is explained, never thrown. */
+  const askForNotifications = async () => {
+    if (typeof Notification === 'undefined' || Notification.permission !== 'default') return
+    try {
+      const result = await Notification.requestPermission()
+      notify(
+        result === 'granted'
+          ? 'Reminders on'
+          : 'Browser notifications are blocked. You will still see deadlines in the app.',
+        'info',
+      )
+    } catch {
+      notify(
+        'Your browser could not turn on reminders. You will still see deadlines in the app.',
+        'info',
+      )
+    }
+  }
+
   return (
     <>
       <PageHeader
@@ -157,29 +176,9 @@ export default function Profile() {
             <CheckboxField
               label={t('profile.reminders')}
               checked={settings.remindersEnabled}
-              onChange={async (e) => {
-                const on = e.target.checked
-                settings.update({ remindersEnabled: on })
-                if (
-                  on &&
-                  typeof Notification !== 'undefined' &&
-                  Notification.permission === 'default'
-                ) {
-                  try {
-                    const result = await Notification.requestPermission()
-                    notify(
-                      result === 'granted'
-                        ? 'Reminders on'
-                        : 'Browser notifications are blocked. You will still see deadlines in the app.',
-                      'info',
-                    )
-                  } catch {
-                    notify(
-                      'Your browser could not turn on reminders. You will still see deadlines in the app.',
-                      'info',
-                    )
-                  }
-                }
+              onChange={(e) => {
+                settings.update({ remindersEnabled: e.target.checked })
+                if (e.target.checked) void askForNotifications()
               }}
             />
           </Card>
@@ -253,7 +252,7 @@ export default function Profile() {
             return
           }
           notify('All data cleared', 'info')
-          navigate(ROUTES.home)
+          void navigate(ROUTES.home)
         }}
       />
     </>

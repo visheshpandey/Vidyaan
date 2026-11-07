@@ -1,7 +1,13 @@
 import { differenceInCalendarDays, parseISO } from 'date-fns'
 
 const DATE = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
-const DATE_TIME = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' })
+const DATE_TIME = new Intl.DateTimeFormat('en-IN', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  hour: 'numeric',
+  minute: '2-digit',
+})
 
 /** Whole days from today to an ISO date (negative when past). Null when unknown. */
 export function daysUntil(iso: string | null | undefined, now: Date = new Date()): number | null {

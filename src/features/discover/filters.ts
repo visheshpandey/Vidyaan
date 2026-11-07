@@ -68,7 +68,7 @@ export function filtersFromParams(p: URLSearchParams): Filters {
     providerType: pick<ProviderType>(p.get('provider'), PROVIDERS, ''),
     verdict: pick<Verdict>(p.get('verdict'), VERDICTS, ''),
     closingWithin: within === 30 || within === 60 ? within : 0,
-    sort: (pick<SortKey>(p.get('sort'), SORTS, 'eligibility') || 'eligibility') as SortKey,
+    sort: pick<SortKey>(p.get('sort'), SORTS, 'eligibility') || 'eligibility',
   }
 }
 

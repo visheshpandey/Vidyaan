@@ -11,7 +11,11 @@ const EMPTY: StudentProfile = { name: '', preferences: [] }
 export function useMatches(): Matched[] {
   const profile = useProfileStore((s) => s.profile)
   return useMemo(
-    () => getScholarshipsSync().map((scholarship) => ({ scholarship, result: evaluate(profile ?? EMPTY, scholarship) })),
+    () =>
+      getScholarshipsSync().map((scholarship) => ({
+        scholarship,
+        result: evaluate(profile ?? EMPTY, scholarship),
+      })),
     [profile],
   )
 }

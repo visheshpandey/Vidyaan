@@ -15,7 +15,10 @@ export function Progress({ value, label }: { value: number; label: string }) {
         aria-valuenow={pct}
         className="h-2 rounded-full bg-line"
       >
-        <div className="h-2 rounded-full bg-secondary transition-[width]" style={{ width: `${pct}%` }} />
+        <div
+          className="h-2 rounded-full bg-secondary transition-[width]"
+          style={{ width: `${pct}%` }}
+        />
       </div>
     </div>
   )

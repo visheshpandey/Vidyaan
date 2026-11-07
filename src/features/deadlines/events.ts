@@ -28,6 +28,11 @@ export function collectEvents(
     }))
   const fromDocs = documents
     .filter((d) => d.expiry)
-    .map<DeadlineEvent>((d) => ({ id: `doc-${d.id}`, title: `${d.name} expires`, date: d.expiry as string, kind: 'document' }))
+    .map<DeadlineEvent>((d) => ({
+      id: `doc-${d.id}`,
+      title: `${d.name} expires`,
+      date: d.expiry as string,
+      kind: 'document',
+    }))
   return [...fromScholarships, ...fromDocs].sort((a, b) => a.date.localeCompare(b.date))
 }
