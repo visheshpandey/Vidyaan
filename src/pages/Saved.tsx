@@ -1,3 +1,40 @@
+import { Bookmark } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { buttonClass } from '@/components/ui/buttonStyles'
+import { EmptyState } from '@/components/ui/EmptyState'
+import { PageHeader } from '@/components/ui/PageHeader'
+import { ROUTES } from '@/constants/routes'
+import { rank } from '@/features/matching/rank'
+import { ScholarshipBrief } from '@/features/scholarships/ScholarshipBrief'
+import { useMatches } from '@/hooks/useMatches'
+import { useTrackerStore } from '@/store/trackerStore'
+
 export default function Saved() {
-  return <h1 className="font-serif text-3xl text-primary">Saved</h1>
+  const saved = useTrackerStore((s) => s.saved)
+  const matches = useMatches()
+  const items = rank(matches.filter((m) => saved.includes(m.scholarship.id)), 'deadline')
+  return (
+    <>
+      <PageHeader title="Saved" subtitle="Scholarships you bookmarked, soonest deadline first." />
+      {items.length === 0 ? (
+        <EmptyState
+          icon={Bookmark}
+          title="Nothing saved yet"
+          action={
+            <Link to={ROUTES.discover} className={buttonClass()}>
+              Browse scholarships
+            </Link>
+          }
+        >
+          Save scholarships from Discover to compare and come back to them later.
+        </EmptyState>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {items.map((m) => (
+            <ScholarshipBrief key={m.scholarship.id} item={m} />
+          ))}
+        </div>
+      )}
+    </>
+  )
 }
