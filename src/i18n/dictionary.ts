@@ -36,7 +36,7 @@ const en = {
   'dash.activity': 'Recent activity',
   'dash.best': 'Best matches for you',
   'discover.title': 'Discover',
-  'discover.search': 'Search by name, provider or course',
+  'discover.search': 'Search by name, provider or course…',
   'profile.language': 'Language',
   'profile.theme': 'Dark mode',
   'profile.reminders': 'Deadline reminders in this browser',

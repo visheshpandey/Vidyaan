@@ -12,7 +12,7 @@ export function Sidebar() {
     <aside className="no-print hidden border-r border-line bg-surface lg:block">
       <div className="sticky top-0 flex h-dvh flex-col p-4">
         <Link to={ROUTES.home} className="mb-6 flex items-center gap-2 px-2 py-3 font-serif text-2xl text-heading">
-          <GraduationCap aria-hidden /> {APP_NAME}
+          <GraduationCap aria-hidden /> <span translate="no">{APP_NAME}</span>
         </Link>
         <nav aria-label="Main" className="flex flex-col gap-1">
           {NAV_ITEMS.map(({ to, key, icon: Icon }) => (

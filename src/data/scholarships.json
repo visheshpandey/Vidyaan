@@ -73,7 +73,7 @@
     "provider": "Reliance Foundation",
     "providerType": "private",
     "type": "merit",
-    "description": "Merit-cum-means support for first-year undergraduate students. The 2026–27 window is reported as closed; check the official site for the next cycle.",
+    "description": "Merit-cum-means support for first-year undergraduate students. The 2026-27 window is reported as closed; check the official site for the next cycle.",
     "benefits": ["Reported support of up to ₹2 lakh over the degree"],
     "amount": { "value": 200000, "period": "one-time" },
     "deadline": null,

@@ -16,7 +16,7 @@ export function PublicLayout() {
     <div className="flex min-h-dvh flex-col">
       <header className="no-print flex h-[72px] items-center justify-between px-4 sm:px-8">
         <Link to={ROUTES.home} className="flex items-center gap-2 font-serif text-2xl text-heading">
-          <GraduationCap aria-hidden /> {APP_NAME}
+          <GraduationCap aria-hidden /> <span translate="no">{APP_NAME}</span>
         </Link>
         <div className="flex items-center gap-2">
           <PreferenceToggles />

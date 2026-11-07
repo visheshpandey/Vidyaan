@@ -7,7 +7,7 @@ export function CompareToggle({ id, title }: { id: string; title: string }) {
   const toggle = useCompareStore((s) => s.toggle)
   const notify = useUiStore((s) => s.notify)
   return (
-    <label className="flex min-h-9 cursor-pointer items-center gap-2 text-sm text-muted">
+    <label className="flex min-h-11 cursor-pointer items-center gap-2 text-sm text-muted">
       <input
         type="checkbox"
         checked={selected}

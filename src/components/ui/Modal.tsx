@@ -21,7 +21,7 @@ export function Modal({ open, onOpenChange, title, description, children, varian
         <Dialog.Overlay className="fixed inset-0 z-40 bg-ink/40" />
         <Dialog.Content
           className={clsx(
-            'fixed z-50 w-full bg-surface p-6 shadow-xl',
+            'fixed z-50 w-full overscroll-contain bg-surface p-6 shadow-xl',
             variant === 'sheet'
               ? 'inset-x-0 bottom-0 max-h-[85dvh] overflow-y-auto rounded-t-card sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:max-w-lg sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-card'
               : 'left-1/2 top-1/2 max-h-[85dvh] max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-card sm:max-w-md',

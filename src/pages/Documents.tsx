@@ -3,6 +3,7 @@ import { Plus, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
+import { ConfirmDialog } from '@/components/ui/Modal'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { Progress } from '@/components/ui/Progress'
 import { readiness } from '@/features/documents/readiness'
@@ -18,6 +19,7 @@ export default function Documents() {
   const applications = useTrackerStore((s) => s.applications)
   const notify = useUiStore((s) => s.notify)
   const [name, setName] = useState('')
+  const [toRemove, setToRemove] = useState<{ id: string; name: string } | null>(null)
   const titles = new Map(getScholarshipsSync().map((s) => [s.id, s.title]))
   const open = applications.filter((a) => isActive(a) || a.status === 'saved')
 
@@ -29,7 +31,10 @@ export default function Documents() {
 
   return (
     <>
-      <PageHeader title="Documents" subtitle="Track which documents you have. Files are never uploaded; only names and dates are kept in this browser." />
+      <PageHeader
+        title="Documents"
+        subtitle="Track which documents you have. Files are never uploaded; only names and dates are kept in this browser."
+      />
       <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-2">
         <section aria-labelledby="my-docs">
           <h2 id="my-docs" className="mb-3 font-serif text-2xl text-heading">
@@ -44,7 +49,9 @@ export default function Documents() {
                 id="new-doc"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Caste certificate"
+                placeholder="e.g. Caste certificate…"
+                autoComplete="off"
+                spellCheck={false}
                 maxLength={60}
                 className="h-11 min-w-0 flex-1 rounded-control border border-line px-3 text-sm"
               />
@@ -60,7 +67,10 @@ export default function Documents() {
                   const days = daysUntil(d.expiry)
                   const expiring = days !== null && days <= 30
                   return (
-                    <li key={d.id} className="flex flex-wrap items-center justify-between gap-2 py-3">
+                    <li
+                      key={d.id}
+                      className="flex flex-wrap items-center justify-between gap-2 py-3"
+                    >
                       <div>
                         <p className="text-sm font-medium">{d.name}</p>
                         <div className="mt-1 flex flex-wrap items-center gap-2">
@@ -68,7 +78,9 @@ export default function Documents() {
                             {d.status === 'available' ? 'Available' : 'Missing'}
                           </Badge>
                           {expiring && days !== null && (
-                            <Badge tone="danger">{days < 0 ? 'Expired' : `Expires in ${days} days`}</Badge>
+                            <Badge tone="danger">
+                              {days < 0 ? 'Expired' : `Expires in ${days} days`}
+                            </Badge>
                           )}
                         </div>
                       </div>
@@ -79,13 +91,15 @@ export default function Documents() {
                             type="date"
                             value={d.expiry ?? ''}
                             onChange={(e) => setExpiry(d.id, e.target.value || undefined)}
-                            className="h-9 rounded-control border border-line px-2 text-xs"
+                            className="h-11 rounded-control border border-line px-2 text-xs"
                           />
                         </label>
                         <Button
                           variant="secondary"
                           size="sm"
-                          onClick={() => setStatus(d.id, d.status === 'available' ? 'missing' : 'available')}
+                          onClick={() =>
+                            setStatus(d.id, d.status === 'available' ? 'missing' : 'available')
+                          }
                         >
                           Mark {d.status === 'available' ? 'missing' : 'available'}
                         </Button>
@@ -93,10 +107,7 @@ export default function Documents() {
                           variant="ghost"
                           size="sm"
                           aria-label={`Remove ${d.name}`}
-                          onClick={() => {
-                            removeDocument(d.id)
-                            notify(`${d.name} removed`, 'info')
-                          }}
+                          onClick={() => setToRemove({ id: d.id, name: d.name })}
                         >
                           <Trash2 size={16} aria-hidden />
                         </Button>
@@ -114,7 +125,9 @@ export default function Documents() {
             Application readiness
           </h2>
           {open.length === 0 ? (
-            <Card className="text-sm text-muted">Start tracking a scholarship to see which documents it needs.</Card>
+            <Card className="text-sm text-muted">
+              Start tracking a scholarship to see which documents it needs.
+            </Card>
           ) : (
             <ul className="space-y-3">
               {open.map((a) => {
@@ -123,12 +136,21 @@ export default function Documents() {
                 return (
                   <li key={a.id}>
                     <Card>
-                      <p className="mb-2 text-sm font-medium">{titles.get(a.scholarshipId) ?? 'Scholarship'}</p>
-                      <Progress value={r.percent} label={`${r.ready} of ${r.total} documents ready`} />
+                      <p className="mb-2 text-sm font-medium">
+                        {titles.get(a.scholarshipId) ?? 'Scholarship'}
+                      </p>
+                      <Progress
+                        value={r.percent}
+                        label={`${r.ready} of ${r.total} documents ready`}
+                      />
                       {r.missing.length > 0 && (
                         <p className="mt-2 text-xs text-muted">Missing: {r.missing.join(', ')}</p>
                       )}
-                      {s && <p className="mt-1 text-xs text-muted">Deadline: {formatDeadline(s.deadline)}</p>}
+                      {s && (
+                        <p className="mt-1 text-xs text-muted">
+                          Deadline: {formatDeadline(s.deadline)}
+                        </p>
+                      )}
                     </Card>
                   </li>
                 )
@@ -137,6 +159,19 @@ export default function Documents() {
           )}
         </section>
       </div>
+      <ConfirmDialog
+        open={toRemove !== null}
+        onOpenChange={(o) => !o && setToRemove(null)}
+        title="Remove document?"
+        description={`${toRemove?.name ?? 'This document'} will be removed from your list. Applications that need it will show it as missing.`}
+        confirmLabel="Remove"
+        danger
+        onConfirm={() => {
+          if (!toRemove) return
+          removeDocument(toRemove.id)
+          notify(`${toRemove.name} removed`, 'info')
+        }}
+      />
     </>
   )
 }

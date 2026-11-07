@@ -1,4 +1,7 @@
-import { differenceInCalendarDays, format, parseISO } from 'date-fns'
+import { differenceInCalendarDays, parseISO } from 'date-fns'
+
+const DATE = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+const DATE_TIME = new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' })
 
 /** Whole days from today to an ISO date (negative when past). Null when unknown. */
 export function daysUntil(iso: string | null | undefined, now: Date = new Date()): number | null {
@@ -8,7 +11,7 @@ export function daysUntil(iso: string | null | undefined, now: Date = new Date()
 
 /** "12 Mar 2027", or an honest fallback when the deadline is unknown. */
 export function formatDeadline(iso: string | null): string {
-  return iso ? format(parseISO(iso), 'd MMM yyyy') : 'Check official site'
+  return iso ? DATE.format(parseISO(iso)) : 'Check official site'
 }
 
 /** Short relative label: "Today", "In 5 days", "Closed". */
@@ -22,5 +25,5 @@ export function deadlineLabel(iso: string | null, now: Date = new Date()): strin
 }
 
 export function formatDateTime(iso: string): string {
-  return format(parseISO(iso), 'd MMM yyyy, h:mm a')
+  return DATE_TIME.format(parseISO(iso))
 }

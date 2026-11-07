@@ -20,7 +20,7 @@ export function Toaster() {
           <button
             aria-label="Dismiss"
             onClick={() => dismiss(t.id)}
-            className="grid size-8 place-items-center rounded hover:bg-white/10"
+            className="grid size-10 place-items-center rounded hover:bg-white/10"
           >
             <X size={14} aria-hidden />
           </button>

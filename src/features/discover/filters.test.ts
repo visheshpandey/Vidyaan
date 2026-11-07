@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { DEMO_PROFILE } from '@/data/demo'
 import { evaluate } from '@/features/matching/engine'
 import { getScholarshipsSync } from '@/services/scholarshipService'
-import { activeFilterCount, applyFilters, DEFAULT_FILTERS } from './filters'
+import { activeFilterCount, applyFilters, DEFAULT_FILTERS, filtersFromParams, filtersToParams } from './filters'
 
 const items = getScholarshipsSync().map((scholarship) => ({ scholarship, result: evaluate(DEMO_PROFILE, scholarship) }))
 
@@ -35,5 +35,20 @@ describe('applyFilters', () => {
   it('counts active filters', () => {
     expect(activeFilterCount(DEFAULT_FILTERS)).toBe(0)
     expect(activeFilterCount({ ...DEFAULT_FILTERS, verdict: 'eligible', query: 'x' })).toBe(2)
+  })
+})
+
+describe('url state', () => {
+  it('round-trips filters', () => {
+    const f = { ...DEFAULT_FILTERS, query: 'aicte', verdict: 'eligible' as const, closingWithin: 30 as const, sort: 'amount' as const }
+    expect(filtersFromParams(filtersToParams(f))).toEqual(f)
+  })
+  it('omits defaults and ignores junk values', () => {
+    expect(filtersToParams(DEFAULT_FILTERS).toString()).toBe('')
+    const f = filtersFromParams(new URLSearchParams('verdict=hacked&within=7&sort=nope&level=ug'))
+    expect(f.verdict).toBe('')
+    expect(f.closingWithin).toBe(0)
+    expect(f.sort).toBe('eligibility')
+    expect(f.level).toBe('ug')
   })
 })

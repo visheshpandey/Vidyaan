@@ -6,6 +6,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { loadDemoData, resetAllData } from '@/features/demo/demoMode'
 import Applications from '@/pages/Applications'
 import ApplicationDetail from '@/pages/ApplicationDetail'
+import Compare from '@/pages/Compare'
 import Dashboard from '@/pages/Dashboard'
 import Deadlines from '@/pages/Deadlines'
 import Discover from '@/pages/Discover'
@@ -22,6 +23,7 @@ const PAGES: Array<[string, string, string, () => React.ReactElement]> = [
   ['Dashboard', '/dashboard', '/dashboard', () => <Dashboard />],
   ['Discover', '/discover', '/discover', () => <Discover />],
   ['Scholarship detail', '/scholarship/:id', '/scholarship/aicte-pragati', () => <ScholarshipDetail />],
+  ['Compare', '/compare', '/compare', () => <Compare />],
   ['Saved', '/saved', '/saved', () => <Saved />],
   ['Applications', '/applications', '/applications', () => <Applications />],
   ['Application detail', '/applications/:id', '/applications/app-demo-need-ug', () => <ApplicationDetail />],

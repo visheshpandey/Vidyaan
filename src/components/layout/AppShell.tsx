@@ -22,7 +22,7 @@ export function AppShell() {
       <div className="min-w-0 pb-20 lg:pb-0">
         <header className="no-print flex h-[72px] items-center justify-between border-b border-line bg-surface px-4 sm:px-8">
           <Link to={ROUTES.home} className="flex items-center gap-2 font-serif text-xl text-heading lg:hidden">
-            <GraduationCap aria-hidden /> {APP_NAME}
+            <GraduationCap aria-hidden /> <span translate="no">{APP_NAME}</span>
           </Link>
           <p className="hidden text-sm text-muted lg:block">{t('tagline')}</p>
           <div className="flex items-center gap-2">

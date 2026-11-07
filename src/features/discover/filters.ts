@@ -27,7 +27,9 @@ export function applyFilters(items: Matched[], f: Filters, now: Date = new Date(
   const q = f.query.trim().toLowerCase()
   return items.filter(({ scholarship: s, result }) => {
     if (q) {
-      const hay = [s.title, s.provider, s.description, ...(s.rules.courses ?? [])].join(' ').toLowerCase()
+      const hay = [s.title, s.provider, s.description, ...(s.rules.courses ?? [])]
+        .join(' ')
+        .toLowerCase()
       if (!hay.includes(q)) return false
     }
     if (f.level && s.rules.levels && !s.rules.levels.includes(f.level)) return false
@@ -43,5 +45,41 @@ export function applyFilters(items: Matched[], f: Filters, now: Date = new Date(
 }
 
 export function activeFilterCount(f: Filters): number {
-  return [f.level, f.providerType, f.verdict, f.closingWithin, f.query.trim()].filter(Boolean).length
+  return [f.level, f.providerType, f.verdict, f.closingWithin, f.query.trim()].filter(Boolean)
+    .length
+}
+
+const LEVELS = ['school', 'diploma', 'ug', 'pg', 'phd']
+const PROVIDERS = ['government', 'private', 'university', 'ngo']
+const VERDICTS = ['eligible', 'needs_info', 'not_eligible']
+const SORTS = ['eligibility', 'amount', 'deadline']
+const pick = <T extends string>(
+  value: string | null,
+  allowed: string[],
+  fallback: T | '',
+): T | '' => (value && allowed.includes(value) ? (value as T) : fallback)
+
+/** Reads filters from the URL. Unknown values are ignored, never trusted. */
+export function filtersFromParams(p: URLSearchParams): Filters {
+  const within = Number(p.get('within'))
+  return {
+    query: (p.get('q') ?? '').slice(0, 100),
+    level: pick<Level>(p.get('level'), LEVELS, ''),
+    providerType: pick<ProviderType>(p.get('provider'), PROVIDERS, ''),
+    verdict: pick<Verdict>(p.get('verdict'), VERDICTS, ''),
+    closingWithin: within === 30 || within === 60 ? within : 0,
+    sort: (pick<SortKey>(p.get('sort'), SORTS, 'eligibility') || 'eligibility') as SortKey,
+  }
+}
+
+/** Writes only non-default filters so URLs stay short. */
+export function filtersToParams(f: Filters): URLSearchParams {
+  const p = new URLSearchParams()
+  if (f.query.trim()) p.set('q', f.query.trim())
+  if (f.level) p.set('level', f.level)
+  if (f.providerType) p.set('provider', f.providerType)
+  if (f.verdict) p.set('verdict', f.verdict)
+  if (f.closingWithin) p.set('within', String(f.closingWithin))
+  if (f.sort !== 'eligibility') p.set('sort', f.sort)
+  return p
 }

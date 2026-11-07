@@ -18,7 +18,7 @@ export function FilterChips({ filters, onChange }: { filters: Filters; onChange:
         <li key={c.label}>
           <button
             onClick={() => onChange(c.clear)}
-            className="inline-flex min-h-9 items-center gap-1 rounded-full border border-line bg-surface px-3 text-sm capitalize hover:bg-canvas"
+            className="inline-flex min-h-11 items-center gap-1 rounded-full border border-line bg-surface px-3 text-sm capitalize hover:bg-canvas"
           >
             {c.label}
             <X size={14} aria-hidden />

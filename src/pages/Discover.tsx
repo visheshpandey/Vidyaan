@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { SearchX, SlidersHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -8,7 +9,13 @@ import { PageHeader } from '@/components/ui/PageHeader'
 import { SEARCH_DEBOUNCE_MS } from '@/constants/limits'
 import { FilterChips } from '@/features/discover/FilterChips'
 import { FilterControls } from '@/features/discover/FilterControls'
-import { activeFilterCount, applyFilters, DEFAULT_FILTERS, type Filters } from '@/features/discover/filters'
+import {
+  activeFilterCount,
+  applyFilters,
+  filtersFromParams,
+  filtersToParams,
+  type Filters,
+} from '@/features/discover/filters'
 import { rank } from '@/features/matching/rank'
 import { ScholarshipBrief } from '@/features/scholarships/ScholarshipBrief'
 import { useDebounce } from '@/hooks/useDebounce'
@@ -18,26 +25,39 @@ import { useMatches } from '@/hooks/useMatches'
 export default function Discover() {
   const matches = useMatches()
   const t = useT()
-  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
+  const [params, setParams] = useSearchParams()
+  const filters = useMemo(() => filtersFromParams(params), [params])
   const [sheetOpen, setSheetOpen] = useState(false)
-  const [text, setText] = useState('')
+  const [text, setText] = useState(filters.query)
   const query = useDebounce(text, SEARCH_DEBOUNCE_MS)
-  const patch = (p: Partial<Filters>) => setFilters((f) => ({ ...f, ...p }))
-  const effective = useMemo(() => ({ ...filters, query }), [filters, query])
+  const patch = (p: Partial<Filters>) =>
+    setParams(filtersToParams({ ...filters, ...p, query: p.query ?? filters.query }), {
+      replace: true,
+    })
+  const effective = filters
+
+  // Keep the URL in step with the (debounced) search box so results can be shared and bookmarked.
+  useEffect(() => {
+    if (query === text && query !== filters.query)
+      setParams(filtersToParams({ ...filters, query }), { replace: true })
+  }, [query, text, filters, setParams])
 
   const results = useMemo(
     () => rank(applyFilters(matches, effective), effective.sort),
     [matches, effective],
   )
   const reset = () => {
-    setFilters(DEFAULT_FILTERS)
+    setParams({}, { replace: true })
     setText('')
   }
   const activeCount = activeFilterCount(effective)
 
   return (
     <>
-      <PageHeader title={t('discover.title')} subtitle="Scholarships ranked by how well they fit your profile." />
+      <PageHeader
+        title={t('discover.title')}
+        subtitle="Scholarships ranked by how well they fit your profile."
+      />
       <div className="flex gap-2">
         <div className="flex-1">
           <label htmlFor="search" className="sr-only">
@@ -49,11 +69,14 @@ export default function Discover() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={t('discover.search')}
+            autoComplete="off"
+            spellCheck={false}
             className="h-11 w-full rounded-control border border-line bg-surface px-3 text-sm placeholder:text-muted"
           />
         </div>
         <Button variant="secondary" className="lg:hidden" onClick={() => setSheetOpen(true)}>
-          <SlidersHorizontal size={16} aria-hidden /> Filters{activeCount ? ` (${activeCount})` : ''}
+          <SlidersHorizontal size={16} aria-hidden /> Filters
+          {activeCount ? ` (${activeCount})` : ''}
         </Button>
       </div>
 
