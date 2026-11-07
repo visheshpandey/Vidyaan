@@ -10,19 +10,22 @@ import { FilterControls } from '@/features/discover/FilterControls'
 import { applyFilters } from '@/features/discover/filters'
 import { useDiscoverFilters } from '@/features/discover/useDiscoverFilters'
 import { rank } from '@/features/matching/rank'
+import { DataStatus } from '@/features/scholarships/DataStatus'
 import { ScholarshipRow } from '@/features/scholarships/ScholarshipRow'
 import { useT } from '@/i18n/useT'
 import { TEXT_LIMITS } from '@/utils/sanitize'
 import { useMatches } from '@/hooks/useMatches'
+import { useTrackerStore } from '@/store/trackerStore'
 
 export default function Discover() {
   const matches = useMatches()
   const t = useT()
+  const saved = useTrackerStore((s) => s.saved)
   const [sheetOpen, setSheetOpen] = useState(false)
   const { filters, text, setText, patch, reset, activeCount } = useDiscoverFilters()
   const results = useMemo(
-    () => rank(applyFilters(matches, filters), filters.sort),
-    [matches, filters],
+    () => rank(applyFilters(matches, filters, undefined, saved), filters.sort),
+    [matches, filters, saved],
   )
 
   return (
@@ -31,6 +34,7 @@ export default function Discover() {
         title={t('discover.title')}
         subtitle="Scholarships ranked by how well they fit your profile."
       />
+      <DataStatus />
       <div className="flex gap-2">
         <div className="flex-1">
           <label htmlFor="search" className="sr-only">

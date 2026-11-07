@@ -1,10 +1,11 @@
-import { SelectField } from '@/components/ui/Field'
-import { LEVEL_OPTIONS } from '@/constants/options'
-import type { Level } from '@/types/profile'
+import { CheckboxField, SelectField } from '@/components/ui/Field'
+import { CATEGORY_OPTIONS, COURSES, LEVEL_OPTIONS, STATES } from '@/constants/options'
+import type { Category, Level } from '@/types/profile'
+import { toOptions } from '@/utils/forms'
 import type { ProviderType } from '@/types/scholarship'
 import type { Verdict } from '@/types/eligibility'
 import type { SortKey } from '@/features/matching/rank'
-import type { Filters } from './filters'
+import { AMOUNT_STEPS, type Filters } from './filters'
 
 interface Props {
   filters: Filters
@@ -46,6 +47,39 @@ export function FilterControls({ filters, onChange }: Props) {
         ]}
       />
       <SelectField
+        label="State"
+        placeholder="Any"
+        value={filters.state}
+        onChange={(e) => onChange({ state: e.target.value })}
+        options={toOptions(STATES)}
+      />
+      <SelectField
+        label="Category"
+        placeholder="Any"
+        value={filters.category}
+        onChange={(e) => onChange({ category: e.target.value as Category | '' })}
+        options={CATEGORY_OPTIONS}
+      />
+      <SelectField
+        label="Course"
+        placeholder="Any"
+        value={filters.course}
+        onChange={(e) => onChange({ course: e.target.value })}
+        options={toOptions(COURSES)}
+      />
+      <SelectField
+        label="Minimum award"
+        value={String(filters.minAmount)}
+        onChange={(e) => onChange({ minAmount: Number(e.target.value) as Filters['minAmount'] })}
+        options={[
+          { value: '0', label: 'Any amount' },
+          ...AMOUNT_STEPS.map((n) => ({
+            value: String(n),
+            label: `₹${n.toLocaleString('en-IN')} or more`,
+          })),
+        ]}
+      />
+      <SelectField
         label="Closing within"
         value={String(filters.closingWithin)}
         onChange={(e) =>
@@ -56,6 +90,11 @@ export function FilterControls({ filters, onChange }: Props) {
           { value: '30', label: '30 days' },
           { value: '60', label: '60 days' },
         ]}
+      />
+      <CheckboxField
+        label="Saved scholarships only"
+        checked={filters.savedOnly}
+        onChange={(e) => onChange({ savedOnly: e.target.checked })}
       />
       <SelectField
         label="Sort by"

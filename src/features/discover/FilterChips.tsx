@@ -22,6 +22,16 @@ export function FilterChips({
   if (filters.providerType) chips.push({ label: filters.providerType, clear: { providerType: '' } })
   if (filters.closingWithin)
     chips.push({ label: `Closing in ${filters.closingWithin} days`, clear: { closingWithin: 0 } })
+  if (filters.state) chips.push({ label: filters.state, clear: { state: '' } })
+  if (filters.category)
+    chips.push({ label: `Category ${filters.category}`, clear: { category: '' } })
+  if (filters.course) chips.push({ label: filters.course, clear: { course: '' } })
+  if (filters.minAmount)
+    chips.push({
+      label: `₹${filters.minAmount.toLocaleString('en-IN')} or more`,
+      clear: { minAmount: 0 },
+    })
+  if (filters.savedOnly) chips.push({ label: 'Saved only', clear: { savedOnly: false } })
   if (chips.length === 0) return null
   return (
     <ul className="flex flex-wrap gap-2" aria-label="Active filters">

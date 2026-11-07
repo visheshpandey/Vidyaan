@@ -126,3 +126,35 @@ describe('sanitisation on write', () => {
     ).toBeUndefined()
   })
 })
+
+describe('trackerStore steps', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    useTrackerStore.getState().reload()
+  })
+
+  it('ticks a guide step, persists it and survives a reload', () => {
+    const app = useTrackerStore.getState().startTracking('a', [])
+    useTrackerStore.getState().toggleStep(app.id, 1, 3)
+    useTrackerStore.getState().reload()
+    expect(useTrackerStore.getState().applications[0]?.stepsDone).toEqual([1])
+    useTrackerStore.getState().toggleStep(app.id, 1, 3)
+    expect(useTrackerStore.getState().applications[0]?.stepsDone).toEqual([])
+  })
+
+  it('loads older saved applications that have no steps field', () => {
+    const old = {
+      id: 'app-x',
+      scholarshipId: 'x',
+      status: 'saved',
+      notes: '',
+      documentChecklist: [],
+      createdAt: '2026-01-01T00:00:00.000Z',
+      updatedAt: '2026-01-01T00:00:00.000Z',
+      history: [{ status: 'saved', at: '2026-01-01T00:00:00.000Z' }],
+    }
+    localStorage.setItem('grantly:v1:applications', JSON.stringify([old]))
+    useTrackerStore.getState().reload()
+    expect(useTrackerStore.getState().applications[0]?.stepsDone).toEqual([])
+  })
+})

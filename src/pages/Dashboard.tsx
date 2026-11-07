@@ -14,6 +14,7 @@ import { profileCompleteness } from '@/features/dashboard/completeness'
 import { ProfileRing } from '@/features/dashboard/ProfileRing'
 import { buildDashboard } from '@/features/dashboard/selectors'
 import { rank } from '@/features/matching/rank'
+import { DataStatus } from '@/features/scholarships/DataStatus'
 import { ScholarshipRow } from '@/features/scholarships/ScholarshipRow'
 import { useMatches } from '@/hooks/useMatches'
 import type { MessageKey } from '@/i18n/dictionary'
@@ -86,6 +87,7 @@ export default function Dashboard() {
         </h1>
         <p className="mt-1 text-sm text-muted">{t('dash.subtitle')}</p>
       </div>
+      <DataStatus />
 
       <section aria-label="Summary" className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Metric

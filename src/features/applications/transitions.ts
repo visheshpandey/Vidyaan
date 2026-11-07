@@ -25,6 +25,7 @@ export function createApplication(
     createdAt: now,
     updatedAt: now,
     history: [{ status: 'saved', at: now }],
+    stepsDone: [],
   }
 }
 

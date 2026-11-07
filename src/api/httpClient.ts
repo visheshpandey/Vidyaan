@@ -3,10 +3,12 @@ import { env } from '@/config/env'
 import { ApiError } from './ApiError'
 
 interface GetJsonOptions {
-  /** Defaults to VITE_API_BASE_URL. */
+  /** Defaults to VITE_API_BASE_URL. Use an empty string to call the same origin as the page. */
   baseUrl?: string
   /** Defaults to VITE_API_TIMEOUT_MS. */
   timeoutMs?: number
+  /** Lets the caller cancel the request, for example when a component unmounts. */
+  signal?: AbortSignal
 }
 
 /** Joins a base URL and path with exactly one slash between them. */
@@ -25,11 +27,14 @@ export async function getJson<T>(
   options: GetJsonOptions = {},
 ): Promise<T> {
   const baseUrl = options.baseUrl ?? env.apiBaseUrl
-  if (!baseUrl) throw new ApiError('No API base URL is configured', 'network')
+  if (baseUrl === undefined) throw new ApiError('No API base URL is configured', 'network')
 
   const controller = new AbortController()
   const timeoutMs = options.timeoutMs ?? env.apiTimeoutMs
   const timer = setTimeout(() => controller.abort(), timeoutMs)
+  const onCallerAbort = () => controller.abort()
+  if (options.signal?.aborted) controller.abort()
+  else options.signal?.addEventListener('abort', onCallerAbort, { once: true })
 
   try {
     let response: Response
@@ -69,5 +74,6 @@ export async function getJson<T>(
     return parsed.data
   } finally {
     clearTimeout(timer)
+    options.signal?.removeEventListener('abort', onCallerAbort)
   }
 }

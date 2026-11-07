@@ -1,0 +1,19 @@
+{
+  "name": "GRANTLY: Scholarship Discovery and Management",
+  "short_name": "GRANTLY",
+  "description": "Find scholarships you qualify for, understand why in plain language, follow each application step by step and track deadlines and documents.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f7f6f0",
+  "theme_color": "#183b32",
+  "lang": "en",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

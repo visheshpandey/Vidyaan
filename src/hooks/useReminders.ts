@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { collectEvents } from '@/features/deadlines/events'
 import { dueReminders, reminderSummary } from '@/features/deadlines/reminders'
-import { getScholarshipsSync } from '@/services/scholarshipService'
+import { useScholarships } from '@/hooks/useScholarships'
 import { useDocumentStore } from '@/store/documentStore'
 import { useSettingsStore } from '@/store/settingsStore'
 import { useTrackerStore } from '@/store/trackerStore'
@@ -11,6 +11,7 @@ import { useTrackerStore } from '@/store/trackerStore'
  * A failing Notification API (some mobile browsers throw) is ignored: reminders must never break the app.
  */
 export function useReminders(): void {
+  const { scholarships } = useScholarships()
   const enabled = useSettingsStore((s) => s.remindersEnabled)
   const lastNotifiedOn = useSettingsStore((s) => s.lastNotifiedOn)
   const update = useSettingsStore((s) => s.update)
@@ -23,7 +24,7 @@ export function useReminders(): void {
       return
     const today = new Date().toISOString().slice(0, 10)
     if (lastNotifiedOn === today) return
-    const due = dueReminders(collectEvents(getScholarshipsSync(), saved, applications, documents))
+    const due = dueReminders(collectEvents(scholarships, saved, applications, documents))
     if (due.length === 0) return
     try {
       new Notification('GRANTLY reminder', { body: reminderSummary(due) })
@@ -31,5 +32,5 @@ export function useReminders(): void {
     } catch {
       // Notifications are a nicety. Deadlines are still shown in the app.
     }
-  }, [enabled, lastNotifiedOn, saved, applications, documents, update])
+  }, [enabled, lastNotifiedOn, saved, applications, documents, scholarships, update])
 }

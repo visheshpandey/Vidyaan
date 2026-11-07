@@ -13,7 +13,7 @@ import { GripVertical } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import { useT } from '@/i18n/useT'
-import { getScholarshipsSync } from '@/services/scholarshipService'
+import { useScholarships } from '@/hooks/useScholarships'
 import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import { APPLICATION_STATUSES, type Application, type ApplicationStatus } from '@/types/tracker'
@@ -98,10 +98,11 @@ function Column({
 
 /** Kanban view. Drag with mouse, touch or keyboard; the "Move to" menu on each card works without dragging. */
 export function Board({ applications }: { applications: Application[] }) {
+  const { scholarships } = useScholarships()
   const setStatus = useTrackerStore((s) => s.setStatus)
   const notify = useUiStore((s) => s.notify)
   const t = useT()
-  const byId = new Map(getScholarshipsSync().map((s) => [s.id, s]))
+  const byId = new Map(scholarships.map((s) => [s.id, s]))
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(KeyboardSensor),

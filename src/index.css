@@ -78,13 +78,22 @@
   --color-line: #e5e7e1;
   /* Hindi has no web font on purpose (it would be a large download): the system Devanagari font is used. */
   --font-sans:
-    'Inter', 'Inter Fallback', 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', system-ui,
-    sans-serif;
+    'Inter', 'Inter Fallback', 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', system-ui, sans-serif;
   --font-serif:
-    'DM Serif Display', 'DM Serif Display Fallback', 'Noto Serif Devanagari', 'Nirmala UI',
-    Georgia, serif;
+    'DM Serif Display', 'DM Serif Display Fallback', 'Noto Serif Devanagari', 'Nirmala UI', Georgia,
+    serif;
   --radius-card: 12px;
   --radius-control: 10px;
+
+  /*
+   * Fluid type scale: headings grow smoothly with the viewport instead of jumping at breakpoints.
+   * Each value is clamp(minimum, preferred, maximum), so text is never smaller or larger than intended.
+   */
+  --text-xl: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --text-2xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-3xl: clamp(1.5rem, 1.25rem + 1.2vw, 1.875rem);
+  --text-4xl: clamp(1.875rem, 1.45rem + 2vw, 2.25rem);
+  --text-5xl: clamp(2.125rem, 1.5rem + 3vw, 3rem);
 }
 
 /* Dark theme: swaps the same tokens, so no component needs dark-specific classes. */
@@ -174,6 +183,123 @@ button:disabled {
 
 @media print {
   .no-print {
+    display: none !important;
+  }
+}
+
+/*
+ * Responsive behaviour that depends on the container, the input device, the window shape or the
+ * user's display preferences, not just the screen width.
+ */
+
+/* Container queries: cards respond to the space their column gives them, wherever they are placed. */
+.page-container {
+  container-type: inline-size;
+  container-name: page;
+}
+
+@container page (max-width: 34rem) {
+  /* Narrow column: scholarship rows let their actions wrap under the text instead of squeezing it. */
+  main article {
+    flex-wrap: wrap;
+  }
+  main article > div:last-child {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+@container page (min-width: 60rem) {
+  /* Wide column: give long-form text a comfortable line length. */
+  main p {
+    max-inline-size: 75ch;
+  }
+}
+
+/* Touch screens: bigger targets with room between them. */
+@media (pointer: coarse) {
+  button,
+  select,
+  summary,
+  input:not([type='checkbox'], [type='radio']) {
+    min-block-size: 44px;
+  }
+  nav a,
+  nav button {
+    min-block-size: 44px;
+  }
+}
+
+/* Mouse and trackpad: allow denser spacing in dense lists. */
+@media (hover: hover) and (pointer: fine) {
+  tbody tr:hover {
+    background: color-mix(in srgb, var(--color-secondary) 6%, transparent);
+  }
+}
+
+/* Short landscape screens (phones turned sideways): shrink the bottom bar so content stays visible. */
+@media (orientation: landscape) and (max-height: 500px) {
+  nav[aria-label='Main'].fixed a,
+  nav[aria-label='Main'].fixed button {
+    min-height: 2.5rem;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  header.no-print {
+    height: 56px;
+  }
+}
+
+/* Very small screens: tighten the page gutters. */
+@media (max-width: 22.5rem) {
+  main {
+    padding-inline: 0.75rem;
+  }
+}
+
+/* People who ask the OS for more contrast get stronger text and borders. */
+@media (prefers-contrast: more) {
+  :root:not([data-theme='dark']) {
+    --color-muted: #3f4a43;
+    --color-line: #7b857e;
+  }
+  :focus-visible {
+    outline-width: 4px;
+  }
+}
+
+/* Windows high-contrast mode: let the system colours through and keep focus and borders visible. */
+@media (forced-colors: active) {
+  button,
+  a[role='button'],
+  input,
+  select,
+  textarea {
+    border: 1px solid ButtonText;
+  }
+  :focus-visible {
+    outline: 3px solid Highlight;
+  }
+  [role='progressbar'] > div {
+    forced-color-adjust: none;
+    background: Highlight;
+  }
+}
+
+/* Printing: plain page, readable links, no navigation chrome. */
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+  main a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+  }
+  nav,
+  header.no-print {
     display: none !important;
   }
 }

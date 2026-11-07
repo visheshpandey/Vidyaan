@@ -24,4 +24,6 @@ export interface Application {
   createdAt: string
   updatedAt: string
   history: StatusChange[]
+  /** Indexes of the application guide steps the student has ticked off. */
+  stepsDone: number[]
 }

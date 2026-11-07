@@ -10,15 +10,16 @@ import { Board } from '@/features/applications/Board'
 import { ApplicationListItem } from '@/features/applications/ApplicationListItem'
 import { countByStatus, filterByStatus, type StatusFilter } from '@/features/applications/selectors'
 import { STATUS_LABELS } from '@/features/applications/transitions'
-import { getScholarshipsSync } from '@/services/scholarshipService'
+import { useScholarships } from '@/hooks/useScholarships'
 import { useTrackerStore } from '@/store/trackerStore'
 import { APPLICATION_STATUSES } from '@/types/tracker'
 
 export default function Applications() {
+  const { scholarships } = useScholarships()
   const applications = useTrackerStore((s) => s.applications)
   const [view, setView] = useState<'list' | 'board'>('board')
   const [filter, setFilter] = useState<StatusFilter>('all')
-  const byId = new Map(getScholarshipsSync().map((s) => [s.id, s]))
+  const byId = new Map(scholarships.map((s) => [s.id, s]))
   const shown = filterByStatus(applications, filter)
 
   return (

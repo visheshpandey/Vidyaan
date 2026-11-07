@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { z } from 'zod'
 import { STORAGE_KEYS } from '@/constants/storage-keys'
 import { applicationSchema } from '@/data/schemas'
+import { toggleStep as toggleStepIndex } from '@/features/applications/steps'
 import { applyStatus, createApplication } from '@/features/applications/transitions'
 import { loadJSON, saveJSON } from '@/services/storage'
 import { MAX_NOTES_LENGTH } from '@/constants/limits'
@@ -15,6 +16,7 @@ interface TrackerState {
   startTracking: (scholarshipId: string, checklist: string[]) => Application
   setStatus: (id: string, status: ApplicationStatus) => void
   setNotes: (id: string, notes: string) => void
+  toggleStep: (id: string, index: number, total: number) => void
   removeApplication: (id: string) => void
   reload: () => void
 }
@@ -64,6 +66,14 @@ export const useTrackerStore = create<TrackerState>((set, get) => {
         applications: get().applications.map((a) =>
           a.id === id
             ? { ...a, notes: sanitizeMultiline(notes, MAX_NOTES_LENGTH), updatedAt: nowIso() }
+            : a,
+        ),
+      }),
+    toggleStep: (id, index, total) =>
+      persist({
+        applications: get().applications.map((a) =>
+          a.id === id
+            ? { ...a, stepsDone: toggleStepIndex(a.stepsDone, index, total), updatedAt: nowIso() }
             : a,
         ),
       }),

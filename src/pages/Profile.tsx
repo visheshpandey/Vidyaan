@@ -16,7 +16,8 @@ import {
 import { ROUTES } from '@/constants/routes'
 import { loadDemoData, resetAllData } from '@/features/demo/demoMode'
 import { applicationsToCsv, downloadText } from '@/services/exportService'
-import { getScholarshipsSync } from '@/services/scholarshipService'
+import { WhatIfPanel } from '@/features/matching/WhatIfPanel'
+import { useScholarships } from '@/hooks/useScholarships'
 import { useT } from '@/i18n/useT'
 import { useSettingsStore } from '@/store/settingsStore'
 import { useDocumentStore } from '@/store/documentStore'
@@ -69,6 +70,7 @@ function NameField({ value, onCommit }: { value: string; onCommit: (name: string
 }
 
 export default function Profile() {
+  const { scholarships } = useScholarships()
   const profile = useProfileStore((s) => s.profile) ?? { name: '', preferences: [] }
   const update = useProfileStore((s) => s.updateProfile)
   const { saved, applications } = useTrackerStore()
@@ -80,7 +82,7 @@ export default function Profile() {
   const [confirm, setConfirm] = useState<'demo' | 'clear' | null>(null)
   const set = <K extends keyof StudentProfile>(k: K, v: StudentProfile[K]) => update({ [k]: v })
 
-  const titleOf = (id: string) => getScholarshipsSync().find((s) => s.id === id)?.title ?? id
+  const titleOf = (id: string) => scholarships.find((s) => s.id === id)?.title ?? id
 
   /** Asks the browser for notification permission. Failure is explained, never thrown. */
   const askForNotifications = async () => {
@@ -196,6 +198,7 @@ export default function Profile() {
         </Card>
 
         <div className="space-y-6">
+          <WhatIfPanel profile={profile} scholarships={scholarships} />
           <Card>
             <h2 className="font-serif text-xl text-heading">Preferences</h2>
             <CheckboxField

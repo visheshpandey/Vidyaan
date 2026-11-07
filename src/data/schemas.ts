@@ -52,6 +52,8 @@ export const applicationSchema: z.ZodType<Application> = z.object({
   createdAt: timestamp,
   updatedAt: timestamp,
   history: z.array(z.object({ status: z.enum(APPLICATION_STATUSES), at: timestamp })).max(200),
+  // Older saved data has no steps; treat it as none done instead of rejecting the record.
+  stepsDone: z.array(z.number().int().min(0).max(49)).max(50).catch([]),
 })
 
 export const documentSchema: z.ZodType<DocumentItem> = z.object({

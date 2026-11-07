@@ -3,6 +3,7 @@ import { CalendarCheck, Compass, ListChecks, Route as RouteIcon } from 'lucide-r
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { buttonClass } from '@/components/ui/buttonStyles'
+import { HeroIllustration } from '@/components/ui/HeroIllustration'
 import { ROUTES } from '@/constants/routes'
 import { DEMO_PROFILE } from '@/data/demo'
 import { loadDemoData } from '@/features/demo/demoMode'
@@ -10,7 +11,7 @@ import { evaluate } from '@/features/matching/engine'
 import { StatusBadge } from '@/features/matching/StatusBadge'
 import { ScholarshipBrief } from '@/features/scholarships/ScholarshipBrief'
 import { useT } from '@/i18n/useT'
-import { getScholarshipsSync } from '@/services/scholarshipService'
+import { useScholarships } from '@/hooks/useScholarships'
 import { useProfileStore } from '@/store/profileStore'
 import type { Verdict } from '@/types/eligibility'
 
@@ -55,13 +56,14 @@ const MEANINGS: Array<{ verdict: Verdict; text: string }> = [
 ]
 
 export default function Landing() {
+  const { scholarships } = useScholarships()
   const navigate = useNavigate()
   const t = useT()
   const onboarded = useProfileStore((s) => s.onboarded)
   const preview = useMemo(() => {
-    const scholarship = getScholarshipsSync().find((s) => s.id === PREVIEW_ID)
+    const scholarship = scholarships.find((s) => s.id === PREVIEW_ID)
     return scholarship ? { scholarship, result: evaluate(DEMO_PROFILE, scholarship) } : null
-  }, [])
+  }, [scholarships])
 
   return (
     <div>
@@ -104,6 +106,7 @@ export default function Landing() {
 
           {preview && (
             <figure className="text-ink lg:max-w-sm lg:justify-self-end">
+              <HeroIllustration className="mb-4 hidden h-auto w-full rounded-card md:block" />
               {/* A real card rendered for a sample student. Inert so the preview never changes saved data. */}
               <div inert aria-hidden="true">
                 <ScholarshipBrief item={preview} as="h2" />

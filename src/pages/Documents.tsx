@@ -8,7 +8,7 @@ import { PageHeader } from '@/components/ui/PageHeader'
 import { Progress } from '@/components/ui/Progress'
 import { overallReadiness, readiness } from '@/features/documents/readiness'
 import { isActive } from '@/features/applications/transitions'
-import { getScholarshipsSync } from '@/services/scholarshipService'
+import { useScholarships } from '@/hooks/useScholarships'
 import { useDocumentStore } from '@/store/documentStore'
 import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
@@ -16,12 +16,13 @@ import { daysUntil, formatDeadline } from '@/utils/date'
 import { TEXT_LIMITS } from '@/utils/sanitize'
 
 export default function Documents() {
+  const { scholarships } = useScholarships()
   const { documents, addDocument, setStatus, setExpiry, removeDocument } = useDocumentStore()
   const applications = useTrackerStore((s) => s.applications)
   const notify = useUiStore((s) => s.notify)
   const [name, setName] = useState('')
   const [toRemove, setToRemove] = useState<{ id: string; name: string } | null>(null)
-  const titles = new Map(getScholarshipsSync().map((s) => [s.id, s.title]))
+  const titles = new Map(scholarships.map((s) => [s.id, s.title]))
   const { available: have, percent: overall } = overallReadiness(documents)
   const open = applications.filter((a) => isActive(a) || a.status === 'saved')
 
@@ -149,7 +150,7 @@ export default function Documents() {
             <ul className="space-y-3">
               {open.map((a) => {
                 const r = readiness(a, documents)
-                const s = getScholarshipsSync().find((x) => x.id === a.scholarshipId)
+                const s = scholarships.find((x) => x.id === a.scholarshipId)
                 return (
                   <li key={a.id}>
                     <Card>

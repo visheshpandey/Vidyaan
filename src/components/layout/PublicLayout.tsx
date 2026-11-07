@@ -5,6 +5,8 @@ import { PreferenceToggles } from './PreferenceToggles'
 import { PageSkeleton } from '@/components/ui/Skeleton'
 import { APP_NAME } from '@/constants/app'
 import { Logo } from './Logo'
+import { OfflineBanner } from './OfflineBanner'
+import { RouteAnnouncer } from './RouteAnnouncer'
 import { ROUTES } from '@/constants/routes'
 import { useT } from '@/i18n/useT'
 import { useProfileStore } from '@/store/profileStore'
@@ -14,6 +16,8 @@ export function PublicLayout() {
   const t = useT()
   return (
     <div className="flex min-h-dvh flex-col">
+      <RouteAnnouncer />
+      <OfflineBanner />
       <header className="no-print flex h-[72px] items-center justify-between px-4 sm:px-8">
         <Logo />
         <div className="flex items-center gap-2">
@@ -26,7 +30,7 @@ export function PublicLayout() {
           </Link>
         </div>
       </header>
-      <main id="main" tabIndex={-1} className="flex-1 outline-none">
+      <main id="main" tabIndex={-1} className="page-container flex-1 outline-none">
         <Suspense fallback={<PageSkeleton />}>
           <Outlet />
         </Suspense>

@@ -9,15 +9,17 @@ import { ConfirmDialog } from '@/components/ui/Modal'
 import { MAX_NOTES_LENGTH } from '@/constants/limits'
 import { ROUTES } from '@/constants/routes'
 import { StatusMenu } from '@/features/applications/StatusMenu'
+import { StepChecklist } from '@/features/applications/StepChecklist'
 import { StatusPill } from '@/features/applications/StatusPill'
 import { STATUS_LABELS } from '@/features/applications/transitions'
-import { getScholarshipsSync } from '@/services/scholarshipService'
+import { useScholarships } from '@/hooks/useScholarships'
 import { useDocumentStore } from '@/store/documentStore'
 import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import { formatDateTime, formatDeadline } from '@/utils/date'
 
 export default function ApplicationDetail() {
+  const { scholarships } = useScholarships()
   const { id = '' } = useParams()
   const navigate = useNavigate()
   const app = useTrackerStore((s) => s.applications.find((a) => a.id === id))
@@ -42,7 +44,7 @@ export default function ApplicationDetail() {
       </EmptyState>
     )
   }
-  const s = getScholarshipsSync().find((x) => x.id === app.scholarshipId)
+  const s = scholarships.find((x) => x.id === app.scholarshipId)
   const title = s?.title ?? 'Scholarship'
   const have = (name: string) => documents.some((d) => d.name === name && d.status === 'available')
 
@@ -71,6 +73,13 @@ export default function ApplicationDetail() {
           )}
         </div>
       </header>
+
+      {s && (
+        <Card>
+          <h2 className="mb-3 font-serif text-xl text-heading">Application guide</h2>
+          <StepChecklist applicationId={app.id} steps={s.steps} />
+        </Card>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">

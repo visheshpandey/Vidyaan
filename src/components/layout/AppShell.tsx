@@ -8,7 +8,9 @@ import { useT } from '@/i18n/useT'
 import { useProfileStore } from '@/store/profileStore'
 import { BottomNav } from './BottomNav'
 import { Logo } from './Logo'
+import { OfflineBanner } from './OfflineBanner'
 import { PreferenceToggles } from './PreferenceToggles'
+import { RouteAnnouncer } from './RouteAnnouncer'
 import { Sidebar } from './Sidebar'
 
 /** Signed-in layout: sidebar on desktop, header with search and bottom navigation on mobile. */
@@ -29,6 +31,8 @@ export function AppShell() {
     <div className="app-shell min-h-dvh">
       <Sidebar />
       <div className="min-w-0 pb-20 lg:pb-0">
+        <RouteAnnouncer />
+        <OfflineBanner />
         <header className="no-print flex h-[72px] items-center gap-3 border-b border-line bg-surface px-4 sm:px-8">
           <Logo className="lg:hidden" />
           <form
@@ -77,7 +81,7 @@ export function AppShell() {
         <main
           id="main"
           tabIndex={-1}
-          className="mx-auto max-w-6xl px-4 py-6 outline-none sm:px-8 sm:py-8"
+          className="page-container mx-auto max-w-6xl px-4 py-6 outline-none sm:px-8 sm:py-8"
         >
           <Suspense fallback={<PageSkeleton />}>
             <Outlet />

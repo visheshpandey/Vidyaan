@@ -19,13 +19,14 @@ import { ROUTES } from '@/constants/routes'
 import { collectEvents } from '@/features/deadlines/events'
 import { buildIcs } from '@/features/deadlines/ics'
 import { downloadText } from '@/services/exportService'
-import { getScholarshipsSync } from '@/services/scholarshipService'
+import { useScholarships } from '@/hooks/useScholarships'
 import { useDocumentStore } from '@/store/documentStore'
 import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import { deadlineLabel, formatDeadline } from '@/utils/date'
 
 export default function Deadlines() {
+  const { scholarships } = useScholarships()
   const saved = useTrackerStore((s) => s.saved)
   const applications = useTrackerStore((s) => s.applications)
   const documents = useDocumentStore((s) => s.documents)
@@ -33,13 +34,13 @@ export default function Deadlines() {
   const [month, setMonth] = useState(() => startOfMonth(new Date()))
 
   const events = useMemo(
-    () => collectEvents(getScholarshipsSync(), saved, applications, documents),
-    [saved, applications, documents],
+    () => collectEvents(scholarships, saved, applications, documents),
+    [scholarships, saved, applications, documents],
   )
   const days = eachDayOfInterval({ start: startOfWeek(month), end: endOfWeek(endOfMonth(month)) })
   const [todayKey] = useState(() => format(new Date(), 'yyyy-MM-dd'))
   const upcoming = events.filter((e) => e.date >= todayKey)
-  const unknown = getScholarshipsSync().filter((s) => saved.includes(s.id) && !s.deadline)
+  const unknown = scholarships.filter((s) => saved.includes(s.id) && !s.deadline)
 
   return (
     <>

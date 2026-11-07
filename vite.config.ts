@@ -2,9 +2,10 @@ import path from 'node:path'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vitest/config'
+import { serviceWorkerPlugin } from './scripts/serviceWorkerPlugin.ts'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), serviceWorkerPlugin()],
   resolve: { alias: { '@': path.resolve(import.meta.dirname, 'src') } },
   build: {
     target: 'es2022',

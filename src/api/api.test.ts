@@ -89,10 +89,40 @@ describe('createScholarshipsApi', () => {
   const remote = bundled.slice(0, 2)
   const config = { baseUrl: BASE, timeoutMs: 1000, cacheMs: 60_000 }
 
-  it('returns bundled data without calling the network when no backend is set', async () => {
+  it('reads the same-origin static file when no backend is set', async () => {
+    fetchMock.mockResolvedValue(jsonResponse(remote))
+    const api = createScholarshipsApi({ ...config, baseUrl: undefined })
+    await expect(api.fetchScholarships()).resolves.toEqual(remote)
+    expect(fetchMock.mock.calls[0]?.[0] as string).toBe('/data/scholarships.json')
+  })
+
+  it('uses bundled data when the static file cannot be loaded', async () => {
+    fetchMock.mockRejectedValue(new TypeError('offline'))
     const api = createScholarshipsApi({ ...config, baseUrl: undefined })
     await expect(api.fetchScholarships()).resolves.toEqual(bundled)
-    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  it('reports where the data came from', async () => {
+    fetchMock.mockResolvedValueOnce(jsonResponse(remote))
+    const api = createScholarshipsApi(config)
+    expect((await api.fetchScholarshipsWithSource()).source).toBe('network')
+    api.clearCache()
+    fetchMock.mockRejectedValueOnce(new TypeError('offline'))
+    expect((await api.fetchScholarshipsWithSource()).source).toBe('fallback')
+  })
+
+  it('drops invalid records but keeps the valid ones', async () => {
+    fetchMock.mockResolvedValue(jsonResponse([...remote, { id: 7 }]))
+    const api = createScholarshipsApi(config)
+    await expect(api.fetchScholarships()).resolves.toEqual(remote)
+  })
+
+  it('skips the cache when forced', async () => {
+    fetchMock.mockImplementation(() => Promise.resolve(jsonResponse(remote)))
+    const api = createScholarshipsApi(config)
+    await api.fetchScholarships()
+    await api.fetchScholarships({ force: true })
+    expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 
   it('returns backend data when the request succeeds', async () => {
