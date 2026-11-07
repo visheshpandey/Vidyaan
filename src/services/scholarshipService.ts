@@ -10,27 +10,14 @@ interface RefreshOptions {
 }
 
 /**
- * All scholarships. Read from the server (cached for 10 minutes, validated per record),
- * with a fallback to the bundled data if the server cannot be reached.
- */
-export async function listScholarships(): Promise<Scholarship[]> {
-  return scholarshipsApi.fetchScholarships()
-}
-
-/**
- * Like `listScholarships`, but also says whether the data came from the network or from the offline fallback.
- * This is what the app's scholarship provider uses to show an offline notice.
+ * All scholarships, read from the server (cached for 10 minutes, validated per record) with a fallback to the
+ * bundled data. Also says whether the data came from the network or the offline fallback, which the
+ * scholarship provider uses to show an offline notice.
  */
 export async function refreshScholarships(
   options: RefreshOptions = {},
 ): Promise<{ scholarships: Scholarship[]; source: 'network' | 'fallback' }> {
   return scholarshipsApi.fetchScholarshipsWithSource(options)
-}
-
-/** One scholarship by id, or undefined if it does not exist. */
-export async function getScholarship(id: string): Promise<Scholarship | undefined> {
-  const all = await scholarshipsApi.fetchScholarships()
-  return all.find((s) => s.id === id)
 }
 
 /**

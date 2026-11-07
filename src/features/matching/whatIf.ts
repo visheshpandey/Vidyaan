@@ -3,7 +3,7 @@ import type { Scholarship } from '@/types/scholarship'
 import { evaluate } from './engine'
 import type { Matched } from './rank'
 
-export interface WhatIfResult {
+interface WhatIfResult {
   /** Scholarships the student would newly become eligible for. */
   unlocked: Matched[]
   /** Scholarships the student is eligible for now but would lose. */

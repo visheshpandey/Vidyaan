@@ -1,4 +1,4 @@
-export interface StepProgress {
+interface StepProgress {
   /** Steps ticked off. */
   done: number
   total: number

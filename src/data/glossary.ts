@@ -1,9 +1,9 @@
-export interface GlossaryEntry {
+interface GlossaryEntry {
   term: string
   meaning: string
 }
 
-export interface FaqEntry {
+interface FaqEntry {
   question: string
   answer: string
 }

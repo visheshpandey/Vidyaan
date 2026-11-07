@@ -53,7 +53,7 @@ Press **Try the demo (Priya)** on the landing page to load a sample student with
 | `npm run dev`           | Start the dev server               |
 | `npm run build`         | Typecheck and build for production |
 | `npm run preview`       | Serve the production build         |
-| `npm run lint`          | Lint with oxlint                   |
+| `npm run lint`          | Lint with ESLint (type-aware)      |
 | `npm run typecheck`     | TypeScript strict check            |
 | `npm test`              | Run unit and accessibility tests   |
 | `npm run test:coverage` | Tests with coverage                |
