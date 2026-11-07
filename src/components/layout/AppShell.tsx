@@ -10,6 +10,7 @@ import { BottomNav } from './BottomNav'
 import { Logo } from './Logo'
 import { OfflineBanner } from './OfflineBanner'
 import { PreferenceToggles } from './PreferenceToggles'
+import { ProfilePrompt } from './ProfilePrompt'
 import { RouteAnnouncer } from './RouteAnnouncer'
 import { Sidebar } from './Sidebar'
 
@@ -78,6 +79,7 @@ export function AppShell() {
             </Link>
           </div>
         </header>
+        <ProfilePrompt />
         <main
           id="main"
           tabIndex={-1}

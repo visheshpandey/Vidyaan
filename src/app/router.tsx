@@ -20,7 +20,6 @@ import {
   Saved,
   ScholarshipDetail,
 } from './pages'
-import { RequireOnboarding } from './RequireOnboarding'
 import { RouteError } from './RouteError'
 
 export const router = createBrowserRouter([
@@ -28,17 +27,15 @@ export const router = createBrowserRouter([
     element: <PublicLayout />,
     errorElement: <RouteError />,
     children: [
-      { path: ROUTES.home, element: <Landing /> },
+      { path: ROUTES.welcome, element: <Landing /> },
       { path: ROUTES.onboarding, element: <Onboarding /> },
     ],
   },
   {
     element: (
-      <RequireOnboarding>
-        <Suspense fallback={<PageSkeleton />}>
-          <AppShell />
-        </Suspense>
-      </RequireOnboarding>
+      <Suspense fallback={<PageSkeleton />}>
+        <AppShell />
+      </Suspense>
     ),
     errorElement: <RouteError />,
     children: [
@@ -55,6 +52,16 @@ export const router = createBrowserRouter([
       { path: ROUTES.help, element: <Help /> },
     ],
   },
-  { path: '/home', element: <Navigate to={ROUTES.home} replace />, errorElement: <RouteError /> },
+  // The site opens straight to the scholarship list. The landing page lives at /welcome.
+  {
+    path: ROUTES.home,
+    element: <Navigate to={ROUTES.discover} replace />,
+    errorElement: <RouteError />,
+  },
+  {
+    path: '/home',
+    element: <Navigate to={ROUTES.discover} replace />,
+    errorElement: <RouteError />,
+  },
   { path: '*', element: <NotFound />, errorElement: <RouteError /> },
 ])

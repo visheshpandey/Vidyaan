@@ -4,6 +4,12 @@
     <loc>https://grantly-delta.vercel.app/</loc>
   </url>
   <url>
-    <loc>https://grantly-delta.vercel.app/onboarding</loc>
+    <loc>https://grantly-delta.vercel.app/discover</loc>
+  </url>
+  <url>
+    <loc>https://grantly-delta.vercel.app/help</loc>
+  </url>
+  <url>
+    <loc>https://grantly-delta.vercel.app/welcome</loc>
   </url>
 </urlset>

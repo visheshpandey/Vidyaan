@@ -7,6 +7,7 @@ import { ROUTES } from '@/constants/routes'
  */
 export function pageNameForPath(pathname: string): string {
   if (pathname === ROUTES.home) return 'Home'
+  if (pathname === ROUTES.welcome) return 'Welcome'
   if (pathname === ROUTES.onboarding) return 'Get started'
   if (pathname.startsWith('/scholarship/')) return 'Scholarship details'
   if (pathname.startsWith('/applications/')) return 'Application details'

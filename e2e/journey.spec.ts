@@ -1,15 +1,22 @@
 import { expect, test, type Page } from '@playwright/test'
 
-/** Loads the demo student from the landing page and lands on the dashboard. */
+/** Loads the demo student from the welcome page and lands on the dashboard. */
 async function startDemo(page: Page) {
-  await page.goto('/')
+  await page.goto('/welcome')
   await page.getByRole('button', { name: /try the demo/i }).click()
   await expect(page).toHaveURL(/\/dashboard$/)
 }
 
 test.describe('student journey', () => {
-  test('landing page explains the product and has no horizontal scroll', async ({ page }) => {
+  test('the site opens straight to the scholarship list', async ({ page }) => {
     await page.goto('/')
+    await expect(page).toHaveURL(/\/discover$/)
+    await expect(page.getByRole('heading', { level: 1, name: /discover/i })).toBeVisible()
+    await expect(page.getByText(/browsing without a profile/i)).toBeVisible()
+  })
+
+  test('welcome page explains the product and has no horizontal scroll', async ({ page }) => {
+    await page.goto('/welcome')
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     await expect(page).toHaveTitle(/GRANTLY/)
     const overflow = await page.evaluate(
@@ -29,10 +36,8 @@ test.describe('student journey', () => {
   test('search narrows scholarships and the filter lives in the URL', async ({ page }) => {
     await startDemo(page)
     await page.goto('/discover')
-    await page
-      .getByRole('searchbox', { name: /search scholarships/i })
-      .last()
-      .fill('aicte')
+    await expect(page.getByRole('heading', { level: 1, name: /discover/i })).toBeVisible()
+    await page.getByRole('searchbox', { name: 'Search scholarships', exact: true }).fill('aicte')
     await expect(page).toHaveURL(/q=aicte/)
     await expect(page.getByText(/showing \d+ of \d+ scholarships/i)).toBeVisible()
   })
