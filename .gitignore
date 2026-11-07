@@ -32,3 +32,6 @@ dist-ssr
 .claude/
 CLAUDE.md
 coverage
+
+.vercel
+.env*
