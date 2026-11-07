@@ -68,24 +68,18 @@ describe('R4.1 R4.2 Documents', () => {
     expect(screen.getByText('0 of 2 documents available')).toBeInTheDocument()
   })
 
-  it('needs confirmation before a document is removed', async () => {
+  it('removes a document with an undo toast and restores it on Undo', async () => {
     const user = userEvent.setup()
     useDocumentStore.getState().addDocument('Marksheet')
     renderDocuments()
 
     await user.click(screen.getByRole('button', { name: 'Remove Marksheet' }))
-    const dialog = screen.getByRole('dialog')
-    expect(within(dialog).getByText('Remove document?')).toBeInTheDocument()
-    expect(useDocumentStore.getState().documents).toHaveLength(1)
-
-    await user.click(within(dialog).getByRole('button', { name: 'Cancel' }))
-    expect(useDocumentStore.getState().documents).toHaveLength(1)
-
-    await user.click(screen.getByRole('button', { name: 'Remove Marksheet' }))
-    await user.click(within(screen.getByRole('dialog')).getByRole('button', { name: 'Remove' }))
-
     expect(useDocumentStore.getState().documents).toEqual([])
-    expect(screen.queryByText('Marksheet')).not.toBeInTheDocument()
+    expect(screen.getByText('Marksheet removed')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Undo' }))
+    expect(useDocumentStore.getState().documents.map((d) => d.name)).toEqual(['Marksheet'])
+    expect(screen.getByText('Marksheet restored')).toBeInTheDocument()
   })
 
   it('warns about a document that expires soon', () => {

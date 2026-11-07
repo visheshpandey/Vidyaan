@@ -17,6 +17,18 @@ export function Toaster() {
           className="pointer-events-auto flex max-w-md items-center gap-3 rounded-control bg-primary px-4 py-3 text-sm text-white shadow-lg"
         >
           <span>{t.message}</span>
+          {t.action && (
+            <button
+              type="button"
+              onClick={() => {
+                t.action?.onClick()
+                dismiss(t.id)
+              }}
+              className="min-h-11 rounded-control bg-white/20 px-3 py-1 text-sm font-semibold text-white underline hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              {t.action.label}
+            </button>
+          )}
           <button
             aria-label="Dismiss"
             onClick={() => dismiss(t.id)}

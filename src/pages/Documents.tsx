@@ -4,7 +4,6 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { ErrorSummary } from '@/components/ui/ErrorSummary'
-import { ConfirmDialog } from '@/components/ui/Modal'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { Progress } from '@/components/ui/Progress'
 import { overallReadiness, readiness } from '@/features/documents/readiness'
@@ -19,15 +18,31 @@ import { sanitizeText, TEXT_LIMITS } from '@/utils/sanitize'
 /** Document checklist with availability, expiry dates and readiness. */
 export default function Documents() {
   const { scholarships } = useScholarships()
-  const { documents, addDocument, setStatus, setExpiry, removeDocument } = useDocumentStore()
+  const { documents, addDocument, setStatus, setExpiry, removeDocument, restoreDocument } =
+    useDocumentStore()
   const applications = useTrackerStore((s) => s.applications)
   const notify = useUiStore((s) => s.notify)
   const [name, setName] = useState('')
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [toRemove, setToRemove] = useState<{ id: string; name: string } | null>(null)
   const titles = new Map(scholarships.map((s) => [s.id, s.title]))
   const { available: have, percent: overall } = overallReadiness(documents)
   const open = applications.filter((a) => isActive(a) || a.status === 'saved')
+
+  const onRemoveDocument = (doc: (typeof documents)[number]) => {
+    removeDocument(doc.id)
+    notify(
+      `${doc.name} removed`,
+      'info',
+      {
+        label: 'Undo',
+        onClick: () => {
+          restoreDocument(doc)
+          notify(`${doc.name} restored`)
+        },
+      },
+      5000,
+    )
+  }
 
   const onAdd = (e: FormEvent) => {
     e.preventDefault()
@@ -138,7 +153,7 @@ export default function Documents() {
                           variant="ghost"
                           size="sm"
                           aria-label={`Remove ${d.name}`}
-                          onClick={() => setToRemove({ id: d.id, name: d.name })}
+                          onClick={() => onRemoveDocument(d)}
                         >
                           <Trash2 size={16} aria-hidden />
                         </Button>
@@ -205,19 +220,6 @@ export default function Documents() {
           )}
         </section>
       </div>
-      <ConfirmDialog
-        open={toRemove !== null}
-        onOpenChange={(o) => !o && setToRemove(null)}
-        title="Remove document?"
-        description={`${toRemove?.name ?? 'This document'} will be removed from your list. Applications that need it will show it as missing.`}
-        confirmLabel="Remove"
-        danger
-        onConfirm={() => {
-          if (!toRemove) return
-          removeDocument(toRemove.id)
-          notify(`${toRemove.name} removed`, 'info')
-        }}
-      />
     </>
   )
 }

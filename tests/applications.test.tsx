@@ -56,35 +56,24 @@ describe('R3.2 R3.3 R4.5 Tracking an application', () => {
     expect(within(history as HTMLElement).getByText('Submitted')).toBeInTheDocument()
   })
 
-  it('asks for confirmation before it stops tracking, and can be cancelled', async () => {
+  it('stops tracking with an undo toast and restores when undo is clicked', async () => {
     const user = userEvent.setup()
     useTrackerStore.getState().startTracking('demo-merit-engineering', [])
     renderApp(routes, '/applications/app-demo-merit-engineering')
 
     await user.click(screen.getByRole('button', { name: 'Stop tracking' }))
-    const dialog = screen.getByRole('dialog')
-    expect(within(dialog).getByText('Stop tracking?')).toBeInTheDocument()
-    expect(useTrackerStore.getState().applications).toHaveLength(1)
 
-    await user.click(within(dialog).getByRole('button', { name: 'Cancel' }))
-
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-    expect(useTrackerStore.getState().applications).toHaveLength(1)
-  })
-
-  it('removes the application after the student confirms', async () => {
-    const user = userEvent.setup()
-    useTrackerStore.getState().startTracking('demo-merit-engineering', [])
-    renderApp(routes, '/applications/app-demo-merit-engineering')
-
-    await user.click(screen.getByRole('button', { name: 'Stop tracking' }))
-    await user.click(
-      within(screen.getByRole('dialog')).getByRole('button', { name: 'Stop tracking' }),
-    )
-
-    expect(useTrackerStore.getState().applications).toEqual([])
+    expect(useTrackerStore.getState().applications).toHaveLength(0)
     expect(currentUrl()).toBe('/applications')
-    expect(screen.getByText('No applications yet')).toBeInTheDocument()
+    expect(await screen.findByText(/removed from tracker/)).toBeInTheDocument()
+
+    const undoButton = screen.getByRole('button', { name: 'Undo' })
+    expect(undoButton).toBeInTheDocument()
+
+    await user.click(undoButton)
+
+    expect(useTrackerStore.getState().applications).toHaveLength(1)
+    expect(await screen.findByText(/restored/)).toBeInTheDocument()
   })
 
   it('keeps notes the student types and counts the characters', async () => {

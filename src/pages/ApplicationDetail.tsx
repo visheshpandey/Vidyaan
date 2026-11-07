@@ -1,11 +1,9 @@
-import { useState } from 'react'
 import { ArrowLeft, ClipboardList, Trash2 } from 'lucide-react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { buttonClass } from '@/components/ui/buttonStyles'
 import { Card } from '@/components/ui/Card'
 import { EmptyState } from '@/components/ui/EmptyState'
-import { ConfirmDialog } from '@/components/ui/Modal'
 import { MAX_NOTES_LENGTH } from '@/constants/limits'
 import { ROUTES } from '@/constants/routes'
 import { StatusMenu } from '@/features/applications/StatusMenu'
@@ -26,9 +24,9 @@ export default function ApplicationDetail() {
   const app = useTrackerStore((s) => s.applications.find((a) => a.id === id))
   const setNotes = useTrackerStore((s) => s.setNotes)
   const remove = useTrackerStore((s) => s.removeApplication)
+  const restoreApplication = useTrackerStore((s) => s.restoreApplication)
   const documents = useDocumentStore((s) => s.documents)
   const notify = useUiStore((s) => s.notify)
-  const [confirm, setConfirm] = useState(false)
 
   if (!app) {
     return (
@@ -134,25 +132,31 @@ export default function ApplicationDetail() {
               ))}
             </ol>
           </Card>
-          <Button variant="ghost" size="sm" onClick={() => setConfirm(true)}>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              const toRestore = app
+              remove(app.id)
+              notify(
+                `${title} removed from tracker`,
+                'info',
+                {
+                  label: 'Undo',
+                  onClick: () => {
+                    restoreApplication(toRestore)
+                    notify(`${title} restored`)
+                  },
+                },
+                5000,
+              )
+              void navigate(ROUTES.applications)
+            }}
+          >
             <Trash2 size={16} aria-hidden /> Stop tracking
           </Button>
         </div>
       </div>
-
-      <ConfirmDialog
-        open={confirm}
-        onOpenChange={setConfirm}
-        title="Stop tracking?"
-        description={`${title} will be removed from your tracker. Your notes for it will be deleted.`}
-        confirmLabel="Stop tracking"
-        danger
-        onConfirm={() => {
-          remove(app.id)
-          notify('Removed from tracker', 'info')
-          void navigate(ROUTES.applications)
-        }}
-      />
     </div>
   )
 }

@@ -12,6 +12,7 @@ interface DocumentState {
   setStatus: (id: string, status: DocumentStatus) => void
   setExpiry: (id: string, expiry: string | undefined) => void
   removeDocument: (id: string) => void
+  restoreDocument: (document: DocumentItem) => void
   reload: () => void
 }
 
@@ -54,6 +55,11 @@ export const useDocumentStore = create<DocumentState>((set, get) => {
       persist(get().documents.map((d) => (d.id === id ? { ...d, expiry: safe } : d)))
     },
     removeDocument: (id) => persist(get().documents.filter((d) => d.id !== id)),
+    restoreDocument: (doc) => {
+      const { documents } = get()
+      if (documents.some((d) => d.id === doc.id)) return
+      persist([...documents, doc])
+    },
     reload: () => set({ documents: read() }),
   }
 })

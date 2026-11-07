@@ -18,6 +18,7 @@ interface TrackerState {
   setNotes: (id: string, notes: string) => void
   toggleStep: (id: string, index: number, total: number) => void
   removeApplication: (id: string) => void
+  restoreApplication: (application: Application) => void
   reload: () => void
 }
 
@@ -80,6 +81,14 @@ export const useTrackerStore = create<TrackerState>((set, get) => {
       }),
     removeApplication: (id) =>
       persist({ applications: get().applications.filter((a) => a.id !== id) }),
+    restoreApplication: (app) => {
+      const { applications, saved } = get()
+      if (applications.some((a) => a.id === app.id)) return
+      persist({
+        applications: [...applications, app],
+        saved: saved.includes(app.scholarshipId) ? saved : [...saved, app.scholarshipId],
+      })
+    },
     reload: () => set(read()),
   }
 })
