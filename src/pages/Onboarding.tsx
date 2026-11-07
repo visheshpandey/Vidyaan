@@ -15,7 +15,9 @@ import {
 } from '@/constants/options'
 import { ROUTES } from '@/constants/routes'
 import { validateStep, type Errors } from '@/features/onboarding/validate'
+import { LIMITS } from '@/data/schemas'
 import { parseNumber, toOptions } from '@/utils/forms'
+import { TEXT_LIMITS } from '@/utils/sanitize'
 import { useProfileStore } from '@/store/profileStore'
 import { useUiStore } from '@/store/uiStore'
 import type { Category, Gender, InstitutionType, Level, StudentProfile } from '@/types/profile'
@@ -74,6 +76,7 @@ export default function Onboarding() {
               error={errors.name}
               onChange={(e) => set('name', e.target.value)}
               autoComplete="given-name"
+              maxLength={TEXT_LIMITS.name}
             />
             <SelectField
               label="Gender"
@@ -114,6 +117,9 @@ export default function Onboarding() {
               label="Current year of study"
               type="number"
               inputMode="numeric"
+              min={LIMITS.minYear}
+              max={LIMITS.maxYear}
+              step={1}
               value={p.academicYear ?? ''}
               error={errors.academicYear}
               onChange={(e) => set('academicYear', parseNumber(e.target.value))}
@@ -145,6 +151,8 @@ export default function Onboarding() {
               type="number"
               inputMode="numeric"
               hint="Used only on this device to check income limits."
+              min={0}
+              max={LIMITS.maxIncome}
               value={p.annualFamilyIncome ?? ''}
               error={errors.annualFamilyIncome}
               onChange={(e) => set('annualFamilyIncome', parseNumber(e.target.value))}
@@ -153,6 +161,9 @@ export default function Onboarding() {
               label="Last exam percentage"
               type="number"
               inputMode="decimal"
+              min={0}
+              max={LIMITS.maxPercent}
+              step="any"
               value={p.lastExamPercent ?? ''}
               error={errors.lastExamPercent}
               onChange={(e) => set('lastExamPercent', parseNumber(e.target.value))}

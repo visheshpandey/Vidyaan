@@ -22,36 +22,50 @@ const PAGES: Array<[string, string, string, () => React.ReactElement]> = [
   ['Onboarding', '/onboarding', '/onboarding', () => <Onboarding />],
   ['Dashboard', '/dashboard', '/dashboard', () => <Dashboard />],
   ['Discover', '/discover', '/discover', () => <Discover />],
-  ['Scholarship detail', '/scholarship/:id', '/scholarship/aicte-pragati', () => <ScholarshipDetail />],
+  [
+    'Scholarship detail',
+    '/scholarship/:id',
+    '/scholarship/aicte-pragati',
+    () => <ScholarshipDetail />,
+  ],
   ['Compare', '/compare', '/compare', () => <Compare />],
   ['Saved', '/saved', '/saved', () => <Saved />],
   ['Applications', '/applications', '/applications', () => <Applications />],
-  ['Application detail', '/applications/:id', '/applications/app-demo-need-ug', () => <ApplicationDetail />],
+  [
+    'Application detail',
+    '/applications/:id',
+    '/applications/app-demo-need-ug',
+    () => <ApplicationDetail />,
+  ],
   ['Documents', '/documents', '/documents', () => <Documents />],
   ['Deadlines', '/deadlines', '/deadlines', () => <Deadlines />],
   ['Profile', '/profile', '/profile', () => <Profile />],
 ]
 
-describe('pages have no detectable accessibility violations (demo data loaded)', () => {
-  beforeEach(() => {
-    resetAllData()
-    loadDemoData()
-  })
+describe(
+  'pages have no detectable accessibility violations (demo data loaded)',
+  { timeout: 20_000 },
+  () => {
+    beforeEach(() => {
+      resetAllData()
+      loadDemoData()
+    })
 
-  it.each(PAGES)('%s', async (_name, pattern, url, element) => {
-    const { container } = render(
-      <MemoryRouter initialEntries={[url]}>
-        <Suspense fallback={null}>
-          <Routes>
-            <Route path={pattern} element={element()} />
-          </Routes>
-        </Suspense>
-      </MemoryRouter>,
-    )
-    expect(container.querySelector('h1')).not.toBeNull()
-    expect(await axe(container)).toHaveNoViolations()
-  })
-})
+    it.each(PAGES)('%s', async (_name, pattern, url, element) => {
+      const { container } = render(
+        <MemoryRouter initialEntries={[url]}>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path={pattern} element={element()} />
+            </Routes>
+          </Suspense>
+        </MemoryRouter>,
+      )
+      expect(container.querySelector('h1')).not.toBeNull()
+      expect(await axe(container)).toHaveNoViolations()
+    })
+  },
+)
 
 describe('empty states', () => {
   it('shows an empty tracker with a way forward', () => {

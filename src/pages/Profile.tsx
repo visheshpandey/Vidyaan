@@ -24,7 +24,9 @@ import { useProfileStore } from '@/store/profileStore'
 import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import type { Category, Gender, InstitutionType, Level, StudentProfile } from '@/types/profile'
+import { LIMITS } from '@/data/schemas'
 import { parseNumber, toOptions } from '@/utils/forms'
+import { sanitizeText, TEXT_LIMITS } from '@/utils/sanitize'
 
 /** Runs a download and tells the student whether it worked. */
 function runDownload(
@@ -37,6 +39,32 @@ function runDownload(
   notify(
     ok ? 'File downloaded' : 'Could not download the file. Please try again.',
     ok ? 'success' : 'error',
+  )
+}
+
+/**
+ * Name input that keeps its own draft while typing and saves the cleaned value when the field loses focus.
+ * Cleaning on every keystroke would stop people typing spaces between words.
+ */
+function NameField({ value, onCommit }: { value: string; onCommit: (name: string) => void }) {
+  const [draft, setDraft] = useState(value)
+  return (
+    <TextField
+      label="Name"
+      value={draft}
+      maxLength={TEXT_LIMITS.name}
+      autoComplete="name"
+      onChange={(e) => setDraft(e.target.value)}
+      onBlur={() => {
+        const clean = sanitizeText(draft, TEXT_LIMITS.name)
+        if (clean === '') {
+          setDraft(value)
+        } else {
+          setDraft(clean)
+          onCommit(clean)
+        }
+      }}
+    />
   )
 }
 
@@ -81,10 +109,10 @@ export default function Profile() {
       />
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="space-y-4 lg:col-span-2">
-          <TextField
-            label="Name"
+          <NameField
+            key={profile.name}
             value={profile.name}
-            onChange={(e) => set('name', e.target.value)}
+            onCommit={(name) => set('name', name)}
           />
           <div className="grid gap-4 sm:grid-cols-2">
             <SelectField
@@ -140,6 +168,7 @@ export default function Profile() {
               type="number"
               inputMode="numeric"
               min={0}
+              max={LIMITS.maxIncome}
               value={profile.annualFamilyIncome ?? ''}
               onChange={(e) => set('annualFamilyIncome', parseNumber(e.target.value))}
             />
@@ -148,7 +177,8 @@ export default function Profile() {
               type="number"
               inputMode="decimal"
               min={0}
-              max={100}
+              max={LIMITS.maxPercent}
+              step="any"
               value={profile.lastExamPercent ?? ''}
               onChange={(e) => set('lastExamPercent', parseNumber(e.target.value))}
             />

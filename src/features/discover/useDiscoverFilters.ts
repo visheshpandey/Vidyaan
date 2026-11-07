@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { SEARCH_DEBOUNCE_MS } from '@/constants/limits'
 import { useDebounce } from '@/hooks/useDebounce'
+import { sanitizeSearch } from '@/utils/sanitize'
 import { activeFilterCount, filtersFromParams, filtersToParams, type Filters } from './filters'
 
 /**
@@ -15,8 +16,9 @@ export function useDiscoverFilters() {
   const query = useDebounce(text, SEARCH_DEBOUNCE_MS)
 
   useEffect(() => {
-    if (query === text && query !== filters.query) {
-      setParams(filtersToParams({ ...filters, query }), { replace: true })
+    const clean = sanitizeSearch(query)
+    if (query === text && clean !== filters.query) {
+      setParams(filtersToParams({ ...filters, query: clean }), { replace: true })
     }
   }, [query, text, filters, setParams])
 

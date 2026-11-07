@@ -4,7 +4,9 @@ import { STORAGE_KEYS } from '@/constants/storage-keys'
 import { applicationSchema } from '@/data/schemas'
 import { applyStatus, createApplication } from '@/features/applications/transitions'
 import { loadJSON, saveJSON } from '@/services/storage'
+import { MAX_NOTES_LENGTH } from '@/constants/limits'
 import type { Application, ApplicationStatus } from '@/types/tracker'
+import { sanitizeMultiline } from '@/utils/sanitize'
 
 interface TrackerState {
   saved: string[]
@@ -18,7 +20,7 @@ interface TrackerState {
 }
 
 const read = () => ({
-  saved: loadJSON(STORAGE_KEYS.saved, z.array(z.string()), []),
+  saved: loadJSON(STORAGE_KEYS.saved, z.array(z.string().max(100)).max(500), []),
   applications: loadJSON(STORAGE_KEYS.applications, z.array(applicationSchema), []),
 })
 
@@ -60,7 +62,9 @@ export const useTrackerStore = create<TrackerState>((set, get) => {
     setNotes: (id, notes) =>
       persist({
         applications: get().applications.map((a) =>
-          a.id === id ? { ...a, notes, updatedAt: nowIso() } : a,
+          a.id === id
+            ? { ...a, notes: sanitizeMultiline(notes, MAX_NOTES_LENGTH), updatedAt: nowIso() }
+            : a,
         ),
       }),
     removeApplication: (id) =>

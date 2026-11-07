@@ -1,4 +1,5 @@
 import type { Matched, SortKey } from '@/features/matching/rank'
+import { sanitizeSearch } from '@/utils/sanitize'
 import type { Level } from '@/types/profile'
 import type { ProviderType } from '@/types/scholarship'
 import type { Verdict } from '@/types/eligibility'
@@ -63,7 +64,7 @@ const pick = <T extends string>(
 export function filtersFromParams(p: URLSearchParams): Filters {
   const within = Number(p.get('within'))
   return {
-    query: (p.get('q') ?? '').slice(0, 100),
+    query: sanitizeSearch(p.get('q') ?? ''),
     level: pick<Level>(p.get('level'), LEVELS, ''),
     providerType: pick<ProviderType>(p.get('provider'), PROVIDERS, ''),
     verdict: pick<Verdict>(p.get('verdict'), VERDICTS, ''),

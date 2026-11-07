@@ -7,13 +7,24 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: { alias: { '@': path.resolve(import.meta.dirname, 'src') } },
   build: {
+    target: 'es2022',
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
+        /**
+         * Only React and the router get a fixed chunk (they rarely change, so repeat visits reuse the
+         * cached file). Everything else splits by route: Radix, dnd-kit and other feature-only code is
+         * downloaded only by pages that use it. Forcing "ui"/"data" chunks made the landing page fetch
+         * all of it.
+         */
         manualChunks(id: string) {
-          if (!id.includes('node_modules')) return undefined
-          if (/react-router|react-dom|[\\/]react[\\/]/.test(id)) return 'vendor'
-          if (/radix-ui|lucide-react/.test(id)) return 'ui'
-          if (/zustand|zod|date-fns/.test(id)) return 'data'
+          if (
+            /node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/.test(
+              id,
+            )
+          ) {
+            return 'react'
+          }
           return undefined
         },
       },
@@ -23,6 +34,10 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./tests/setup.ts'],
-    coverage: { provider: 'v8', include: ['src/**/*.{ts,tsx}'], exclude: ['src/main.tsx', 'src/**/*.test.*'] },
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['src/main.tsx', 'src/**/*.test.*'],
+    },
   },
 })

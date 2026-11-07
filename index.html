@@ -2,16 +2,49 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Vidyaan helps students find scholarships they qualify for, understand why, and track every application." />
-    <meta name="theme-color" content="#183b32" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>Vidyaan - Find your fit. Follow through.</title>
+    <meta
+      name="description"
+      content="Vidyaan checks scholarships against your profile, explains every result in plain language, and helps you track each application to the end. Free, no account, your data stays in your browser."
+    />
+    <meta name="theme-color" content="#183b32" />
+    <link rel="canonical" href="https://vidyaan-theta.vercel.app/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Vidyaan" />
+    <meta property="og:title" content="Vidyaan - Find your fit. Follow through." />
+    <meta
+      property="og:description"
+      content="Find scholarships you qualify for, understand why, and track every application."
+    />
+    <meta property="og:url" content="https://vidyaan-theta.vercel.app/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Vidyaan - Find your fit. Follow through." />
+    <meta
+      name="twitter:description"
+      content="Find scholarships you qualify for, understand why, and track every application."
+    />
+
+    <!-- Fonts are self-hosted. Preload only the two used above the fold on the landing page. -->
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/dm-serif-display-latin-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
   </head>
   <body>
+    <noscript>Vidyaan needs JavaScript to run. Please enable it in your browser settings.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

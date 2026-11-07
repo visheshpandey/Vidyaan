@@ -2,6 +2,8 @@
 
 **Find your fit. Follow through.**
 
+> Submission for the **GRANTLY: Unified Scholarship Discovery & Management Platform** challenge ("Rethinking the Scholarship Experience"). Vidyaan is the product name of our GRANTLY solution.
+
 Vidyaan is a scholarship discovery and application tracker for Indian students. It checks every scholarship against your profile, explains each result in plain language, and helps you follow each application through to the end.
 
 It is a frontend-only app. There is no backend and no account: everything is stored in your browser.

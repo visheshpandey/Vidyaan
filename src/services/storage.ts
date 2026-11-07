@@ -1,6 +1,9 @@
 import type { z } from 'zod'
 import { STORAGE_KEYS, type StorageKey } from '@/constants/storage-keys'
 
+/** Largest stored value we are willing to parse, in characters. Real data is a few kilobytes. */
+export const MAX_STORED_CHARS = 1_000_000
+
 function getStore(): Storage | null {
   try {
     return globalThis.localStorage ?? null
@@ -18,7 +21,7 @@ export function loadJSON<T>(key: StorageKey, schema: z.ZodType<T>, fallback: T):
   if (!store) return fallback
   try {
     const raw = store.getItem(key)
-    if (raw === null) return fallback
+    if (raw === null || raw.length > MAX_STORED_CHARS) return fallback
     const parsed = schema.safeParse(JSON.parse(raw))
     return parsed.success ? parsed.data : fallback
   } catch {

@@ -1,8 +1,10 @@
+import { Suspense } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
-import { AppShell } from '@/components/layout/AppShell'
+import { PageSkeleton } from '@/components/ui/Skeleton'
 import { PublicLayout } from '@/components/layout/PublicLayout'
 import { ROUTES } from '@/constants/routes'
 import {
+  AppShell,
   ApplicationDetail,
   Applications,
   Compare,
@@ -32,7 +34,9 @@ export const router = createBrowserRouter([
   {
     element: (
       <RequireOnboarding>
-        <AppShell />
+        <Suspense fallback={<PageSkeleton />}>
+          <AppShell />
+        </Suspense>
       </RequireOnboarding>
     ),
     errorElement: <RouteError />,

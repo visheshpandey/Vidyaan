@@ -1,5 +1,67 @@
 @import 'tailwindcss';
 
+/*
+ * Self-hosted fonts (latin subset, woff2 only, served from /fonts so they can be preloaded).
+ * Inter and DM Serif Display are SIL Open Font License; the licences sit next to the files.
+ * font-display: swap shows text immediately in a fallback, then swaps without blocking paint.
+ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/inter-latin-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/inter-latin-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/inter-latin-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/inter-latin-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'DM Serif Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/dm-serif-display-latin-400.woff2') format('woff2');
+}
+
+/*
+ * Metric-adjusted local fallbacks. They make the fallback text occupy almost the same space as the
+ * web font, so the swap does not move the layout (cuts Cumulative Layout Shift).
+ */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107.4%;
+  ascent-override: 90.2%;
+  descent-override: 22.5%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'DM Serif Display Fallback';
+  src: local('Times New Roman');
+  size-adjust: 96%;
+  ascent-override: 93%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+}
+
 @theme {
   --color-primary: #183b32;
   --color-heading: #183b32;
@@ -14,8 +76,13 @@
   --color-warning: #8a5a17;
   --color-danger: #a63f38;
   --color-line: #e5e7e1;
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-serif: 'DM Serif Display', Georgia, serif;
+  /* Hindi has no web font on purpose (it would be a large download): the system Devanagari font is used. */
+  --font-sans:
+    'Inter', 'Inter Fallback', 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', system-ui,
+    sans-serif;
+  --font-serif:
+    'DM Serif Display', 'DM Serif Display Fallback', 'Noto Serif Devanagari', 'Nirmala UI',
+    Georgia, serif;
   --radius-card: 12px;
   --radius-control: 10px;
 }

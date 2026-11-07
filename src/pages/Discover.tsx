@@ -12,6 +12,7 @@ import { useDiscoverFilters } from '@/features/discover/useDiscoverFilters'
 import { rank } from '@/features/matching/rank'
 import { ScholarshipRow } from '@/features/scholarships/ScholarshipRow'
 import { useT } from '@/i18n/useT'
+import { TEXT_LIMITS } from '@/utils/sanitize'
 import { useMatches } from '@/hooks/useMatches'
 
 export default function Discover() {
@@ -43,6 +44,7 @@ export default function Discover() {
             placeholder={t('discover.search')}
             autoComplete="off"
             spellCheck={false}
+            maxLength={TEXT_LIMITS.search}
             className="h-11 w-full rounded-control border border-line bg-surface px-3 text-sm placeholder:text-muted"
           />
         </div>

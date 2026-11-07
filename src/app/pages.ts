@@ -1,7 +1,7 @@
+export { default as Landing } from '@/pages/Landing'
 import { lazy } from 'react'
 
-/** Every route page, loaded on demand so the first visit downloads only what it needs. */
-export const Landing = lazy(() => import('@/pages/Landing'))
+/** The landing page ships in the first bundle (it is the first thing most people see). Every other page loads on demand. */
 export const Onboarding = lazy(() => import('@/pages/Onboarding'))
 export const Dashboard = lazy(() => import('@/pages/Dashboard'))
 export const Discover = lazy(() => import('@/pages/Discover'))
@@ -14,3 +14,8 @@ export const Documents = lazy(() => import('@/pages/Documents'))
 export const Deadlines = lazy(() => import('@/pages/Deadlines'))
 export const Profile = lazy(() => import('@/pages/Profile'))
 export const NotFound = lazy(() => import('@/pages/NotFound'))
+
+/** The signed-in layout (sidebar, header, menus) is only needed after onboarding. */
+export const AppShell = lazy(() =>
+  import('@/components/layout/AppShell').then((m) => ({ default: m.AppShell })),
+)

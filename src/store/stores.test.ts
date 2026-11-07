@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { STORAGE_KEYS } from '@/constants/storage-keys'
-import { useProfileStore } from './profileStore'
+import { useDocumentStore } from './documentStore'
+import { sanitizeProfile, useProfileStore } from './profileStore'
 import { useTrackerStore } from './trackerStore'
 
 describe('trackerStore', () => {
@@ -51,5 +52,77 @@ describe('profileStore', () => {
     localStorage.setItem(STORAGE_KEYS.profile, '{bad')
     useProfileStore.getState().reload()
     expect(useProfileStore.getState().profile).toBeNull()
+  })
+})
+
+describe('sanitisation on write', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    useTrackerStore.getState().reload()
+    useProfileStore.getState().reload()
+    useDocumentStore.getState().reload()
+  })
+
+  it('cleans and caps application notes before storing them', () => {
+    const app = useTrackerStore.getState().startTracking('a', [])
+    useTrackerStore.getState().setNotes(app.id, 'call\u0000 them\u202E' + 'x'.repeat(5000))
+    const stored = useTrackerStore.getState().applications[0]?.notes ?? ''
+    expect(stored.startsWith('call them')).toBe(true)
+    expect(stored.includes(String.fromCharCode(0))).toBe(false)
+    expect(stored.includes(String.fromCharCode(0x202e))).toBe(false)
+    expect(stored.length).toBeLessThanOrEqual(1000)
+    const persisted = JSON.parse(localStorage.getItem(STORAGE_KEYS.applications) ?? '[]') as Array<{
+      notes: string
+    }>
+    expect(persisted[0]?.notes).toBe(stored)
+  })
+
+  it('cleans, caps and de-duplicates document names', () => {
+    useDocumentStore.getState().addDocument('  Caste \n certificate\u200B  ')
+    useDocumentStore.getState().addDocument('caste certificate')
+    useDocumentStore.getState().addDocument('   ')
+    useDocumentStore.getState().addDocument('y'.repeat(300))
+    const names = useDocumentStore.getState().documents.map((d) => d.name)
+    expect(names[0]).toBe('Caste certificate')
+    expect(names).toHaveLength(2)
+    expect(names[1]).toHaveLength(60)
+  })
+
+  it('only keeps a real date as a document expiry', () => {
+    useDocumentStore.getState().addDocument('Income certificate')
+    const id = useDocumentStore.getState().documents[0]?.id ?? ''
+    useDocumentStore.getState().setExpiry(id, '2027-01-31')
+    expect(useDocumentStore.getState().documents[0]?.expiry).toBe('2027-01-31')
+    useDocumentStore.getState().setExpiry(id, '<script>')
+    expect(useDocumentStore.getState().documents[0]?.expiry).toBeUndefined()
+  })
+
+  it('cleans the profile name and forces numbers into range', () => {
+    useProfileStore.getState().setProfile({
+      name: '  Priya\u0000  Sharma ',
+      annualFamilyIncome: 9e12,
+      lastExamPercent: 140,
+      academicYear: 99,
+      preferences: ['Merit', ' ', 'x'.repeat(200)],
+    })
+    const p = useProfileStore.getState().profile
+    expect(p?.name).toBe('Priya Sharma')
+    expect(p?.annualFamilyIncome).toBe(100_000_000)
+    expect(p?.lastExamPercent).toBe(100)
+    expect(p?.academicYear).toBe(8)
+    expect(p?.preferences).toEqual(['Merit', 'x'.repeat(60)])
+  })
+
+  it('keeps the old name when an edit would leave it empty', () => {
+    useProfileStore.getState().setProfile({ name: 'Priya', preferences: [] })
+    useProfileStore.getState().updateProfile({ name: '   ' })
+    expect(useProfileStore.getState().profile?.name).toBe('Priya')
+  })
+
+  it('drops numbers that are not finite', () => {
+    expect(
+      sanitizeProfile({ name: 'A', preferences: [], annualFamilyIncome: Number.NaN })
+        .annualFamilyIncome,
+    ).toBeUndefined()
   })
 })

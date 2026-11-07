@@ -13,6 +13,7 @@ import { useDocumentStore } from '@/store/documentStore'
 import { useTrackerStore } from '@/store/trackerStore'
 import { useUiStore } from '@/store/uiStore'
 import { daysUntil, formatDeadline } from '@/utils/date'
+import { TEXT_LIMITS } from '@/utils/sanitize'
 
 export default function Documents() {
   const { documents, addDocument, setStatus, setExpiry, removeDocument } = useDocumentStore()
@@ -53,7 +54,7 @@ export default function Documents() {
                 placeholder="e.g. Caste certificate…"
                 autoComplete="off"
                 spellCheck={false}
-                maxLength={60}
+                maxLength={TEXT_LIMITS.documentName}
                 className="h-11 min-w-0 flex-1 rounded-control border border-line px-3 text-sm"
               />
               <Button type="submit" disabled={!name.trim()}>

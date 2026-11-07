@@ -57,6 +57,21 @@
   "engines": {
     "node": ">=20"
   },
-  "description": "Vidyaan: scholarship discovery and application tracker for Indian students",
-  "license": "MIT"
+  "description": "Vidyaan: our GRANTLY solution, a unified scholarship discovery and application management platform for Indian students",
+  "license": "MIT",
+  "keywords": [
+    "grantly",
+    "scholarship",
+    "scholarship-discovery",
+    "application-tracker",
+    "eligibility",
+    "education",
+    "react",
+    "typescript"
+  ],
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.5"
+    }
+  }
 }

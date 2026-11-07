@@ -4,6 +4,7 @@ import { STORAGE_KEYS } from '@/constants/storage-keys'
 import { documentSchema } from '@/data/schemas'
 import { loadJSON, saveJSON } from '@/services/storage'
 import type { DocumentItem, DocumentStatus } from '@/types/document'
+import { isIsoDate, sanitizeText, TEXT_LIMITS } from '@/utils/sanitize'
 
 interface DocumentState {
   documents: DocumentItem[]
@@ -14,7 +15,17 @@ interface DocumentState {
   reload: () => void
 }
 
-const read = () => loadJSON(STORAGE_KEYS.documents, z.array(documentSchema), [])
+const MAX_DOCUMENTS = 100
+
+let idSequence = 0
+
+/** Unique even when two documents are added in the same millisecond (a bare timestamp is not). */
+function nextDocumentId(): string {
+  idSequence += 1
+  return `doc-${Date.now()}-${idSequence}`
+}
+
+const read = () => loadJSON(STORAGE_KEYS.documents, z.array(documentSchema).max(MAX_DOCUMENTS), [])
 
 export const useDocumentStore = create<DocumentState>((set, get) => {
   const persist = (documents: DocumentItem[]) => {
@@ -24,15 +35,23 @@ export const useDocumentStore = create<DocumentState>((set, get) => {
   return {
     documents: read(),
     addDocument: (name) => {
-      const trimmed = name.trim()
-      if (!trimmed || get().documents.some((d) => d.name.toLowerCase() === trimmed.toLowerCase()))
+      const clean = sanitizeText(name, TEXT_LIMITS.documentName)
+      const { documents } = get()
+      if (
+        !clean ||
+        documents.length >= MAX_DOCUMENTS ||
+        documents.some((d) => d.name.toLowerCase() === clean.toLowerCase())
+      )
         return
-      persist([...get().documents, { id: `doc-${Date.now()}`, name: trimmed, status: 'missing' }])
+      persist([...documents, { id: nextDocumentId(), name: clean, status: 'missing' }])
     },
     setStatus: (id, status) =>
       persist(get().documents.map((d) => (d.id === id ? { ...d, status } : d))),
-    setExpiry: (id, expiry) =>
-      persist(get().documents.map((d) => (d.id === id ? { ...d, expiry } : d))),
+    setExpiry: (id, expiry) => {
+      // Only a real YYYY-MM-DD date is stored; anything else clears the expiry.
+      const safe = expiry !== undefined && isIsoDate(expiry) ? expiry : undefined
+      persist(get().documents.map((d) => (d.id === id ? { ...d, expiry: safe } : d)))
+    },
     removeDocument: (id) => persist(get().documents.filter((d) => d.id !== id)),
     reload: () => set({ documents: read() }),
   }

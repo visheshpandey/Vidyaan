@@ -47,6 +47,7 @@ export function AppShell() {
             <input
               id="global-search"
               type="search"
+              maxLength={100}
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={t('nav.search')}
